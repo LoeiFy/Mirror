@@ -1,0 +1,28 @@
+{
+  "name": "Mirror",
+  "version": "0.0.0",
+  "description": "Create your resume online",
+  "main": " ",
+  "scripts": {
+    "test": " "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/LoeiFy/Mirror.git"
+  },
+  "keywords": [
+    "resume",
+    "portfolio",
+    "personal"
+  ],
+  "author": "LoeiFy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LoeiFy/Mirror/issues"
+  },
+  "homepage": "https://github.com/LoeiFy/Mirror",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-connect": "^2.2.0"
+  }
+}
