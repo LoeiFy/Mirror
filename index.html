@@ -7,31 +7,10 @@
 <link rel="icon" href="favicon.png" />
 <title>Mirror</title>
 <meta name="author" content="LoeiFy">
-<link rel="stylesheet" href="assets/test.css">
-<script src="assets/vue.js"></script>
 </head>
 
 <body>
-<div id="demo">
-  <h1>Latest Vue.js Commits</h1>
-  <template v-for="branch in branches">
-    <input type="radio"
-      name="branch"
-      :id="branch"
-      :value="branch"
-      v-model="currentBranch">
-    <label :for="branch">{{branch}}</label>
-  </template>
-  <p>vuejs/vue@{{currentBranch}}</p>
-  <ul>
-    <li v-for="record in commits">
-      <a :href="record.html_url" target="_blank" class="commit">{{record.sha.slice(0, 7)}}</a>
-      - <span class="message">{{record.commit.message | truncate}}</span><br>
-      by <span class="author">{{record.commit.author.name}}</span>
-      at <span class="date">{{record.commit.author.date | formatDate}}</span>
-    </li>
-  </ul>
-</div>
-<script src="assets/test.js"></script>
+<h1>hm...</h1>
 </body>
+
 </html>
