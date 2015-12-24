@@ -1,7 +1,7 @@
 {
   "name": "Mirror",
   "version": "0.0.0",
-  "description": "Create your resume online",
+  "description": "Mirror",
   "main": " ",
   "scripts": {
     "test": " "
@@ -11,8 +11,8 @@
     "url": "git://github.com/LoeiFy/Mirror.git"
   },
   "keywords": [
-    "resume",
-    "portfolio",
+    "blog",
+    "issues",
     "personal"
   ],
   "author": "LoeiFy",
