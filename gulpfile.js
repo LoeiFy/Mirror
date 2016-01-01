@@ -10,7 +10,7 @@ gulp.task('server', function () {
 })
 
 gulp.task('watch', function() {
-    gulp.watch(['*.css', 'index.html'], ['reload'])
+    gulp.watch(['*.css', '*.js', 'index.html'], ['reload'])
 })
 
 gulp.task('reload', function () {
