@@ -33,4 +33,8 @@ $(function($) {
 
     $('body').html(html)
 
+    $('pre code').each(function(i, block) {
+        hljs.highlightBlock(block)
+    })
+
 })
