@@ -10,7 +10,7 @@ $(function($) {
         url: 'https://api.github.com/repos/LoeiFy/Recordum/issues/1/comments',
         data: {
             //filter: 'created',
-            access_token: 'aacbe96caeea1acc10b587932f3af5418cabf14f',
+            access_token: 'da3fb4003c268a958949'+'6b36b39b5d43a62831b3',
             //page: 1,
             //per_page: 2
         },
