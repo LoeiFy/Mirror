@@ -23,15 +23,15 @@ $(function($) {
     })
     */
 
-    var html = '<ul class="content">';
+    var html = '<ul>';
 
     for (var i = 0; i < O.length; i ++) {
-        html += '<li>'+ marked(O[i].body) +'</li>'
+        html += '<li class="content">'+ marked(O[i].body) +'</li>'
     }
 
     html += '</ul>';
 
-    $('body').html(html)
+    $('#post').html(html)
 
     $('pre code').each(function(i, block) {
         hljs.highlightBlock(block)

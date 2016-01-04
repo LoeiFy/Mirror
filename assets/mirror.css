@@ -18,6 +18,12 @@ body {
     overflow-x: hidden;
 }
 
+#post {
+    margin: 100px auto 0;
+    padding-bottom: 70px;
+    max-width: 800px;
+}
+
 /* article content */
 .content {
     font-size: 14px;
@@ -72,6 +78,11 @@ body {
 }
 .content ol li {
     list-style: decimal;
+}
+.content img {
+    display: block;
+    max-width: 100%;
+    height: auto;
 }
 
 /**
