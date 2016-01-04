@@ -23,7 +23,7 @@ $(function($) {
     })
     */
 
-    var html = '<ul>';
+    var html = '<ul class="content">';
 
     for (var i = 0; i < O.length; i ++) {
         html += '<li>'+ marked(O[i].body) +'</li>'

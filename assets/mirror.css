@@ -1,0 +1,147 @@
+body, div, h1, h2, h3, h4, h5, p, ul, li {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+    list-style: none;
+}
+html {
+    -webkit-text-size-adjust: 100%;
+}
+html, body {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-font-smoothing: antialiased;
+    background: #fff;
+}
+body {
+    font-family: "Hiragino Sans GB","Hiragino Sans GB W3","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* article content */
+.content {
+    font-size: 14px;
+    line-height: 2;
+    color: #333;
+}
+.content h1, .content h2, .content h3, .content h4, .content h5, .content h6 {
+    font-weight: normal;
+    color: #333;
+    margin: 10px 0 0;
+}
+.content h6 {
+    font-size: 16px;
+}
+.content h5 {
+    font-size: 18px;
+}
+.content h4 {
+    font-size: 20px;
+}
+.content h3 {
+    font-size: 22px;
+}
+.content h2 {
+    font-size: 24px;
+}
+.content h1 {
+    font-size: 26px;
+}
+.content blockquote {
+    margin: 14px 0;
+    padding-left: 40px;
+    border-left: 3px solid #999;
+}
+.content a {
+    color: #333;
+    text-decoration: underline;
+}
+.content hr {
+    height: 1px;
+    width: 30%;
+    margin: 30px 0 30px 35%;
+    background: #eee;
+    border: none;
+}
+.content ul, .content ol {
+    margin: 10px 0;
+    padding-left: 20px;
+}
+.content ul li {
+    list-style: disc;
+}
+.content ol li {
+    list-style: decimal;
+}
+
+/**
+ * GitHub Gist Theme
+ * Author : Louis Barranqueiro - https://github.com/LouisBarranqueiro
+ */
+
+.hljs {
+  display: block;
+  background: #f7f7f7;
+  padding: 0.5em;
+  color: #333333;
+  overflow-x: auto;
+}
+
+.hljs-comment,
+.hljs-meta {
+  color: #969896;
+}
+
+.hljs-string,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-strong,
+.hljs-emphasis,
+.hljs-quote {
+  color: #df5000;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-type {
+  color: #a71d5d;
+}
+
+.hljs-literal,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-attribute {
+  color: #0086b3;
+}
+
+.hljs-section,
+.hljs-name {
+  color: #63a35c;
+}
+
+.hljs-tag {
+  color: #333333;
+}
+
+.hljs-title,
+.hljs-attr,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo {
+  color: #795da3;
+}
+
+.hljs-addition {
+  color: #55a532;
+  background-color: #eaffea;
+}
+
+.hljs-deletion {
+  color: #bd2c00;
+  background-color: #ffecec;
+}
+
+.hljs-link {
+  text-decoration: underline;
+}
