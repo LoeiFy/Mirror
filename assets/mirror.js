@@ -63,13 +63,14 @@ $(function($) {
                 list += '<li>'+
                         '<a href="'+ C[i].user.html_url +'" target="_blank"><img src="'+ C[i].user.avatar_url +'" /></a>'+
                         '<section>'+
-                        '<header>'+ C[i].user.login +'<span>commented on '+ C[i].updated_at.split('T')[0] +'</span></header>'+
+                        '<header><a target="_blank" href="'+ C[i].user.login +'">'+ C[i].user.login +'</a><span>commented on '+ C[i].updated_at.split('T')[0] +'</span></header>'+
                         '<p>'+ marked(C[i].body) +'</p>'+
                         '</section>'+
                         '</li>';
             }
             list += '</ul><a class="comment" href="'+ issue_url +'#new_comment_field" target="_blank">Add Comment</a>';
             e.parent().append(list)
+            e.remove()
         }
     })
 
