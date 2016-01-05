@@ -3,7 +3,8 @@ $(function($) {
 
     var issue_list = 'https://api.github.com/repos/LoeiFy/Recordum/issues',
         issue_single = 'https://api.github.com/repos/LoeiFy/Recordum/issues'+'id',
-        issue_comment = 'https://api.github.com/repos/LoeiFy/Recordum/issues'+'id'+'/comments';
+        issue_comment = 'https://api.github.com/repos/LoeiFy/Recordum/issues'+'id'+'/comments',
+        user = 'https://api.github.com/users/loeify';
 
     var to_comment = '#new_comment_field';
 
@@ -22,6 +23,22 @@ $(function($) {
         }
     })
     */
+
+    var social = '<a target="_blank" class="github" href="'+ U.html_url +'"></a>';
+    if (U.blog) {
+        social += '<a target="_blank" class="blog" href="'+ U.blog +'"></a>'
+    }
+    if (U.email) {
+        social += '<a target="_blank" class="email" href="mailto:'+ U.email +'"></a>'
+    }
+
+    var user = '<img src="'+ U.avatar_url +'" />'+
+               '<h1>'+ U.name +'</h1>'+
+               '<p>Lorem ipsum dolor sit amet</p>'+
+               '<section>'+ social +'</section>';
+
+    $('#user').html(user)
+
 
     var html = '';
 

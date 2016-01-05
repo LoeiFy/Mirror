@@ -18,9 +18,53 @@ body {
     overflow-x: hidden;
 }
 
+#user {
+    text-align: center;
+    line-height: 1;
+}
+#user img {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    margin: 100px auto 0;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+}
+#user h1 {
+    font-size: 26px;
+    margin-top: 20px;
+    color: #313131;
+}
+#user p {
+    margin-top: 10px;
+    color: #616161;
+    font-size: 14px;
+}
+#user a {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin: 16px 8px; 
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.github {
+    background-image: url(github.svg);
+    background-size: 20px 20px;
+}
+.blog {
+    background-image: url(link.svg);
+    background-size: 19px 19px;
+}
+.email {
+    background-image: url(email.svg);
+    background-size: 24px 24px;
+}
+
 #posts {
     display: block;
-    margin: 100px auto 0;
+    margin: 70px auto 0;
     max-width: 780px;
     padding: 0 20px 70px;
 }
@@ -77,7 +121,7 @@ body {
     content: '';
     display: block;
     width: 20px;
-    margin: 20px 0 10px;
+    margin: 30px 0 10px;
     height: 1px;
     background: #eee;
 }
@@ -96,6 +140,9 @@ body {
     background: #fff;
     outline: none;
     line-height: 1;
+}
+.comment:hover {
+    background: #f1f1f1;
 }
 .comment_list:before {
     display: block;
