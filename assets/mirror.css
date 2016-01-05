@@ -18,21 +18,69 @@ body {
     overflow-x: hidden;
 }
 
-#post {
+#posts {
+    display: block;
     margin: 100px auto 0;
     padding-bottom: 70px;
     max-width: 800px;
+}
+.post {
+    margin-top: 70px;
+}
+.post:before {
+    display: block;
+    width: 75%;
+    content: '';
+    height: 1px;
+    background: #f1f1f1;
+    margin: 0 auto 70px;
+}
+#posts .post:first-child:before {
+    display: none;
+}
+.title {
+    color: #121212;
+    font-size: 26px;
+    line-height: 1.7;
+}
+.time {
+    font-size: 14px;
+    color: #969696;
+    display: block;
+    margin-top: 14px;
+}
+.time span {
+    letter-spacing: 1px;
+    margin-left: 10px;
+    color: #515151;
+}
+.content {
+    margin-top: 30px;
+    display: block;
+}
+.labels {
+    display: block;
+    margin-top: 30px;
+}
+.labels mark {
+    color: #fff;
+    font-size: 14px;
+    padding: 1px 7px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    display: inline-block;
+    margin-right: 7px;
 }
 
 /* article content */
 .content {
     font-size: 14px;
     line-height: 2;
-    color: #333;
+    color: #5a5a5a;
 }
 .content h1, .content h2, .content h3, .content h4, .content h5, .content h6 {
     font-weight: normal;
-    color: #333;
     margin: 10px 0 0;
 }
 .content h6 {

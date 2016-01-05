@@ -23,25 +23,23 @@ $(function($) {
     })
     */
 
-    var html = '<ul>';
+    var html = '';
 
     for (var i = 0; i < O.length; i ++) {
         var labels = '';
         for (var j = 0; j < O[i].labels.length; j ++) {
-            labels += '<mark style="background:#'+ O[i].labels[j].color +'">'+ O[i].labels[j].name +'</mark>'
+            labels += '<mark style="background:#'+ O[i].labels[j].color +'">#'+ O[i].labels[j].name +'</mark>'
         }
 
-        html += '<li>'+
-                '<h1>'+ O[i].title +'</h1>'+
-                '<time>'+ O[i].updated_at.split('T')[0] +'</time>'+
+        html += '<li class="post">'+
+                '<h1 class="title">'+ O[i].title +'</h1>'+
+                '<time class="time">Updated at<span>'+ O[i].updated_at.split('T')[0] +'</span></time>'+
                 '<article class="content">'+ marked(O[i].body) +'</article>'+
-                '<section>'+ labels +'</section>'+
+                '<section class="labels">'+ labels +'</section>'+
                 '</li>'
     }
 
-    html += '</ul>';
-
-    $('#post').html(html)
+    $('#posts').html(html)
 
     $('pre code').each(function(i, block) {
         hljs.highlightBlock(block)
