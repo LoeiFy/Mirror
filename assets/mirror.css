@@ -22,7 +22,7 @@ body {
     display: block;
     margin: 100px auto 0;
     padding-bottom: 70px;
-    max-width: 800px;
+    max-width: 780px;
 }
 .post {
     margin-top: 70px;
@@ -102,8 +102,8 @@ body {
     font-size: 26px;
 }
 .content blockquote {
-    margin: 14px 0;
-    padding-left: 40px;
+    margin: 14px;
+    padding-left: 30px;
     border-left: 3px solid #999;
 }
 .content a {
@@ -111,9 +111,9 @@ body {
     text-decoration: underline;
 }
 .content hr {
-    height: 1px;
-    width: 30%;
-    margin: 30px 0 30px 35%;
+    height: 3px;
+    width: 100%;
+    margin: 20px auto;
     background: #eee;
     border: none;
 }
@@ -128,9 +128,19 @@ body {
     list-style: decimal;
 }
 .content img {
+    margin-top: 14px;
+    margin-bottom: 14px;
     display: block;
     max-width: 100%;
     height: auto;
+}
+code {
+    background: #f7f7f7;
+    border: 1px solid #e6e6e6;
+    padding: 1px 5px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
 }
 
 /**
@@ -140,10 +150,10 @@ body {
 
 .hljs {
   display: block;
-  background: #f7f7f7;
-  padding: 0.5em;
-  color: #333333;
+  padding: 14px;
+  color: #333;
   overflow-x: auto;
+  line-height: 1.4;
 }
 
 .hljs-comment,
