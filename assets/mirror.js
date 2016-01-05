@@ -26,7 +26,17 @@ $(function($) {
     var html = '<ul>';
 
     for (var i = 0; i < O.length; i ++) {
-        html += '<li class="content">'+ marked(O[i].body) +'</li>'
+        var labels = '';
+        for (var j = 0; j < O[i].labels.length; j ++) {
+            labels += '<mark style="background:#'+ O[i].labels[j].color +'">'+ O[i].labels[j].name +'</mark>'
+        }
+
+        html += '<li>'+
+                '<h1>'+ O[i].title +'</h1>'+
+                '<time>'+ O[i].updated_at.split('T')[0] +'</time>'+
+                '<article class="content">'+ marked(O[i].body) +'</article>'+
+                '<section>'+ labels +'</section>'+
+                '</li>'
     }
 
     html += '</ul>';
