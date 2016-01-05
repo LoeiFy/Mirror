@@ -16,6 +16,7 @@ body {
     font-family: "Hiragino Sans GB","Hiragino Sans GB W3","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
     position: relative;
     overflow-x: hidden;
+    padding-bottom: 130px;
 }
 
 #user {
@@ -62,25 +63,37 @@ body {
     background-size: 24px 24px;
 }
 
+#next {
+    cursor: pointer;
+    outline: none;
+    font-size: 30px;
+    color: #fff;
+    background: #414141;
+    width: 60px;
+    padding: 8px 0 10px;
+    margin: 20px auto 0;
+    line-height: 1;
+    display: block;
+    border-radius: 3px;
+    border: none;
+}
+
 #posts {
     display: block;
     margin: 70px auto 0;
     max-width: 780px;
-    padding: 0 20px 70px;
+    padding: 0 20px;
 }
 .post {
     margin-top: 70px;
 }
-.post:before {
+.post:after {
     display: block;
     width: 50%;
     content: '';
     height: 1px;
     background: #f1f1f1;
-    margin: 0 auto 70px;
-}
-#posts .post:first-child:before {
-    display: none;
+    margin: 70px auto;
 }
 .title {
     color: #121212;
@@ -126,11 +139,13 @@ body {
     background: #eee;
 }
 .comment {
-    margin-top: 50px;
+    margin: 50px auto 0;
+    width: 140px;
     text-decoration: none;
     cursor: pointer;
-    display: inline-block;
-    padding: 8px 18px;
+    display: block;
+    text-align: center;
+    padding: 8px 0;
     border: 2px solid #c3c2c9;
     color: #686868;
     -webkit-border-radius: 4px;
