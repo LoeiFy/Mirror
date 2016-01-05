@@ -8,7 +8,122 @@
 <title>Mirror</title>
 <meta name="author" content="LoeiFy">
 <script>
-var O = [{"url":"https://api.github.com/repos/LoeiFy/Recordum/issues/10","labels_url":"https://api.github.com/repos/LoeiFy/Recordum/issues/10/labels{/name}","comments_url":"https://api.github.com/repos/LoeiFy/Recordum/issues/10/comments","events_url":"https://api.github.com/repos/LoeiFy/Recordum/issues/10/events","html_url":"https://github.com/LoeiFy/Recordum/issues/10","id":124904872,"number":10,"title":"Markdown Test","user":{"login":"LoeiFy","id":2193211,"avatar_url":"https://avatars.githubusercontent.com/u/2193211?v=3","gravatar_id":"","url":"https://api.github.com/users/LoeiFy","html_url":"https://github.com/LoeiFy","followers_url":"https://api.github.com/users/LoeiFy/followers","following_url":"https://api.github.com/users/LoeiFy/following{/other_user}","gists_url":"https://api.github.com/users/LoeiFy/gists{/gist_id}","starred_url":"https://api.github.com/users/LoeiFy/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/LoeiFy/subscriptions","organizations_url":"https://api.github.com/users/LoeiFy/orgs","repos_url":"https://api.github.com/users/LoeiFy/repos","events_url":"https://api.github.com/users/LoeiFy/events{/privacy}","received_events_url":"https://api.github.com/users/LoeiFy/received_events","type":"User","site_admin":false},"labels":[{"url":"https://api.github.com/repos/LoeiFy/Recordum/labels/css","name":"css","color":"207de5"},{"url":"https://api.github.com/repos/LoeiFy/Recordum/labels/html","name":"html","color":"eb6420"},{"url":"https://api.github.com/repos/LoeiFy/Recordum/labels/javascript","name":"javascript","color":"fbca04"}],"state":"open","locked":false,"assignee":null,"milestone":null,"comments":0,"created_at":"2016-01-05T06:19:27Z","updated_at":"2016-01-05T06:21:59Z","closed_at":null,"body":"An h1 header\r\n============\r\n\r\nParagraphs are separated by a blank line.\r\n\r\n2nd paragraph. *Italic*, **bold**, and `monospace`. Itemized lists\r\nlook like:\r\n\r\n  * this one\r\n  * that one\r\n  * the other one\r\n\r\nNote that --- not considering the asterisk --- the actual text\r\ncontent starts at 4-columns in.\r\n\r\n> Block quotes are\r\n> written like so.\r\n>\r\n> They can span multiple paragraphs,\r\n> if you like.\r\n\r\nUse 3 dashes for an em-dash. Use 2 dashes for ranges (ex., \"it's all\r\nin chapters 12--14\"). Three dots ... will be converted to an ellipsis.\r\nUnicode is supported. ☺\r\n\r\n\r\n\r\nAn h2 header\r\n------------\r\n\r\nHere's a numbered list:\r\n\r\n 1. first item\r\n 2. second item\r\n 3. third item\r\n\r\nNote again how the actual text starts at 4 columns in (4 characters\r\nfrom the left side). Here's a code sample:\r\n\r\n    # Let me re-iterate ...\r\n    for i in 1 .. 10 { do-something(i) }\r\n\r\nAs you probably guessed, indented 4 spaces. By the way, instead of\r\nindenting the block, you can use delimited blocks, if you like:\r\n\r\n~~~\r\ndefine foobar() {\r\n    print \"Welcome to flavor country!\";\r\n}\r\n~~~\r\n\r\n(which makes copying & pasting easier). You can optionally mark the\r\ndelimited block for Pandoc to syntax highlight it:\r\n\r\n~~~python\r\nimport time\r\n# Quick, count to ten!\r\nfor i in range(10):\r\n    # (but not *too* quick)\r\n    time.sleep(0.5)\r\n    print i\r\n~~~\r\n\r\n\r\n\r\n### An h3 header ###\r\n\r\nNow a nested list:\r\n\r\n 1. First, get these ingredients:\r\n\r\n      * carrots\r\n      * celery\r\n      * lentils\r\n\r\n 2. Boil some water.\r\n\r\n 3. Dump everything in the pot and follow\r\n    this algorithm:\r\n\r\n        find wooden spoon\r\n        uncover pot\r\n        stir\r\n        cover pot\r\n        balance wooden spoon precariously on pot handle\r\n        wait 10 minutes\r\n        goto first step (or shut off burner when done)\r\n\r\n    Do not bump wooden spoon or it will fall.\r\n\r\nNotice again how text always lines up on 4-space indents (including\r\nthat last line which continues item 3 above).\r\n\r\nHere's a link to [a website](http://foo.bar), to a [local\r\ndoc](local-doc.html), and to a [section heading in the current\r\ndoc](#an-h2-header). Here's a footnote [^1].\r\n\r\n[^1]: Footnote text goes here.\r\n\r\nTables can look like this:\r\n\r\nsize  material      color\r\n----  ------------  ------------\r\n9     leather       brown\r\n10    hemp canvas   natural\r\n11    glass         transparent\r\n\r\nTable: Shoes, their sizes, and what they're made of\r\n\r\n(The above is the caption for the table.) Pandoc also supports\r\nmulti-line tables:\r\n\r\n--------  -----------------------\r\nkeyword   text\r\n--------  -----------------------\r\nred       Sunsets, apples, and\r\n          other red or reddish\r\n          things.\r\n\r\ngreen     Leaves, grass, frogs\r\n          and other things it's\r\n          not easy being.\r\n--------  -----------------------\r\n\r\nA horizontal rule follows.\r\n\r\n***\r\n\r\nHere's a definition list:\r\n\r\napples\r\n  : Good for making applesauce.\r\noranges\r\n  : Citrus!\r\ntomatoes\r\n  : There's no \"e\" in tomatoe.\r\n\r\nAgain, text is indented 4 spaces. (Put a blank line between each\r\nterm/definition pair to spread things out more.)\r\n\r\nHere's a \"line block\":\r\n\r\n| Line one\r\n|   Line too\r\n| Line tree\r\n\r\nand images can be specified like so:\r\n\r\n![example image](https://cloud.githubusercontent.com/assets/2193211/8693788/5acf79b6-2b0c-11e5-9631-c1743dc43810.PNG \"An exemplary image\")\r\n\r\nInline math equations go in like so: $\\omega = d\\phi / dt$. Display\r\nmath should get its own line and be put in in double-dollarsigns:\r\n\r\n$$I = \\int \\rho R^{2} dV$$\r\n\r\nAnd note that you can backslash-escape any punctuation characters\r\nwhich you wish to be displayed literally, ex.: \\`foo\\`, \\*bar\\*, etc."},{"url":"https://api.github.com/repos/LoeiFy/Recordum/issues/9","labels_url":"https://api.github.com/repos/LoeiFy/Recordum/issues/9/labels{/name}","comments_url":"https://api.github.com/repos/LoeiFy/Recordum/issues/9/comments","events_url":"https://api.github.com/repos/LoeiFy/Recordum/issues/9/events","html_url":"https://github.com/LoeiFy/Recordum/issues/9","id":95140181,"number":9,"title":"记录一下处理 iOS 6 页面奇怪 bug 过程","user":{"login":"LoeiFy","id":2193211,"avatar_url":"https://avatars.githubusercontent.com/u/2193211?v=3","gravatar_id":"","url":"https://api.github.com/users/LoeiFy","html_url":"https://github.com/LoeiFy","followers_url":"https://api.github.com/users/LoeiFy/followers","following_url":"https://api.github.com/users/LoeiFy/following{/other_user}","gists_url":"https://api.github.com/users/LoeiFy/gists{/gist_id}","starred_url":"https://api.github.com/users/LoeiFy/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/LoeiFy/subscriptions","organizations_url":"https://api.github.com/users/LoeiFy/orgs","repos_url":"https://api.github.com/users/LoeiFy/repos","events_url":"https://api.github.com/users/LoeiFy/events{/privacy}","received_events_url":"https://api.github.com/users/LoeiFy/received_events","type":"User","site_admin":false},"labels":[{"url":"https://api.github.com/repos/LoeiFy/Recordum/labels/css","name":"css","color":"207de5"},{"url":"https://api.github.com/repos/LoeiFy/Recordum/labels/html","name":"html","color":"eb6420"}],"state":"open","locked":false,"assignee":null,"milestone":null,"comments":0,"created_at":"2015-07-15T09:04:30Z","updated_at":"2015-07-15T09:04:30Z","closed_at":null,"body":"### 首先是问题\r\n- 正常页面是这样的\r\n![img_0566](https://cloud.githubusercontent.com/assets/2193211/8693769/351e8afe-2b0c-11e5-80be-7c70803bd3cd.PNG)\r\n\r\n- 旋转屏幕之后\r\n![img_0567](https://cloud.githubusercontent.com/assets/2193211/8693782/4a37ea48-2b0c-11e5-8997-71a0892fe2f0.PNG)\r\n\r\n- 再次旋转回来变成这样\r\n![img_0568](https://cloud.githubusercontent.com/assets/2193211/8693788/5acf79b6-2b0c-11e5-9631-c1743dc43810.PNG)\r\n\r\n右边多处的空白是怎么回事？其他正常浏览器都是没有问题的，包括 pc Android iOS 7 以上。看来代码是没有问题的。\r\n\r\n首先想到的是用 Safari debug 工具看看页面结构，发现空白处就真的是 `空白` 。\r\n来回查看页面 DOM 结构，页面居然很快恢复正常，这时候明白是页面渲染相关，只要再触发页面渲染（重绘或者重排）一次，页面就会正常，在 debug 工具来回查看 DOM 时候会触发页面的渲染。\r\n\r\n接着想到 Google 搜索一下相关问题，但这个关键字不好写，我是这样的关键字：ios 6 rotate page overflow，然后就搜到一些不相关的内容：怎么屏蔽浏览器旋转之类的问题。\r\n\r\n搜索无果，就尝试删减 css 相关 html body 处的 css 定义，删除一些`比较可疑`的样式，没有找到问题。\r\n\r\n于是查看其他页面，有了新发现，一部分代码相同的某个页面并没有这样的问题，无论怎么旋转屏幕都是正常的。这样就好办了，我可以用排除法一步步找到最终问题所在。\r\n\r\n排除法去找问题也没什么好说的，运气好，直觉好一点的就很快找到问题代码，最终找到问题所在 `input` 的 css width 定义：\r\n```css\r\ninput {\r\n    width: 100%;\r\n    ...\r\n}\r\n```\r\n只要这个 `width` 的不定义，或者定义为 px 单位就没有问题了。\r\n\r\n但是这个 `width` 不定义 100%，页面布局会有问题，于是就再次 Google， 这次的关键字是：ios 6 input rotate overflow ，然后就找到相应解决办法\r\n\r\n解决这个问题方法也有一些，最终解决办法是 `input` 父级添加 css：`overflow: hidden`。\r\n这里我的理解是 `overflow` 这个定义有点触发页面渲染的意味，不管怎样，这个属性是挺有意思的。"}];
+var O = [{"url":"https://api.github.com/repos/LoeiFy/Recordum/issues/2","labels_url":"https://api.github.com/repos/LoeiFy/Recordum/issues/2/labels{/name}","comments_url":"https://api.github.com/repos/LoeiFy/Recordum/issues/2/comments","events_url":"https://api.github.com/repos/LoeiFy/Recordum/issues/2/events","html_url":"https://github.com/LoeiFy/Recordum/issues/2","id":57047276,"number":2,"title":"旧 webkit bug : css 伪类不支持 css3 动画","user":{"login":"LoeiFy","id":2193211,"avatar_url":"https://avatars.githubusercontent.com/u/2193211?v=3","gravatar_id":"","url":"https://api.github.com/users/LoeiFy","html_url":"https://github.com/LoeiFy","followers_url":"https://api.github.com/users/LoeiFy/followers","following_url":"https://api.github.com/users/LoeiFy/following{/other_user}","gists_url":"https://api.github.com/users/LoeiFy/gists{/gist_id}","starred_url":"https://api.github.com/users/LoeiFy/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/LoeiFy/subscriptions","organizations_url":"https://api.github.com/users/LoeiFy/orgs","repos_url":"https://api.github.com/users/LoeiFy/repos","events_url":"https://api.github.com/users/LoeiFy/events{/privacy}","received_events_url":"https://api.github.com/users/LoeiFy/received_events","type":"User","site_admin":false},"labels":[{"url":"https://api.github.com/repos/LoeiFy/Recordum/labels/css","name":"css","color":"207de5"}],"state":"open","locked":false,"assignee":null,"milestone":null,"comments":0,"created_at":"2015-02-09T15:44:16Z","updated_at":"2015-02-09T15:44:16Z","closed_at":null,"body":"之前一个网站做一个css3加载动画，为了“节省” html ，就直接在 body 上使用伪类来做。\r\n### 相关代码是这样的：\r\n```css\r\nhtml, body {\r\n    background: #fff;\r\n    height: 100%;\r\n    font-size: 100%;\r\n}\r\nbody {\r\n    overflow: hidden;\r\n    position: relative;\r\n}\r\nbody:before, body:after {\r\n    content: '';\r\n    width: 30px;\r\n    height: 30px;\r\n    display: block;\r\n    border: 3px solid #d2d2d2;\r\n    border-radius: 50%;\r\n    -webkit-border-radius: 50%;\r\n    -moz-border-radius: 50%;\r\n    position: absolute;\r\n    left: 50%;\r\n    margin-left: -18px;\r\n    top: 50%;\r\n    margin-top: -18px;\r\n}\r\nbody:after {\r\n    border: 3px solid transparent;\r\n    border-top-color: grey;\r\n    -webkit-animation: rotate 1s infinite linear;\r\n    -moz-animation: rotate linear 1s;\r\n    -moz-animation-iteration-count: infinite;\r\n}\r\n@-webkit-keyframes rotate {\r\n    from { -webkit-transform: rotate(0deg); }\r\n    to { -webkit-transform: rotate(360deg); }\r\n}\r\n\r\n@-moz-keyframes rotate {\r\n    from { -moz-transform: rotate(0deg); }\r\n    to { -moz-transform: rotate(360deg); }\r\n}\r\n```\r\n预览地址：http://jsbin.com/wilemolage/1/edit?html,css,output\r\n效果还不错，并且 html 结构也很好。但是在 iOS 6 上转圈动画不动。\r\n就觉得很奇怪，排除代码错误。于是 Google 一番：\r\n`Transitions and animations do not apply to CSS ::before and ::after pseudo-elements`\r\n#### 相关链接：\r\nhttp://css-tricks.com/pseudo-element-animationstransitions-bug-fixed-in-webkit/"},{"url":"https://api.github.com/repos/LoeiFy/Recordum/issues/1","labels_url":"https://api.github.com/repos/LoeiFy/Recordum/issues/1/labels{/name}","comments_url":"https://api.github.com/repos/LoeiFy/Recordum/issues/1/comments","events_url":"https://api.github.com/repos/LoeiFy/Recordum/issues/1/events","html_url":"https://github.com/LoeiFy/Recordum/issues/1","id":57003566,"number":1,"title":"使用 inline-block 水平垂直居中任意内容","user":{"login":"LoeiFy","id":2193211,"avatar_url":"https://avatars.githubusercontent.com/u/2193211?v=3","gravatar_id":"","url":"https://api.github.com/users/LoeiFy","html_url":"https://github.com/LoeiFy","followers_url":"https://api.github.com/users/LoeiFy/followers","following_url":"https://api.github.com/users/LoeiFy/following{/other_user}","gists_url":"https://api.github.com/users/LoeiFy/gists{/gist_id}","starred_url":"https://api.github.com/users/LoeiFy/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/LoeiFy/subscriptions","organizations_url":"https://api.github.com/users/LoeiFy/orgs","repos_url":"https://api.github.com/users/LoeiFy/repos","events_url":"https://api.github.com/users/LoeiFy/events{/privacy}","received_events_url":"https://api.github.com/users/LoeiFy/received_events","type":"User","site_admin":false},"labels":[{"url":"https://api.github.com/repos/LoeiFy/Recordum/labels/css","name":"css","color":"207de5"},{"url":"https://api.github.com/repos/LoeiFy/Recordum/labels/html","name":"html","color":"eb6420"}],"state":"open","locked":false,"assignee":null,"milestone":null,"comments":4,"created_at":"2015-02-09T08:54:44Z","updated_at":"2015-08-31T10:01:50Z","closed_at":null,"body":"具体代码：\r\n### html\r\n\r\n```html\r\n<!-- 注释用于去除相关 `间隙` -->\r\n<div class=\"container\"><!--\r\n --><div class=\"center\">\r\n            <h2>这个是居中标题</h2>\r\n            <p>这里是一些文字，文字</p>\r\n     </div><!--\r\n--></div>\r\n``` \r\n\r\n### css\r\n```css\r\n.container {\r\n    text-align: center;\r\n    width: 100%;\r\n    height: 300px;\r\n}\r\n.container:before,\r\n/* :after 可以不需要 */\r\n.container:after\r\n{\r\n    display: inline-block;\r\n    vertical-align: middle;\r\n    content: '';\r\n    height: 100%;\r\n}\r\n.center {\r\n    display: inline-block;\r\n    vertical-align: middle;\r\n    max-width: 100%;\r\n}\r\n```\r\n### 在线预览地址：\r\n**[http://jsfiddle.net/am0200/49sp6e9n/3/](http://jsfiddle.net/am0200/49sp6e9n/3/)**\r\n### 浏览器支持情况：\r\n至少 IE8 +\r\n\r\n"}];
+
+var C = [
+  {
+    "url": "https://api.github.com/repos/LoeiFy/Recordum/issues/comments/131816876",
+    "html_url": "https://github.com/LoeiFy/Recordum/issues/1#issuecomment-131816876",
+    "issue_url": "https://api.github.com/repos/LoeiFy/Recordum/issues/1",
+    "id": 131816876,
+    "user": {
+      "login": "yangg",
+      "id": 409225,
+      "avatar_url": "https://avatars.githubusercontent.com/u/409225?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/yangg",
+      "html_url": "https://github.com/yangg",
+      "followers_url": "https://api.github.com/users/yangg/followers",
+      "following_url": "https://api.github.com/users/yangg/following{/other_user}",
+      "gists_url": "https://api.github.com/users/yangg/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/yangg/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/yangg/subscriptions",
+      "organizations_url": "https://api.github.com/users/yangg/orgs",
+      "repos_url": "https://api.github.com/users/yangg/repos",
+      "events_url": "https://api.github.com/users/yangg/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/yangg/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "created_at": "2015-08-17T13:21:41Z",
+    "updated_at": "2015-08-17T13:21:41Z",
+    "body": "`width: 1%;` 不要好像也可以啊，加了会使居中往左边偏一点"
+  },
+  {
+    "url": "https://api.github.com/repos/LoeiFy/Recordum/issues/comments/131822475",
+    "html_url": "https://github.com/LoeiFy/Recordum/issues/1#issuecomment-131822475",
+    "issue_url": "https://api.github.com/repos/LoeiFy/Recordum/issues/1",
+    "id": 131822475,
+    "user": {
+      "login": "LoeiFy",
+      "id": 2193211,
+      "avatar_url": "https://avatars.githubusercontent.com/u/2193211?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/LoeiFy",
+      "html_url": "https://github.com/LoeiFy",
+      "followers_url": "https://api.github.com/users/LoeiFy/followers",
+      "following_url": "https://api.github.com/users/LoeiFy/following{/other_user}",
+      "gists_url": "https://api.github.com/users/LoeiFy/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/LoeiFy/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/LoeiFy/subscriptions",
+      "organizations_url": "https://api.github.com/users/LoeiFy/orgs",
+      "repos_url": "https://api.github.com/users/LoeiFy/repos",
+      "events_url": "https://api.github.com/users/LoeiFy/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/LoeiFy/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "created_at": "2015-08-17T13:47:30Z",
+    "updated_at": "2015-08-17T13:55:46Z",
+    "body": "@yangg ~~这里伪元素的 1% 可以很小，0.1% 也可以，但是必须有，不能为 0，不然高度也为 0，\r\n`vertical-align` 就失去意义，导致不能居中~~\r\n重新测试了一下，是可以去掉...，记得当时测试时候是需要添加宽的，我再研究一下"
+  },
+  {
+    "url": "https://api.github.com/repos/LoeiFy/Recordum/issues/comments/131835866",
+    "html_url": "https://github.com/LoeiFy/Recordum/issues/1#issuecomment-131835866",
+    "issue_url": "https://api.github.com/repos/LoeiFy/Recordum/issues/1",
+    "id": 131835866,
+    "user": {
+      "login": "yangg",
+      "id": 409225,
+      "avatar_url": "https://avatars.githubusercontent.com/u/409225?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/yangg",
+      "html_url": "https://github.com/yangg",
+      "followers_url": "https://api.github.com/users/yangg/followers",
+      "following_url": "https://api.github.com/users/yangg/following{/other_user}",
+      "gists_url": "https://api.github.com/users/yangg/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/yangg/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/yangg/subscriptions",
+      "organizations_url": "https://api.github.com/users/yangg/orgs",
+      "repos_url": "https://api.github.com/users/yangg/repos",
+      "events_url": "https://api.github.com/users/yangg/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/yangg/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "created_at": "2015-08-17T14:20:59Z",
+    "updated_at": "2015-08-17T14:20:59Z",
+    "body": "https://css-tricks.com/centering-in-the-unknown/ 这里也没加"
+  },
+  {
+    "url": "https://api.github.com/repos/LoeiFy/Recordum/issues/comments/132023306",
+    "html_url": "https://github.com/LoeiFy/Recordum/issues/1#issuecomment-132023306",
+    "issue_url": "https://api.github.com/repos/LoeiFy/Recordum/issues/1",
+    "id": 132023306,
+    "user": {
+      "login": "LoeiFy",
+      "id": 2193211,
+      "avatar_url": "https://avatars.githubusercontent.com/u/2193211?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/LoeiFy",
+      "html_url": "https://github.com/LoeiFy",
+      "followers_url": "https://api.github.com/users/LoeiFy/followers",
+      "following_url": "https://api.github.com/users/LoeiFy/following{/other_user}",
+      "gists_url": "https://api.github.com/users/LoeiFy/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/LoeiFy/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/LoeiFy/subscriptions",
+      "organizations_url": "https://api.github.com/users/LoeiFy/orgs",
+      "repos_url": "https://api.github.com/users/LoeiFy/repos",
+      "events_url": "https://api.github.com/users/LoeiFy/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/LoeiFy/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "created_at": "2015-08-18T01:37:13Z",
+    "updated_at": "2015-08-18T01:37:13Z",
+    "body": "@yangg 谢谢, width 是可以不加的, 但是 height: 100% 是必须的. 代码可以更改一下"
+  }
+];
 </script>
 <link rel="stylesheet" href="assets/mirror.css" />
 <script src="assets/zepto.js"></script>
