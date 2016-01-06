@@ -56,7 +56,8 @@ $(function($) {
                 '<h1 class="title">'+ O[i].title +'</h1>'+
                 '<time class="time">Updated at<span>'+ O[i].updated_at.split('T')[0] +'</span></time>'+
                 '<section class="labels">'+ labels +'</section>'+
-                '<article class="content">'+ marked(O[i].body) +'</article>'+ comment +
+                '<section class="main hidden"><article class="content">'+ marked(O[i].body) +'</article>'+ comment +'</section>'+
+                '<button class="comment" id="p'+ O[i].number +'">View More</button>'+
                 '</li>';
     }
 
