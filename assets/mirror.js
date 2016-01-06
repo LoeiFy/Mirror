@@ -52,7 +52,7 @@ $(function($) {
             '<button class="comment" data-id="'+ O[i].number +'">View Comments</button>' :
             '<a class="comment" href="'+ O[i].html_url +'#new_comment_field" target="_blank">Add Comment</a>';
 
-        html += '<li class="post">'+
+        html += '<li class="post" id="post'+ O[i].number +'">'+
                 '<h1 class="title">'+ O[i].title +'</h1>'+
                 '<time class="time">Updated at<span>'+ O[i].updated_at.split('T')[0] +'</span></time>'+
                 '<section class="labels">'+ labels +'</section>'+
@@ -71,25 +71,44 @@ $(function($) {
         e = $(e.target);
 
         if (e.hasClass('comment') && e[0].tagName == 'BUTTON') {
-            var id = e.data('id');
+            var id;
 
-            var list = '<ul class="comment_list">', issue_url = '';
-            for (var i = 0; i < C.length; i ++) {
-                if (i === 0) {
-                    issue_url = C[i].html_url.split('#')[0]
+            if (e.data('id')) {
+                id = e.data('id');
+
+                var list = '<ul class="comment_list">', issue_url = '';
+                for (var i = 0; i < C.length; i ++) {
+                    if (i === 0) {
+                        issue_url = C[i].html_url.split('#')[0]
+                    }
+                    list += '<li>'+
+                            '<a href="'+ C[i].user.html_url +'" target="_blank"><img src="'+ C[i].user.avatar_url +'" /></a>'+
+                            '<section>'+
+                            '<header><a target="_blank" href="'+ C[i].user.login +'">'+ C[i].user.login +'</a><span>commented on '+ C[i].updated_at.split('T')[0] +'</span></header>'+
+                            '<p>'+ marked(C[i].body) +'</p>'+
+                            '</section>'+
+                            '</li>';
                 }
-                list += '<li>'+
-                        '<a href="'+ C[i].user.html_url +'" target="_blank"><img src="'+ C[i].user.avatar_url +'" /></a>'+
-                        '<section>'+
-                        '<header><a target="_blank" href="'+ C[i].user.login +'">'+ C[i].user.login +'</a><span>commented on '+ C[i].updated_at.split('T')[0] +'</span></header>'+
-                        '<p>'+ marked(C[i].body) +'</p>'+
-                        '</section>'+
-                        '</li>';
+                list += '</ul><a class="comment" href="'+ issue_url +'#new_comment_field" target="_blank">Add Comment</a>';
+                e.parent().append(list)
+                e.remove()
             }
-            list += '</ul><a class="comment" href="'+ issue_url +'#new_comment_field" target="_blank">Add Comment</a>';
-            e.parent().append(list)
-            e.remove()
+
+            if (e.attr('id')) {
+                id = e.attr('id');
+                location.hash = id.split('p')[1];
+                e.hide()
+            }
+
         }
+    })
+
+    $(window).on('hashchange', function() {
+        var hash = location.hash.split('#')[1];
+
+        $('#post'+ hash).find('.main').removeClass('hidden').parent().siblings().each(function() {
+            $(this).find('.main').addClass('hidden').next().show()
+        })
     })
 
 })
