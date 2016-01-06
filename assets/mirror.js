@@ -1,4 +1,116 @@
 
+// Define
+var config = {
+    user:       'LoeiFy',
+    repo:       'Recordum',
+    token:      'da3fb4003c268a958949'+'6b36b39b5d43a62831b3',
+    info:       'Lorem ipsum dolor sit amet',
+    behance:    '',
+    dribbble:   '',
+    instagram:  ''
+}
+
+var _load = function(url, data, callback, error) {
+
+    url = 'https://api.github.com'+ url; 
+    data.access_token = token;
+
+    $.ajax({
+        type: 'GET',
+        url: url,
+        data: data,
+        success: function(data) {
+            callback(data)
+        },
+        error: function(a, b, c) {
+            error && error(a, b, c)
+        }
+    })
+
+}
+
+var _template = {
+
+    user: function(data) {
+        var social = '<a target="_blank" class="github" href="'+ data.html_url +'"></a>';
+        if (data.blog) {
+            social += '<a target="_blank" class="blog" href="'+ U.blog +'"></a>'
+        }
+        if (data.email) {
+            social += '<a target="_blank" class="email" href="mailto:'+ U.email +'"></a>'
+        }
+        if (config.behance) {
+            social += '<a target="_blank" class="behance" href="'+ config.behance +'"></a>'
+        }
+        if (config.dribbble) {
+            social += '<a target="_blank" class="dribbble" href="'+ config.dribbble +'"></a>'
+        }
+        if (config.instagram) {
+            social += '<a target="_blank" class="instagram" href="'+ config.instagram +'"></a>'
+        }
+
+        var user = '<img src="'+ data.avatar_url +'" />'+
+                   '<h1>'+ data.name +'</h1>'+
+                   '<p>'+ config.info +'</p>'+
+                   '<section>'+ social +'</section>';
+
+        return user
+    },
+
+    issue: function(data) {
+        var issue = '';
+
+        for (var i = 0; i < data.length; i ++) {
+            var labels = '';
+            
+            for (var j = 0; j < data[i].labels.length; j ++) {
+                labels += '<mark style="background:#'+ data[i].labels[j].color +'">#'+ data[i].labels[j].name +'</mark>'
+            }
+
+            var comment = data[i].comments > 0 ? 
+                '<button class="comment" data-id="'+ data[i].number +'">View Comments</button>' :
+                '<a class="comment" href="'+ data[i].html_url +'#new_comment_field" target="_blank">Add Comment</a>';
+
+            issue += '<li class="post" id="post'+ data[i].number +'">'+
+                     '<h1 class="title">'+ data[i].title +'</h1>'+
+                     '<time class="time">Updated at<span>'+ data[i].updated_at.split('T')[0] +'</span></time>'+
+                     '<section class="labels">'+ labels +'</section>'+
+                     '<section class="main hidden">'+
+                     '<article class="content">'+ marked(data[i].body) +'</article>'+ comment +
+                     '</section>'+
+                     '<button class="comment" id="p'+ data[i].number +'">View More</button>'+
+                     '</li>';
+        }
+
+        return issue
+    },
+
+    comment: function(data) {
+        var comment = '<ul class="comment_list">', issue_url = '';
+
+        for (var i = 0; i < data.length; i ++) {
+            if (i === 0) {
+                issue_url = data[i].html_url.split('#')[0]
+            }
+
+            comment += '<li>'+
+                       '<a href="'+ data[i].user.html_url +'" target="_blank"><img src="'+ data[i].user.avatar_url +'" /></a>'+
+                       '<section>'+
+                       '<header>'+
+                       '<a target="_blank" href="'+ data[i].user.login +'">'+ data[i].user.login +'</a>'+
+                       '<span>commented on '+ data[i].updated_at.split('T')[0] +'</span>'+
+                       '</header>'+
+                       '<p>'+ marked(data[i].body) +'</p>'+
+                       '</section>'+
+                       '</li>';
+        }
+        comment += '</ul><a class="comment" href="'+ issue_url +'#new_comment_field" target="_blank">Add Comment</a>';
+
+        return comment
+    }
+
+}
+
 $(function($) {
 
     var issue_list = 'https://api.github.com/repos/LoeiFy/Recordum/issues',
@@ -39,6 +151,10 @@ $(function($) {
 
     $('#user').html(user)
 
+    if (location.hash) {
+        O = [];
+        O.push(S)
+    }
 
     var html = '';
 

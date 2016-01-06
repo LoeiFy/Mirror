@@ -85,7 +85,7 @@ body {
     padding: 0 20px;
 }
 .post {
-    margin-top: 70px;
+    padding-top: 20px;
 }
 .post:after {
     display: block;
@@ -93,12 +93,12 @@ body {
     content: '';
     height: 1px;
     background: #f1f1f1;
-    margin: 70px auto;
+    margin: 120px auto 100px;
 }
 .title {
     color: #121212;
     font-size: 26px;
-    line-height: 1.7;
+    line-height: 1.3;
 }
 .time {
     font-size: 12px;
