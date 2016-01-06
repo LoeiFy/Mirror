@@ -97,7 +97,6 @@ $(function($) {
             if (e.attr('id')) {
                 id = e.attr('id');
                 location.hash = id.split('p')[1];
-                e.hide()
             }
 
         }
@@ -106,9 +105,14 @@ $(function($) {
     $(window).on('hashchange', function() {
         var hash = location.hash.split('#')[1];
 
+        $('#p'+ hash).hide()
         $('#post'+ hash).find('.main').removeClass('hidden').parent().siblings().each(function() {
             $(this).find('.main').addClass('hidden').next().show()
         })
+
+        setTimeout(function() {
+            window.scrollTo(0, $('#post'+ hash).offset().top)
+        }, 0)
     })
 
 })
