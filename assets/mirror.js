@@ -71,7 +71,7 @@ var _template = {
                 '<button class="comment" data-id="'+ data[i].number +'">View Comments</button>' :
                 '<a class="comment" href="'+ data[i].html_url +'#new_comment_field" target="_blank">Add Comment</a>';
 
-            issues += '<li class="post" id="post'+ data[i].number +'">'+
+            issues += '<a class="post" href="#'+ data[i].number +'">'+
                      '<h1 class="title">'+ data[i].title +'</h1>'+
                      '<time class="time">Updated at<span>'+ data[i].updated_at.split('T')[0] +'</span></time>'+
                      /*
@@ -81,7 +81,7 @@ var _template = {
                      '</section>'+
                      '<button class="comment" id="p'+ data[i].number +'">View More</button>'+
                      */
-                     '</li>';
+                     '</a>';
         }
 
         return issues
