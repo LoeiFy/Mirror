@@ -74,15 +74,20 @@ var _template = {
             issues += '<li class="post" id="post'+ data[i].number +'">'+
                      '<h1 class="title">'+ data[i].title +'</h1>'+
                      '<time class="time">Updated at<span>'+ data[i].updated_at.split('T')[0] +'</span></time>'+
+                     /*
                      '<section class="labels">'+ labels +'</section>'+
                      '<section class="main hidden">'+
                      '<article class="content">'+ marked(data[i].body) +'</article>'+ comment +
                      '</section>'+
                      '<button class="comment" id="p'+ data[i].number +'">View More</button>'+
+                     */
                      '</li>';
         }
 
         return issues
+    },
+
+    issue: function(data) {
     },
 
     comments: function(data) {
@@ -116,12 +121,18 @@ $(function($) {
     var issues = '/repos/'+ config.user +'/'+ config.repo +'/issues',
         user = '/users/'+ config.user;
 
-    var page = 1;
+    var page = 1,
+        per_page = 7;
+
+    // save data
+    var issues_data, issue_data, comment_data;
 
     _load(user, {}, function(data) {
         $('#user').html(_template.user(data))
 
-        _load(issues, {filter: 'created', page: page, per_page: 5}, function(data) {
+        _load(issues, {filter: 'created', page: page, per_page: per_page}, function(data) {
+            issues_data = data;
+
             $('#posts').html(_template.issues(data))
 
             $('pre code').each(function(i, block) {
