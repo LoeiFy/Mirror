@@ -32,21 +32,21 @@ var _load = function(url, data, callback, error) {
 var _template = {
 
     user: function(data) {
-        var social = '<a target="_blank" class="github" href="'+ data.html_url +'"></a>';
+        var social = '<a target="_blank" class="icon-github" href="'+ data.html_url +'"></a>';
         if (data.blog) {
-            social += '<a target="_blank" class="blog" href="'+ data.blog +'"></a>'
+            social += '<a target="_blank" class="icon-link" href="'+ data.blog +'"></a>'
         }
         if (data.email) {
-            social += '<a target="_blank" class="email" href="mailto:'+ data.email +'"></a>'
+            social += '<a target="_blank" class="icon-email" href="mailto:'+ data.email +'"></a>'
         }
         if (config.behance) {
-            social += '<a target="_blank" class="behance" href="'+ config.behance +'"></a>'
+            social += '<a target="_blank" class="icon-behance" href="'+ config.behance +'"></a>'
         }
         if (config.dribbble) {
-            social += '<a target="_blank" class="dribbble" href="'+ config.dribbble +'"></a>'
+            social += '<a target="_blank" class="icon-dribbble" href="'+ config.dribbble +'"></a>'
         }
         if (config.instagram) {
-            social += '<a target="_blank" class="instagram" href="'+ config.instagram +'"></a>'
+            social += '<a target="_blank" class="icon-instagram" href="'+ config.instagram +'"></a>'
         }
 
         var user = '<img src="'+ data.avatar_url +'" />'+

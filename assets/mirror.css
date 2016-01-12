@@ -23,11 +23,13 @@ body {
 #user {
     text-align: center;
     line-height: 1;
+    max-width: 740px;
+    padding: 0 20px;
 }
 #user:after {
     display: block;
     margin: 30px auto 0;
-    width: 30%;
+    width: 70%;
     content: '';
     height: 1px;
     background: #f1f1f1;
@@ -55,23 +57,10 @@ body {
 }
 #user a {
     display: inline-block;
-    width: 24px;
-    height: 24px;
-    margin: 16px 8px; 
-    background-repeat: no-repeat;
-    background-position: center;
-}
-.github {
-    background-image: url(github.svg);
-    background-size: 20px 20px;
-}
-.blog {
-    background-image: url(link.svg);
-    background-size: 19px 19px;
-}
-.email {
-    background-image: url(email.svg);
-    background-size: 24px 24px;
+    margin: 20px 8px; 
+    text-decoration: none;
+    color: #4C5567;
+    font-size: 20px;
 }
 /* user end */
 
@@ -92,7 +81,7 @@ body {
 
 #posts {
     display: block;
-    margin: 50px auto 0;
+    margin: 70px auto 0;
     max-width: 740px;
     padding: 0 20px;
 }
