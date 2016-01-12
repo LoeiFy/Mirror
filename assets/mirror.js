@@ -5,6 +5,7 @@ var config = {
     repo:       'Recordum',
     token:      'da3fb4003c268a958949'+'6b36b39b5d43a62831b3',
     info:       'Lorem ipsum dolor sit amet',
+    per_page:   7,
     behance:    '',
     dribbble:   '',
     instagram:  ''
@@ -19,8 +20,8 @@ var _load = function(url, data, callback, error) {
         type: 'GET',
         url: url,
         data: data,
-        success: function(data) {
-            callback(data)
+        success: function(data, status, xhr) {
+            callback(data, xhr.getResponseHeader('link'))
         },
         error: function(a, b, c) {
             error && error(a, b, c)
@@ -61,26 +62,9 @@ var _template = {
         var issues = '';
 
         for (var i = 0; i < data.length; i ++) {
-            var labels = '';
-            
-            for (var j = 0; j < data[i].labels.length; j ++) {
-                labels += '<mark style="background:#'+ data[i].labels[j].color +'">#'+ data[i].labels[j].name +'</mark>'
-            }
-
-            var comment = data[i].comments > 0 ? 
-                '<button class="comment" data-id="'+ data[i].number +'">View Comments</button>' :
-                '<a class="comment" href="'+ data[i].html_url +'#new_comment_field" target="_blank">Add Comment</a>';
-
             issues += '<a class="post" href="#'+ data[i].number +'">'+
                      '<h1 class="title">'+ data[i].title +'</h1>'+
                      '<time class="time">Updated at<span>'+ data[i].updated_at.split('T')[0] +'</span></time>'+
-                     /*
-                     '<section class="labels">'+ labels +'</section>'+
-                     '<section class="main hidden">'+
-                     '<article class="content">'+ marked(data[i].body) +'</article>'+ comment +
-                     '</section>'+
-                     '<button class="comment" id="p'+ data[i].number +'">View More</button>'+
-                     */
                      '</a>';
         }
 
@@ -88,6 +72,21 @@ var _template = {
     },
 
     issue: function(data) {
+            var labels = '';
+            
+            for (var j = 0; j < data[i].labels.length; j ++) {
+                labels += '<mark style="background:#'+ data[i].labels[j].color +'">#'+ data[i].labels[j].name +'</mark>'
+            }
+            var comment = data[i].comments > 0 ? 
+                '<button class="comment" data-id="'+ data[i].number +'">View Comments</button>' :
+                '<a class="comment" href="'+ data[i].html_url +'#new_comment_field" target="_blank">Add Comment</a>';
+                     /*
+                     '<section class="labels">'+ labels +'</section>'+
+                     '<section class="main hidden">'+
+                     '<article class="content">'+ marked(data[i].body) +'</article>'+ comment +
+                     '</section>'+
+                     '<button class="comment" id="p'+ data[i].number +'">View More</button>'+
+                     */
     },
 
     comments: function(data) {
@@ -121,8 +120,7 @@ $(function($) {
     var issues = '/repos/'+ config.user +'/'+ config.repo +'/issues',
         user = '/users/'+ config.user;
 
-    var page = 1,
-        per_page = 7;
+    var page = 1;
 
     // save data
     var issues_data, issue_data, comment_data;
@@ -130,14 +128,37 @@ $(function($) {
     _load(user, {}, function(data) {
         $('#user').html(_template.user(data))
 
-        _load(issues, {filter: 'created', page: page, per_page: per_page}, function(data) {
+        _load(issues, {filter: 'created', page: page, per_page: config.per_page}, function(data, header) {
             issues_data = data;
 
             $('#posts').html(_template.issues(data))
 
+            if (header.indexOf('rel="next"') > 0) {
+                $('#next').show()
+                page ++;
+            }
+
+            /*
             $('pre code').each(function(i, block) {
                 hljs.highlightBlock(block)
             })
+            */
+        })
+    })
+
+    $('#next').on('click', function() {
+        _load(issues, {filter: 'created', page: page, per_page: config.per_page}, function(data, header) {
+            issues_data = issues_data.concat(data)
+            console.log(issues_data)
+
+            $('#posts').append(_template.issues(data))
+
+            if (header.indexOf('rel="next"') > 0) {
+                $('#next').show()
+                page ++;
+            } else {
+                $('#next').hide()
+            }
         })
     })
 
