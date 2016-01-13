@@ -161,22 +161,10 @@ $(function($) {
         e = $(e.target);
 
         if (e.hasClass('comment') && e[0].tagName == 'BUTTON') {
-            var id;
-
-            if (e.data('id')) {
-                id = e.data('id');
-
-                _load(issues +'/'+ id +'/comments', {}, function(data) {
-                    e.parent().append(_template.comments(data))
-                    e.remove()
-                })
-            }
-
-            if (e.attr('id')) {
-                id = e.attr('id');
-                location.hash = id.split('p')[1];
-            }
-
+            _load(issues +'/'+ e.data('id') +'/comments', {}, function(data) {
+                e.parent().append(_template.comments(data))
+                e.remove()
+            })
         }
 
         if (e.attr('id') == 'back') {
