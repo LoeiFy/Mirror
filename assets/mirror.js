@@ -129,6 +129,8 @@ $(function($) {
             } else {
                 $('#next').hide()
             }
+
+            $('html').removeClass('loading')
         })
     }
 
@@ -151,6 +153,7 @@ $(function($) {
                 $('#post pre code').each(function(i, block) {
                     hljs.highlightBlock(block)
                 })
+                $('html').removeClass('loading')
             })
         }
     } else {
