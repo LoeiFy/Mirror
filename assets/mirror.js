@@ -1,5 +1,5 @@
 
-var _load = function(url, data, callback, error) {
+var _load = function(url, data, callback) {
 
     url = 'https://api.github.com'+ url; 
     data.access_token = config.token;
@@ -12,7 +12,7 @@ var _load = function(url, data, callback, error) {
             callback(data, xhr.getResponseHeader('link'))
         },
         error: function(a, b, c) {
-            error && error(a, b, c)
+            alert('An error occurred ('+ a.status +')')
         }
     })
 
@@ -124,7 +124,7 @@ $(function($) {
             $('#posts').append(_template.issues(data))
 
             if (header.indexOf('rel="next"') > 0) {
-                $('#next').css('display', 'block')
+                $('#next').css('display', 'block').removeAttr('disabled').text('+')
                 page ++;
             } else {
                 $('#next').hide()
@@ -135,6 +135,7 @@ $(function($) {
     }
 
     $('#next').on('click', function() {
+        $(this).attr('disabled', true).text('...')
         get_issues()
     })
 
@@ -168,6 +169,7 @@ $(function($) {
         e = $(e.target);
 
         if (e.hasClass('comment') && e[0].tagName == 'BUTTON') {
+            e.text('Loading').attr('disabled', true)
             _load(issues +'/'+ e.data('id') +'/comments', {}, function(data) {
                 e.parent().append(_template.comments(data))
                 e.remove()
