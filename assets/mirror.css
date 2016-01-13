@@ -25,6 +25,7 @@ body {
     line-height: 1;
     max-width: 740px;
     padding: 0 20px;
+    margin: 0 auto;
 }
 #user:after {
     display: block;
@@ -83,6 +84,29 @@ body {
 }
 /* next button end */
 
+/* switch page */
+#switch {
+    width: 100%;
+    overflow-x: hidden;
+}
+#switch > div {
+    width: 200%;
+    transform: translate3d(0, 0, 0);
+}
+#switch > div.transition {
+    transition: all .7s cubic-bezier(0.205, -0.005, 1.000, -0.020); 
+}
+#switch.right > div {
+    transform: translate3d(-50%, 0, 0);
+}
+#switch .dib {
+    width: 50%;
+    display: inline-block;
+    vertical-align: top;
+}
+/* switch page end */
+
+/* posts list */
 #posts {
     display: block;
     margin: 70px auto 0;
@@ -113,6 +137,8 @@ body {
     margin-left: 10px;
     color: #788590;
 }
+/* posts list end */
+
 .labels {
     display: block;
     margin-top: 20px;

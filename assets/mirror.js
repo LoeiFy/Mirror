@@ -118,52 +118,44 @@ var _template = {
 $(function($) {
 
     var issues = '/repos/'+ config.user +'/'+ config.repo +'/issues',
-        user = '/users/'+ config.user;
+        user = '/users/'+ config.user,
+        page = 1, 
+        issues_data = [];
 
-    var page = 1;
-
-    // save data
-    var issues_data, issue_data, comment_data;
-
-    _load(user, {}, function(data) {
-        $('#user').html(_template.user(data))
-
+    function get_issues() {
         _load(issues, {filter: 'created', page: page, per_page: config.per_page}, function(data, header) {
-            issues_data = data;
-
-            $('#posts').html(_template.issues(data))
-
-            if (header.indexOf('rel="next"') > 0) {
-                $('#next').show()
-                page ++;
-            }
-
-            /*
-            $('pre code').each(function(i, block) {
-                hljs.highlightBlock(block)
-            })
-            */
-        })
-    })
-
-    $('#next').on('click', function() {
-        _load(issues, {filter: 'created', page: page, per_page: config.per_page}, function(data, header) {
+            // save data
             issues_data = issues_data.concat(data)
-            console.log(issues_data)
 
             $('#posts').append(_template.issues(data))
 
             if (header.indexOf('rel="next"') > 0) {
-                $('#next').show()
+                $('#next').css('display', 'block')
                 page ++;
             } else {
                 $('#next').hide()
             }
         })
+    }
+
+    _load(user, {}, function(data) {
+        $('#user').html(_template.user(data))
+
+        get_issues()
+    })
+
+    $('#next').on('click', function() {
+        get_issues()
     })
 
     if (location.hash) {
     }
+
+    /*
+    $('pre code').each(function(i, block) {
+        hljs.highlightBlock(block)
+    })
+    */
 
     $('body').on('click', function(e) {
         e = $(e.target);
@@ -191,13 +183,7 @@ $(function($) {
     $(window).on('hashchange', function() {
         var hash = location.hash.split('#')[1];
 
-        $('#p'+ hash).hide()
-        $('#post'+ hash).find('.main').removeClass('hidden').parent().siblings().each(function() {
-            $(this).find('.main').addClass('hidden').next().show()
-        })
-
         setTimeout(function() {
-            window.scrollTo(0, $('#post'+ hash).offset().top)
         }, 0)
     })
 
