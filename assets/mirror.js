@@ -122,6 +122,7 @@ var _template = {
 $(function($) {
 
     var issues = '/repos/'+ config.user +'/'+ config.repo +'/issues',
+        issue = '/repos/'+ config.user +'/'+ config.repo +'/issues/',
         user = '/users/'+ config.user,
         page = 1,
         current = 'lists',
@@ -143,18 +144,33 @@ $(function($) {
         })
     }
 
-    _load(user, {}, function(data) {
-        $('#user').html(_template.user(data))
-
-        get_issues()
-    })
-
     $('#next').on('click', function() {
         get_issues()
     })
 
     if (location.hash) {
         current = 'single';
+
+        var issue_id = parseInt(location.hash.split('#')[1]);
+        if (issue_id) {
+            $('#switch > div').removeClass('transition')
+            setTimeout(function() {
+                $('#switch').addClass('right')
+            }, 0)
+
+            _load(issue + issue_id, {}, function(data) {
+                $('#post').html(_template.issue(data))
+                $('#post pre code').each(function(i, block) {
+                    hljs.highlightBlock(block)
+                })
+            })
+        }
+    } else {
+        _load(user, {}, function(data) {
+            $('#user').html(_template.user(data))
+
+            get_issues()
+        })
     }
 
     $('body').on('click', function(e) {
@@ -177,6 +193,11 @@ $(function($) {
     })
 
     $(window).on('hashchange', function() {
+        if (current == 'single') {
+            location.href = '/';
+            return
+        }
+
         var hash = parseInt(location.hash.split('#')[1]),
             data;
 
