@@ -82,7 +82,8 @@ var _template = {
                 '<button class="comment" data-id="'+ data.number +'">View Comments</button>' :
                 '<a class="comment" href="'+ data.html_url +'#new_comment_field" target="_blank">Add Comment</a>';
 
-            issue = '<h1 class="title">'+ data.title +'</h1>'+
+            issue = '<div id="back">&laquo; back to home</div>'+
+                    '<h1 class="title">'+ data.title +'</h1>'+
                     '<time class="time">Updated at<span>'+ data.updated_at.split('T')[0] +'</span></time>'+
                     '<section class="labels">'+ labels +'</section>'+
                     '<section class="main hidden">'+
@@ -122,7 +123,8 @@ $(function($) {
 
     var issues = '/repos/'+ config.user +'/'+ config.repo +'/issues',
         user = '/users/'+ config.user,
-        page = 1, 
+        page = 1,
+        current = 'lists',
         issues_data = [];
 
     function get_issues() {
@@ -152,6 +154,7 @@ $(function($) {
     })
 
     if (location.hash) {
+        current = 'single';
     }
 
     $('body').on('click', function(e) {
@@ -175,6 +178,14 @@ $(function($) {
             }
 
         }
+
+        if (e.attr('id') == 'back') {
+            if (current == 'single') {
+                location.href = '/'
+            } else {
+                history.back()
+            }
+        }
     })
 
     $(window).on('hashchange', function() {
@@ -195,16 +206,21 @@ $(function($) {
                 hljs.highlightBlock(block)
             })
 
+            $('body').data('scroll', window.scrollY)
+            window.scrollTo(0, 0)
+
             setTimeout(function() {
-                $('#main').height(window.innerHeight)
                 $('#switch').addClass('right')
                 setTimeout(function() {
-                    window.scrollTo(0, 0)
+                    $('#main').height(window.innerHeight)
                 }, 400)
             }, 0)
         } else {
-            $('#main').css('height', 'auto')
             $('#switch').removeClass('right')
+
+            $('#main').css('height', 'auto')
+            window.scrollTo(0, parseInt($('body').data('scroll')))
+            
             setTimeout(function() {
                 $('#post').html('')
             }, 400)

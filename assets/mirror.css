@@ -16,7 +16,7 @@ body {
     font-family: "Hiragino Sans GB","Hiragino Sans GB W3","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
     position: relative;
     overflow-x: hidden;
-    padding-bottom: 130px;
+    padding-bottom: 30px;
     overflow-y: scroll;
 }
 
@@ -66,6 +66,19 @@ body {
 }
 /* user end */
 
+/* footer */
+footer {
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    margin-top: 100px;
+    color: #335975;
+}
+footer a {
+    color: #37444E;
+}
+/* footer end */
+
 /* next button */
 #next {
     cursor: pointer;
@@ -74,7 +87,7 @@ body {
     color: #fff;
     background: #404D56;
     width: 60px;
-    padding: 8px 0 10px;
+    padding: 6px 0 10px;
     margin: 30px auto 0;
     line-height: 1;
     display: none;
@@ -87,6 +100,11 @@ body {
 
 /* back button */
 #back {
+    display: inline-block;
+    margin-top: 30px;
+    font-size: 14px;
+    color: #697177;
+    cursor: pointer;
 }
 /* back button end */
 
@@ -116,7 +134,7 @@ body {
     display: block;
     margin: 0 auto;
     height: 3px;
-    background: #0E508C;
+    background: #3C414C;
 }
 #main {
     overflow: hidden;
@@ -163,7 +181,7 @@ body {
     margin: 0 auto;
 }
 .title {
-    margin-top: 70px;
+    margin-top: 20px;
     color: #485763;
     font-size: 26px;
     line-height: 1.4;
