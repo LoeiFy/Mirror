@@ -1,16 +1,4 @@
 
-// Define
-var config = {
-    user:       'LoeiFy',
-    repo:       'Recordum',
-    token:      'da3fb4003c268a958949'+'6b36b39b5d43a62831b3',
-    info:       'Lorem ipsum dolor sit amet',
-    per_page:   7,
-    behance:    '',
-    dribbble:   '',
-    instagram:  ''
-}
-
 var _load = function(url, data, callback, error) {
 
     url = 'https://api.github.com'+ url; 

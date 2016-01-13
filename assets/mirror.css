@@ -24,7 +24,7 @@ body {
 #user {
     text-align: center;
     line-height: 1;
-    max-width: 740px;
+    max-width: 700px;
     padding: 0 20px;
     margin: 0 auto;
 }
@@ -130,7 +130,7 @@ footer a {
 }
 #switch .dib:before {
     content: '';
-    width: 98%;
+    width: 96%;
     display: block;
     margin: 0 auto;
     height: 3px;
@@ -145,7 +145,7 @@ footer a {
 #posts {
     display: block;
     margin: 70px auto 0;
-    max-width: 740px;
+    max-width: 700px;
     padding: 0 20px;
 }
 .post {
@@ -177,7 +177,7 @@ footer a {
 /* single post */
 #post {
     padding: 20px;
-    max-width: 740px;
+    max-width: 700px;
     margin: 0 auto;
 }
 .title {
@@ -203,14 +203,13 @@ footer a {
 }
 .labels mark {
     color: #fff;
-    font-size: 14px;
-    padding: 1px 7px;
+    font-size: 12px;
+    padding: 1px 8px 2px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
     display: inline-block;
-    margin-right: 7px;
-    cursor: pointer;
+    margin-right: 10px;
 }
 .content {
     margin-top: 20px;
