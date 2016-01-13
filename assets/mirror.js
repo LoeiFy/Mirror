@@ -63,8 +63,8 @@ var _template = {
 
         for (var i = 0; i < data.length; i ++) {
             issues += '<a class="post" href="#'+ data[i].number +'">'+
-                     '<h1 class="title">'+ data[i].title +'</h1>'+
-                     '<time class="time">Updated at<span>'+ data[i].updated_at.split('T')[0] +'</span></time>'+
+                     '<h1>'+ data[i].title +'</h1>'+
+                     '<time>Updated at<span>'+ data[i].updated_at.split('T')[0] +'</span></time>'+
                      '</a>';
         }
 
@@ -72,21 +72,24 @@ var _template = {
     },
 
     issue: function(data) {
-            var labels = '';
-            
-            for (var j = 0; j < data[i].labels.length; j ++) {
-                labels += '<mark style="background:#'+ data[i].labels[j].color +'">#'+ data[i].labels[j].name +'</mark>'
+            var issue, labels = '', comment;
+
+            for (var i = 0; i < data.labels.length; i ++) {
+                labels += '<mark style="background:#'+ data.labels[i].color +'">#'+ data.labels[i].name +'</mark>'
             }
-            var comment = data[i].comments > 0 ? 
-                '<button class="comment" data-id="'+ data[i].number +'">View Comments</button>' :
-                '<a class="comment" href="'+ data[i].html_url +'#new_comment_field" target="_blank">Add Comment</a>';
-                     /*
-                     '<section class="labels">'+ labels +'</section>'+
-                     '<section class="main hidden">'+
-                     '<article class="content">'+ marked(data[i].body) +'</article>'+ comment +
-                     '</section>'+
-                     '<button class="comment" id="p'+ data[i].number +'">View More</button>'+
-                     */
+
+            comment = data.comments > 0 ? 
+                '<button class="comment" data-id="'+ data.number +'">View Comments</button>' :
+                '<a class="comment" href="'+ data.html_url +'#new_comment_field" target="_blank">Add Comment</a>';
+
+            issue = '<h1 class="title">'+ data.title +'</h1>'+
+                    '<time class="time">Updated at<span>'+ data.updated_at.split('T')[0] +'</span></time>'+
+                    '<section class="labels">'+ labels +'</section>'+
+                    '<section class="main hidden">'+
+                    '<article class="content">'+ marked(data.body) +'</article>'+
+                    '</section>'+ comment;
+            
+            return issue
     },
 
     comments: function(data) {
@@ -151,12 +154,6 @@ $(function($) {
     if (location.hash) {
     }
 
-    /*
-    $('pre code').each(function(i, block) {
-        hljs.highlightBlock(block)
-    })
-    */
-
     $('body').on('click', function(e) {
         e = $(e.target);
 
@@ -181,10 +178,37 @@ $(function($) {
     })
 
     $(window).on('hashchange', function() {
-        var hash = location.hash.split('#')[1];
+        var hash = parseInt(location.hash.split('#')[1]),
+            data;
 
-        setTimeout(function() {
-        }, 0)
+        if (hash) {
+            for (var i = 0; i < issues_data.length; i ++) {
+                if (issues_data[i].number == hash) {
+                    data = issues_data[i];
+                    break;
+                }
+            }
+
+            $('#post').html(_template.issue(data))
+
+            $('#post pre code').each(function(i, block) {
+                hljs.highlightBlock(block)
+            })
+
+            setTimeout(function() {
+                $('#main').height(window.innerHeight)
+                $('#switch').addClass('right')
+                setTimeout(function() {
+                    window.scrollTo(0, 0)
+                }, 400)
+            }, 0)
+        } else {
+            $('#main').css('height', 'auto')
+            $('#switch').removeClass('right')
+            setTimeout(function() {
+                $('#post').html('')
+            }, 400)
+        }
     })
 
 })

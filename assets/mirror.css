@@ -17,6 +17,7 @@ body {
     position: relative;
     overflow-x: hidden;
     padding-bottom: 130px;
+    overflow-y: scroll;
 }
 
 /* user */
@@ -84,6 +85,11 @@ body {
 }
 /* next button end */
 
+/* back button */
+#back {
+}
+/* back button end */
+
 /* switch page */
 #switch {
     width: 100%;
@@ -94,7 +100,7 @@ body {
     transform: translate3d(0, 0, 0);
 }
 #switch > div.transition {
-    transition: all .7s cubic-bezier(0.205, -0.005, 1.000, -0.020); 
+    transition: all .37s cubic-bezier(0.895, 0.030, 0.685, 0.220); 
 }
 #switch.right > div {
     transform: translate3d(-50%, 0, 0);
@@ -103,6 +109,17 @@ body {
     width: 50%;
     display: inline-block;
     vertical-align: top;
+}
+#switch .dib:before {
+    content: '';
+    width: 98%;
+    display: block;
+    margin: 0 auto;
+    height: 3px;
+    background: #0E508C;
+}
+#main {
+    overflow: hidden;
 }
 /* switch page end */
 
@@ -121,14 +138,39 @@ body {
 .post:hover {
     background: #F6F7F7;
 }
-.title {
+.post h1 {
     color: #485763;
     font-size: 18px;
     line-height: 1.3;
 }
-.time {
+.post time {
     font-size: 12px;
     color: #969696;
+    display: block;
+    margin-top: 10px;
+}
+.post time span {
+    letter-spacing: .5px;
+    margin-left: 10px;
+    color: #788590;
+}
+/* posts list end */
+
+/* single post */
+#post {
+    padding: 20px;
+    max-width: 740px;
+    margin: 0 auto;
+}
+.title {
+    margin-top: 70px;
+    color: #485763;
+    font-size: 26px;
+    line-height: 1.4;
+}
+.time {
+    font-size: 14px;
+    color: #969896;
     display: block;
     margin-top: 10px;
 }
@@ -137,8 +179,6 @@ body {
     margin-left: 10px;
     color: #788590;
 }
-/* posts list end */
-
 .labels {
     display: block;
     margin-top: 20px;
@@ -166,6 +206,8 @@ body {
     height: 1px;
     background: #eee;
 }
+/* single post end */
+
 .comment {
     margin: 50px auto 0;
     width: 140px;
@@ -329,6 +371,7 @@ code {
     -moz-border-radius: 3px;
     border-radius: 3px;
 }
+/* article content end */
 
 /**
  * GitHub Gist Theme
