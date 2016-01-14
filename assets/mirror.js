@@ -118,14 +118,16 @@ $(function($) {
 
     function get_issues() {
         _load(issues, {filter: 'created', page: page, per_page: config.per_page}, function(data, header) {
-            // save data
-            issues_data = issues_data.concat(data)
-
             if (page % 5 === 0) {
                 $('#posts').html(_template.issues(data))
+                // remove old data
+                issues_data = [];
             } else {
                 $('#posts').append(_template.issues(data))
             }
+
+            // save data
+            issues_data = issues_data.concat(data)
 
             if (header.indexOf('rel="next"') > 0) {
                 $('#next').css('display', 'block').removeAttr('disabled').text('More Posts')
