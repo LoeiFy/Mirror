@@ -1,5 +1,5 @@
 
-var _load = function(url, data, callback) {
+var _load = function(url, data, callback, error) {
 
     url = 'https://api.github.com'+ url; 
     data.access_token = config.token;
@@ -12,7 +12,7 @@ var _load = function(url, data, callback) {
             callback(data, xhr.getResponseHeader('link'))
         },
         error: function(a, b, c) {
-            alert('An error occurred ('+ a.status +')')
+            error ? error() : alert('An error occurred ('+ a.status +')')
         }
     })
 
@@ -155,6 +155,8 @@ $(function($) {
                     hljs.highlightBlock(block)
                 })
                 $('html').removeClass('loading')
+            }, function() {
+                location.href = ''
             })
         }
     } else {
