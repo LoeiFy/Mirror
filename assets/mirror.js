@@ -124,7 +124,7 @@ $(function($) {
             $('#posts').append(_template.issues(data))
 
             if (header.indexOf('rel="next"') > 0) {
-                $('#next').css('display', 'block').removeAttr('disabled').text('+')
+                $('#next').css('display', 'block').removeAttr('disabled').text('More Posts')
                 page ++;
             } else {
                 $('#next').hide()
@@ -135,7 +135,7 @@ $(function($) {
     }
 
     $('#next').on('click', function() {
-        $(this).attr('disabled', true).text('...')
+        $(this).attr('disabled', true).text('Loading...')
         get_issues()
     })
 
@@ -169,7 +169,7 @@ $(function($) {
         e = $(e.target);
 
         if (e.hasClass('comment') && e[0].tagName == 'BUTTON') {
-            e.text('Loading').attr('disabled', true)
+            e.text('Loading...').attr('disabled', true)
             _load(issues +'/'+ e.data('id') +'/comments', {}, function(data) {
                 e.parent().append(_template.comments(data))
                 e.remove()
@@ -208,7 +208,6 @@ $(function($) {
                 hljs.highlightBlock(block)
             })
 
-            $('body').data('scroll', window.scrollY)
             window.scrollTo(0, 0)
 
             setTimeout(function() {
@@ -221,7 +220,6 @@ $(function($) {
             $('#switch').removeClass('right')
 
             $('#main').css('height', 'auto')
-            window.scrollTo(0, parseInt($('body').data('scroll')))
             
             setTimeout(function() {
                 $('#post').html('')
