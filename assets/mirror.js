@@ -121,7 +121,11 @@ $(function($) {
             // save data
             issues_data = issues_data.concat(data)
 
-            $('#posts').append(_template.issues(data))
+            if (page % 5 === 0) {
+                $('#posts').html(_template.issues(data))
+            } else {
+                $('#posts').append(_template.issues(data))
+            }
 
             if (header.indexOf('rel="next"') > 0) {
                 $('#next').css('display', 'block').removeAttr('disabled').text('More Posts')
