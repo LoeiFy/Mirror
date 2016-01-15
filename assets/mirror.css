@@ -369,7 +369,10 @@ footer a {
 }
 .content h1, .content h2, .content h3, .content h4, .content h5 {
     font-weight: normal;
-    margin: 10px 0 0;
+    margin-bottom: 14px;
+}
+.content p {
+    margin-bottom: 10px;
 }
 .content h5 {
     font-size: 16px;
