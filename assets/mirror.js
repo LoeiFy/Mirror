@@ -114,11 +114,12 @@ $(function($) {
         user = '/users/'+ config.user,
         page = 1,
         current = 'lists',
-        issues_data = [];
+        issues_data = [],
+        paging = Math.ceil(30 / parseInt(config.per_page));
 
     function get_issues() {
         _load(issues, {filter: 'created', page: page, per_page: config.per_page}, function(data, header) {
-            if (page % 5 === 0) {
+            if (page % paging === 0) {
                 $('#posts').html(_template.issues(data))
                 // remove old data
                 issues_data = [];
@@ -129,7 +130,7 @@ $(function($) {
             // save data
             issues_data = issues_data.concat(data)
 
-            if (header.indexOf('rel="next"') > 0) {
+            if (header && header.indexOf('rel="next"') > 0) {
                 $('#next').css('display', 'block').removeAttr('disabled').text('More Posts')
                 page ++;
             } else {
@@ -225,13 +226,14 @@ $(function($) {
                 }, 400)
             }, 0)
         } else {
-            $('#switch').removeClass('right')
-
             $('#main').css('height', 'auto')
-            
+
             setTimeout(function() {
-                $('#post').html('')
-            }, 400)
+                $('#switch').removeClass('right')
+                setTimeout(function() {
+                    $('#post').html('')
+                }, 400)
+            }, 0)
         }
     })
 
