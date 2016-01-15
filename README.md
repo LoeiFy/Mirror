@@ -1,6 +1,6 @@
 # Mirror
 
-A blog powered by GitHub issues 
+A blog tool powered by GitHub issues 
 
 http://mirror.am0200.com/
 
@@ -29,8 +29,12 @@ var config = {
 
 - modify `CNAME`
 - get your `access_token` here: https://github.com/settings/tokens
-- make sure GitHub `access_token` only `public_repo` access
-- `access_token` should be split like `'aae23aearta'+'asashda6as7dsa7d'`
+- make sure the `access_token` only `public_repo` access
+- the `access_token` should be split like `'aae23aearta'+'asashda6as7dsa7d'`
+
+### License
+
+MIT
 
 ### Related
 
