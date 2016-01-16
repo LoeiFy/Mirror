@@ -140,7 +140,7 @@ footer a {
 /* back button */
 #back {
     display: inline-block;
-    margin-top: 30px;
+    margin-top: 10px;
     font-size: 14px;
     color: #697177;
     cursor: pointer;
