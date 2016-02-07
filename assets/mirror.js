@@ -118,7 +118,7 @@ $(function($) {
         paging = Math.ceil(30 / parseInt(config.per_page));
 
     function get_issues() {
-        _load(issues, {filter: 'created', page: page, per_page: config.per_page}, function(data, header) {
+        _load(issues, {creator: config.user, page: page, per_page: config.per_page}, function(data, header) {
             if (page % paging === 0) {
                 $('#posts').html(_template.issues(data))
                 // remove old data
