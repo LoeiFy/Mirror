@@ -8,7 +8,11 @@ var _load = function(url, data, callback, error) {
         type: 'GET',
         url: url,
         data: data,
+        headers: {
+            'Accept': 'application/vnd.github.v3.html'
+        },
         success: function(data, status, xhr) {
+            console.log(data)
             callback(data, xhr.getResponseHeader('link'))
         },
         error: function(a, b, c) {
