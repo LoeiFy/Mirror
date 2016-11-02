@@ -4,56 +4,22 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="google" content="notranslate" />
-<link rel="icon" href="favicon.png?0" />
+<link rel="icon" href="favicon.png" />
 <title> Mirror </title>
-<meta name="author" content="LoeiFy">
-<link rel="stylesheet" href="dist/mirror.css" />
-<script>
-
-// Define
-var config = {
-    user:       '',         // GitHub Username
-    repo:       '',         // GitHub Repo
-    token:      '',         // GitHub access_token
-    info:       '',         // About Yourself
-    per_page:   7,          // Per Page Posts Number
-    behance:    '',         // Behance URL
-    dribbble:   '',         // Dribbble URL
-    instagram:  ''          // Instagram URL
-}
-
-</script>
-<script src="dist/libs.js"></script>
-<script src="assets/mirror.js"></script>
+<script src="dist/build.js"></script>
 </head>
 
 <body>
 
-<div id="switch"><div class="transition">
+    <div id="user"></div>
 
-<div class="dib" id="main">
+    <div id="posts"></div>
 
-    <header id="user"></header>
-
-    <section id="posts"></section>
+    <div id="post"></div>
 
     <button id="next">More Posts</button>
 
-</div><!--
-
---><div class="dib">
-
-    <article id="post"></article>
-
-</div>
-
-</div></div>
-
-<footer>
-    <a href="https://github.com/LoeiFy/Mirror" target="_blank">Mirror</a> . 
-    Powered with <span>&hearts;</span> by 
-    <a href="https://github.com" target="_blank">GitHub</a> 
-</footer>
+    <a href="https://github.com/LoeiFy/Mirror" target="_blank">Mirror</a> 
 
 </body>
 
