@@ -36,6 +36,7 @@
     "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
-    "axios": "^0.15.2"
+    "axios": "^0.15.2",
+    "core-js": "^2.4.1"
   }
 }

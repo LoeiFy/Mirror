@@ -4,9 +4,12 @@ import * as api from './api'
 import template from './template'
 import { load, $ } from './util'
 
+import 'core-js/fn/array/find'
+
 document.addEventListener('DOMContentLoaded', function() {
 
     const { user, repo, per_page, about } = config
+    let issues_data = []
     let page = 1
 
     function get_issues() {
@@ -23,6 +26,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const build_list = (res) => {
             const { headers: { link }, data } = res
             $('#posts').innerHTML += template.issues(data)
+
+            issues_data = issues_data.concat(data)
 
             if (!link || link.indexOf('rel="next"') == -1) {
                 return $('#next').style.display = 'none'
@@ -53,6 +58,13 @@ document.addEventListener('DOMContentLoaded', function() {
     $('#next').addEventListener('click', (e) => {
         e.target.setAttribute('disabled', true)
         get_issues()
+    })
+
+    window.addEventListener('hashchange', () => {
+        const hash = location.hash.split('#')[1]
+        const issue = issues_data.find(issue => issue.number == hash)
+
+        $('#post').innerHTML = template.issue(issue)
     })
 
 })

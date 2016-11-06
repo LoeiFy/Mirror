@@ -67,7 +67,7 @@ export default {
     },
 
     issue(data) {
-        const { labels, number, html_url, comments, title, updated_at, body } = data
+        const { labels, number, html_url, comments, title, updated_at, body_html } = data
         let comment = `<a class="comment" href="${html_url}#new_comment_field" target="_blank">Add Comment</a>`
         let labels_html = ''
         let issue = ''
@@ -85,10 +85,10 @@ export default {
         issue = `
             <h1>${title}</h1>
             <p>Updated at<span>${timeFormat(updated_at)}</span></p>
-            <div>${body}</div>
+            <div>${body_html}</div>
         `
 
-        return { labels_html, comment, issue }
+        return issue + labels_html + comment
     } 
 
 }
