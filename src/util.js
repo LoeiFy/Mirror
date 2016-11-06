@@ -4,7 +4,7 @@ import config from './config'
 
 axios.defaults.headers.Accept = 'application/vnd.github.v3.html'
 
-const loadurl = ({url, data}) => {
+const loadurl = ({url, data = {} }) => {
     data.access_token = config.token
     return url +'?'+ Object.keys(data).map(key => key +'='+ data[key]).join('&')
 }

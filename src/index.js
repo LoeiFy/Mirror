@@ -18,10 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
             data: { creator: user, page, per_page }
         }
 
-        const _user = {
-            url: api.USER(user),
-            data: {}
-        }
+        const _user = { url: api.USER(user) }
 
         const build_list = (res) => {
             const { headers: { link }, data } = res
@@ -51,7 +48,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    if (!location.hash) {
+    if (location.hash) {
+        const hash = location.hash.split('#')[1]
+
+        load({ url: api.ISSUE(user, repo, hash) }).then(res => {
+            $('#post').innerHTML = template.issue(res[0].data)
+        })
+    } else {
         get_issues()
     }
 
@@ -65,6 +68,20 @@ document.addEventListener('DOMContentLoaded', function() {
         const issue = issues_data.find(issue => issue.number == hash)
 
         $('#post').innerHTML = template.issue(issue)
+    })
+
+    $('.container').addEventListener('click', (e) => {
+        e = e.target
+
+        if (!e.classList.contains('comment')) {
+            return
+        }
+
+        e.setAttribute('disabled', true)
+
+        load({ url: api.COMMENTS(user, repo, e.getAttribute('data-id')) }).then(res => {
+            e.parentNode.innerHTML += template.comments(res[0].data)
+        })
     })
 
 })

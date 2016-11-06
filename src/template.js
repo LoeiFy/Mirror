@@ -27,7 +27,7 @@ export default {
         let issue_url = data[0].html_url.split('#')[0]
 
         for (let i = 0; i < data.length; i ++) {
-            const { body, updated_at, user: { html_url, login, avatar_url } } = data[i]
+            const { body_html, updated_at, user: { html_url, login, avatar_url } } = data[i]
 
             comments += `
                 <li>
@@ -37,7 +37,7 @@ export default {
                     <div>
                         <a target="_blank" href="http://github.com/${login}">${login}</a>
                         <span>commented on ${timeFormat(updated_at)}</span>
-                        <p>${body}</p>   
+                        <p>${body_html}</p>   
                     </div>
                 </li>
             ` 
@@ -67,6 +67,10 @@ export default {
     },
 
     issue(data) {
+        if (!data) {
+            return ''
+        }
+
         const { labels, number, html_url, comments, title, updated_at, body_html } = data
         let comment = `<a class="comment" href="${html_url}#new_comment_field" target="_blank">Add Comment</a>`
         let labels_html = ''
