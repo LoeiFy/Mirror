@@ -4,7 +4,7 @@ import { timeFormat } from './util'
 export default {
 
     issues(data) {
-        const issues = ''
+        let issues = ''
 
         for (let i = 0; i < data.length; i ++) {
             const number = data[i].number

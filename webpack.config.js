@@ -1,6 +1,8 @@
 var webpack = require('webpack')
 var production = process.env.NODE_ENV === 'production'
 
+var plugins = []
+
 if (production) {
 	plugins = plugins.concat(
 		new webpack.optimize.UglifyJsPlugin({
@@ -10,6 +12,10 @@ if (production) {
 			}
 		})
 	)
+} else {
+    plugins = plugins.concat(
+        new webpack.HotModuleReplacementPlugin()
+    )
 }
 
 module.exports = {
