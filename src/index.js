@@ -4,6 +4,8 @@ import * as api from './api'
 import template from './template'
 import { load, $ } from './util'
 
+import './index.scss'
+
 import 'core-js/fn/array/find'
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -80,7 +82,10 @@ document.addEventListener('DOMContentLoaded', function() {
         e.setAttribute('disabled', true)
 
         load({ url: api.COMMENTS(user, repo, e.getAttribute('data-id')) }).then(res => {
-            e.parentNode.innerHTML += template.comments(res[0].data)
+            const pnd = e.parentNode
+
+            pnd.removeChild(e)
+            pnd.innerHTML += template.comments(res[0].data)
         })
     })
 

@@ -89,7 +89,7 @@ export default {
         issue = `
             <h1>${title}</h1>
             <p>Updated at<span>${timeFormat(updated_at)}</span></p>
-            <div>${body_html}</div>
+            <div class="markdown-body">${body_html}</div>
         `
 
         return issue + labels_html + comment
