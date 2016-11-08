@@ -54,7 +54,7 @@ export default {
     user(data) {
         const { html_url, blog, email, avatar_url, name } = data
 
-        let social = `<a target="_blank" href="${html_url}">${icon_email}</a>`
+        let social = `<a target="_blank" href="${html_url}">${icon_github}</a>`
         let about = '' 
 
         if (blog) {
@@ -62,7 +62,7 @@ export default {
         }
 
         if (email) {
-            social += `<a target="_blank" href="mailto:${email}">${icon_github}</a>`
+            social += `<a target="_blank" href="mailto:${email}">${icon_email}</a>`
         }
 
         if (config.about) {
