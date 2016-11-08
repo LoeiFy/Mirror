@@ -36,19 +36,19 @@ export default {
 
             comments += `
                 <li>
-                    <a href="${html_url}">
+                    <a class="author" href="${html_url}">
                         <img src="${avatar_url}" />
                     </a>
-                    <div>
+                    <div class="body">
                         <a target="_blank" href="http://github.com/${login}">${login}</a>
-                        <span>commented on ${timeFormat(updated_at)}</span>
-                        <p>${body_html}</p>   
+                        <span>${timeFormat(updated_at)}</span>
+                        <div class="markdown-body">${body_html}</div>   
                     </div>
                 </li>
             ` 
         }
 
-        return `<ul>${comments}</ul><a href="${issue_url}#new_comment_field">Add Comment</a>`
+        return `<ul class="comment_list">${comments}</ul><a class="button" href="${issue_url}#new_comment_field">Add Comment</a>`
     },
 
     user(data) {
@@ -83,7 +83,7 @@ export default {
         }
 
         const { labels, number, html_url, comments, title, updated_at, body_html } = data
-        let comment = `<a class="comment" href="${html_url}#new_comment_field" target="_blank">Add Comment</a>`
+        let comment = `<a class="button" href="${html_url}#new_comment_field" target="_blank">Add Comment</a>`
         let labels_html = ''
         let issue = ''
 
@@ -93,17 +93,22 @@ export default {
             labels_html += `<span style="background:#${color}">#${name}</span>`
         }
 
+        if (labels_html) {
+            labels_html = `<div class="labels">${labels_html}</div>`
+        }
+
         if (comments > 0) {
-            comment = `<button class="comment" data-id="${number}">View Comments</button>` 
+            comment = `<button class="comment button" data-id="${number}">View Comments</button>` 
         }
 
         issue = `
             <h1>${title}</h1>
             <p>Updated at<span>${timeFormat(updated_at)}</span></p>
+            ${labels_html}
             <div class="markdown-body">${body_html}</div>
         `
 
-        return issue + labels_html + comment
+        return issue + comment
     } 
 
 }
