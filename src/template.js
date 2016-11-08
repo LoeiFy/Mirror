@@ -1,5 +1,10 @@
 
+import config from './config'
 import { timeFormat } from './util'
+
+import icon_email from './svg/email.svg'
+import icon_link from './svg/link.svg'
+import icon_github from './svg/github.svg'
 
 export default {
 
@@ -49,19 +54,25 @@ export default {
     user(data) {
         const { html_url, blog, email, avatar_url, name } = data
 
-        let social = `<a target="_blank" class="icon-github" href="${html_url}"></a>`
+        let social = `<a target="_blank" href="${html_url}">${icon_email}</a>`
+        let about = '' 
 
         if (blog) {
-            social += `<a target="_blank" class="icon-link" href="${blog}"></a>`
+            social += `<a target="_blank" href="${blog}">${icon_link}</a>`
         }
 
         if (email) {
-            social += `<a target="_blank" class="icon-email" href="mailto:${email}"></a>`
+            social += `<a target="_blank" href="mailto:${email}">${icon_github}</a>`
+        }
+
+        if (config.about) {
+            about = `<p>${config.about}</p>`
         }
 
         return `
             <img src="${avatar_url}" />
             <h1>${name}</h1>
+            ${about}
             <div>${social}</div>
         `
     },

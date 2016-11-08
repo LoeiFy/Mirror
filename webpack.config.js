@@ -12,10 +12,6 @@ if (production) {
 			}
 		})
 	)
-} else {
-    plugins = plugins.concat(
-        new webpack.HotModuleReplacementPlugin()
-    )
 }
 
 module.exports = {
@@ -42,7 +38,11 @@ module.exports = {
 			{
 				test: /\.scss$/,
                 loader: 'style!css?sourceMap!postcss!sass?sourceMap'
-			}
+			},
+            {
+                test: /\.svg$/,
+                loader: 'svg-inline'
+            }
 		]
 	},
 

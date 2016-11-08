@@ -1,3 +1,48 @@
 
 @import "./reset.scss";
 @import "../node_modules/github-markdown-css/github-markdown.css";
+
+#user {
+    text-align: center;
+    line-height: 1;
+    max-width: 700px;
+    padding: 0 20px;
+    margin: 0 auto;
+
+    &:after {
+        display: block;
+        margin: 30px auto 0;
+        width: 50%;
+        content: '';
+        height: 1px;
+        background: #f1f1f1;
+    }
+
+    img {
+        padding: 4px;
+        border: 1px solid #eaeaea;
+        display: inline-block;
+        width: 100px;
+        height: 100px;
+        margin: 70px auto 0;
+        border-radius: 50%;
+    }
+
+    h1 {
+        font-size: 25px;
+        margin-top: 20px;
+        color: #335975;
+        font-weight: normal;
+    }
+
+    p {
+        margin-top: 14px;
+        color: #5E656B;
+        font-size: 14px;
+    }
+
+    a {
+        display: inline-block;
+        margin: 20px 8px; 
+    }
+}

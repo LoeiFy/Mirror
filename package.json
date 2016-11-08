@@ -38,6 +38,7 @@
   "dependencies": {
     "axios": "^0.15.2",
     "core-js": "^2.4.1",
-    "github-markdown-css": "^2.4.1"
+    "github-markdown-css": "^2.4.1",
+    "svg-inline-loader": "^0.7.1"
   }
 }
