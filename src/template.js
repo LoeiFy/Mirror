@@ -48,7 +48,7 @@ export default {
             ` 
         }
 
-        return `<ul class="comment_list">${comments}</ul><a class="button" href="${issue_url}#new_comment_field">Add Comment</a>`
+        return `<ul class="comment_list">${comments}</ul><a target="_blank" class="button" href="${issue_url}#new_comment_field">Add Comment</a>`
     },
 
     user(data) {

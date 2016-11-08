@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
         $('#post').innerHTML = template.issue(issue)
     })
 
-    $('.container').addEventListener('click', (e) => {
+    $('#post').addEventListener('click', (e) => {
         e = e.target
 
         if (!e.classList.contains('comment')) {
