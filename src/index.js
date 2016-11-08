@@ -5,6 +5,7 @@ import template from './template'
 import { load, $ } from './util'
 
 import './index.scss'
+import icon_back from './svg/back.svg'
 
 import 'core-js/fn/array/find'
 
@@ -13,6 +14,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const { user, repo, per_page, about } = config
     let issues_data = []
     let page = 1
+    let current = 'list'
+
+    function ready() {
+        document.body.parentNode.classList.remove('loading')
+        $('.right').innerHTML += get_back()
+    }
+
+    function get_back() {
+        let link = current == 'list' ? 'javascript:history.back()' : '/'
+        return `<a href="${link}">${icon_back}</a>`
+    }
 
     function get_issues() {
         const _issues = {
@@ -44,6 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
             load(_issues, _user).then(res => {
                 build_list(res[0])
                 build_user(res[1])
+                ready()
             })
         } else {
             load(_issues).then(res => build_list(res[0]))
@@ -51,10 +64,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (location.hash) {
+        current = 'single'
         const hash = location.hash.split('#')[1]
 
         load({ url: api.ISSUE(user, repo, hash) }).then(res => {
             $('#post').innerHTML = template.issue(res[0].data)
+            ready()
         })
     } else {
         get_issues()
@@ -67,6 +82,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     window.addEventListener('hashchange', () => {
         const hash = location.hash.split('#')[1]
+
+        if (!hash && current == 'single') {
+            return location.href = '/'
+        }
+
         const issue = issues_data.find(issue => issue.number == hash)
 
         $('#post').innerHTML = template.issue(issue)

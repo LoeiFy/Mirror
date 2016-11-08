@@ -2,6 +2,81 @@
 @import "./reset.scss";
 @import "../node_modules/github-markdown-css/github-markdown.css";
 
+html.loading {
+    height: 100%;
+    text-align: center;
+
+    body {
+        height: 100%;
+
+        &:before {
+            content: '';
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            animation: loading 1.5s linear forwards infinite;
+            display: inline-block;
+            border-top: 4px solid #0089fa;
+            border-right: 4px solid #ff002b;
+            border-bottom: 4px solid #ffa900;
+            border-left: 4px solid #00a753;
+            vertical-align: middle;
+        }
+
+        &:after {
+            content: '';
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+        }
+    }
+
+    .container {
+        display: none;
+    }
+}
+
+
+@keyframes loading {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.container {
+    height: 100%;
+    position: relative;
+}
+
+.left,
+.right {
+    width: 100%;
+    transition: all .5s cubic-bezier(.55,0,.1,1);
+    position: absolute;
+    top: 0;
+    background: #fff;
+}
+
+.right > a {
+    position: absolute;
+    right: 50%;
+    margin-right: 340px;
+    top: 72px;
+    width: 30px;
+    height: 30px;
+
+    path {
+        fill: #949fa9;
+    }
+}
+
+@media (max-width: 600px) {
+    .right > a {
+        top: 20px;
+        left: 20px;
+    }
+}
+
 #user {
     text-align: center;
     line-height: 1;
@@ -95,9 +170,9 @@
 
 #post {
     display: block;
-    margin: 30px auto 0;
+    margin: 70px auto 0;
     max-width: 600px;
-    padding: 0 20px;
+    padding: 0 20px 100px;
 
     & > h1 {
         font-size: 24px;
