@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function ready() {
         document.body.parentNode.classList.remove('loading')
+        document.body.classList.add(current)
         $('.right').innerHTML += get_back()
     }
 
