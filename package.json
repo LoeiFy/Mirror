@@ -4,7 +4,7 @@
   "description": "A blog tool powered by github issues",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --inline --hot --no-info",
+    "dev": "webpack-dev-server --inline --hot --no-info --host 172.16.5.9",
     "build": "NODE_ENV=production webpack --progress"
   },
   "repository": {
@@ -39,6 +39,7 @@
     "axios": "^0.15.2",
     "core-js": "^2.4.1",
     "github-markdown-css": "^2.4.1",
+    "smoothscroll-polyfill": "^0.3.4",
     "svg-inline-loader": "^0.7.1"
   }
 }

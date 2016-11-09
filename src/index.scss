@@ -4,6 +4,8 @@
 
 .container {
     position: relative;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 .left,
@@ -28,15 +30,29 @@
     }
 }
 
-.single .left,
+.single .left {
+    transform: translateX(-100%)
+}
 .list .right {
-    display: none;
+    transform: translateX(100%)
 }
 
-@media (max-width: 700px) {
-    .right > a {
-        top: 20px;
-        left: 20px;
+.container.post {
+    .left {
+        transform: translateX(-100%);
+    }
+
+    .right {
+        transform: translateX(0);
+    }
+}
+.container.single {
+    .left {
+        transform: translateX(0);
+    }
+
+    .right {
+        transform: translateX(100%);
     }
 }
 
@@ -319,3 +335,24 @@ a.button {
     }
 }
 
+@media (max-width: 700px) {
+    .right > a {
+        top: 20px;
+        left: 20px;
+    }
+
+    .comment_list {
+        .author {
+            width: 36px;
+            height: 36px;
+        }
+
+        li {
+            padding-left: 60px;
+        }
+
+        .body:before {
+            top: 16px;
+        }
+    }
+}

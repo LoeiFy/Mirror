@@ -8,6 +8,8 @@ import './index.scss'
 import icon_back from './svg/back.svg'
 
 import 'core-js/fn/array/find'
+import smoothscroll from 'smoothscroll-polyfill'
+smoothscroll.polyfill()
 
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -20,6 +22,12 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.parentNode.classList.remove('loading')
         document.body.classList.add(current)
         $('.right').innerHTML += get_back()
+
+        if (current == 'list') {
+            $('.container').style.height = $('.left').offsetHeight +'px'
+        } else {
+            $('.container').style.height = $('.right').offsetHeight +'px'
+        }
     }
 
     function get_back() {
@@ -38,6 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const build_list = (res) => {
             const { headers: { link }, data } = res
             $('#posts').innerHTML += template.issues(data)
+            $('.container').style.height = $('.left').offsetHeight +'px'
 
             issues_data = issues_data.concat(data)
 
@@ -88,12 +97,25 @@ document.addEventListener('DOMContentLoaded', function() {
             return location.href = '/'
         }
 
-        const issue = issues_data.find(issue => issue.number == hash)
+        if (hash) {
+            const issue = issues_data.find(issue => issue.number == hash)
+            $('#post').innerHTML = template.issue(issue)
 
-        $('#post').innerHTML = template.issue(issue)
+            setTimeout(() => { window.scroll({ top: 0, left: 0, behavior: 'smooth' }) }, 600)
+
+            $('.container').classList.remove('single')
+            $('.container').classList.add('post')
+            $('.container').style.height = $('.right').offsetHeight +'px'
+        } else {
+            $('#post').innerHTML = ''
+
+            $('.container').classList.remove('post')
+            $('.container').classList.add('single')
+            $('.container').style.height = $('.left').offsetHeight +'px'
+        }
     })
 
-    $('#post').addEventListener('click', (e) => {
+    $('.right').addEventListener('click', (e) => {
         e = e.target
 
         if (!e.classList.contains('comment')) {
@@ -107,6 +129,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
             pnd.removeChild(e)
             pnd.innerHTML += template.comments(res[0].data)
+
+            $('.container').style.height = $('.right').offsetHeight +'px'
         })
     })
 
