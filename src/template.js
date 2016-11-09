@@ -65,8 +65,8 @@ export default {
             social += `<a target="_blank" href="mailto:${email}">${icon_email}</a>`
         }
 
-        if (config.about) {
-            about = `<p>${config.about}</p>`
+        if (config.description) {
+            about = `<p>${config.description}</p>`
         }
 
         return `

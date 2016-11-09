@@ -13,7 +13,7 @@ smoothscroll.polyfill()
 
 document.addEventListener('DOMContentLoaded', function() {
 
-    const { user, repo, per_page, about } = config
+    const { user, repo, per_page } = config
     let issues_data = []
     let page = 1
     let current = 'list'

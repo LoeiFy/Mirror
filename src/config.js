@@ -1,6 +1,8 @@
 
 export default {
 
+    title: 'rorriM',
+
     user: 'LoeiFy',
 
     repo: 'Recordum',
@@ -9,6 +11,6 @@ export default {
 
     per_page: 2,
 
-    about: 'Lorem ipsum dolor sit amet'
+    description: 'Lorem ipsum dolor sit amet'
 
 }
