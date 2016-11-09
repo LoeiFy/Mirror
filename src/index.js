@@ -13,7 +13,7 @@ smoothscroll.polyfill()
 
 document.addEventListener('DOMContentLoaded', function() {
 
-    const { user, repo, per_page } = config
+    const { title, user, repo, per_page } = config
     let issues_data = []
     let page = 1
     let current = 'list'
@@ -79,9 +79,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         load({ url: api.ISSUE(user, repo, hash) }).then(res => {
             $('#post').innerHTML = template.issue(res[0].data)
+            document.title = res[0].data.title +' - '+ title
+
             ready()
         })
     } else {
+        document.title = title
+
         get_issues()
     }
 
@@ -100,6 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (hash) {
             const issue = issues_data.find(issue => issue.number == hash)
             $('#post').innerHTML = template.issue(issue)
+            document.title = issue.title +' - '+ title
 
             setTimeout(() => { window.scroll({ top: 0, left: 0, behavior: 'smooth' }) }, 600)
 
@@ -108,6 +113,7 @@ document.addEventListener('DOMContentLoaded', function() {
             $('.container').style.height = $('.right').offsetHeight +'px'
         } else {
             $('#post').innerHTML = ''
+            document.title = title
 
             $('.container').classList.remove('post')
             $('.container').classList.add('single')

@@ -6,6 +6,16 @@
     position: relative;
     width: 100%;
     overflow-x: hidden;
+
+    &:before {
+        border-top: 3px solid #e82d64;
+        content: '';
+        width: 96%;
+        display: block;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+    }
 }
 
 .left,
@@ -24,6 +34,10 @@
     top: 72px;
     width: 30px;
     height: 30px;
+
+    &:hover path {
+        fill: #5c646b;
+    }
 
     path {
         fill: #949fa9;
@@ -99,6 +113,10 @@
     a {
         display: inline-block;
         margin: 20px 8px; 
+
+        &:hover path {
+            fill: #363a42;
+        }
     }
 
     svg {
@@ -268,7 +286,7 @@ a.button {
         margin: 50px auto;
     }
 
-    li {
+    & > li {
         list-style: none;
         margin-top: 20px;
         position: relative;
@@ -347,7 +365,7 @@ a.button {
             height: 36px;
         }
 
-        li {
+        & > li {
             padding-left: 60px;
         }
 

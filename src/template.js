@@ -1,5 +1,4 @@
 
-import config from './config'
 import { timeFormat } from './util'
 
 import icon_email from './svg/email.svg'
@@ -52,7 +51,7 @@ export default {
     },
 
     user(data) {
-        const { html_url, blog, email, avatar_url, name } = data
+        const { html_url, blog, email, avatar_url, name, bio } = data
 
         let social = `<a target="_blank" href="${html_url}">${icon_github}</a>`
         let about = '' 
@@ -65,8 +64,8 @@ export default {
             social += `<a target="_blank" href="mailto:${email}">${icon_email}</a>`
         }
 
-        if (config.description) {
-            about = `<p>${config.description}</p>`
+        if (bio) {
+            about = `<p>${bio}</p>`
         }
 
         return `
