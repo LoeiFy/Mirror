@@ -1,12 +1,14 @@
 var webpack = require('webpack')
+var HtmlWebpackPlugin = require('html-webpack-plugin')
 var production = process.env.NODE_ENV === 'production'
+var forhtml = process.env.NODE_ENV === 'html'
 
 var plugins = []
 
 if (production) {
 	plugins = plugins.concat(
 		new webpack.optimize.UglifyJsPlugin({
-			mangle:   true,
+			mangle: true,
 			compress: {
 				warnings: false,
 			}
@@ -14,19 +16,32 @@ if (production) {
 	)
 }
 
+plugins = plugins.concat(
+     new HtmlWebpackPlugin({                        
+         filename: 'index.html',
+         template: './src/index.html',
+         inject: 'head',
+         hash: false,
+         minify: production ? {
+             removeComments: true,
+             minifyCSS: true,
+             collapseWhitespace: true
+         } : {}
+     })
+)
+
 module.exports = {
 
 	entry: {
-        build: './src/index.js'
+        build: forhtml ? './src/html.js' : './src/index.js'
     },
 
 	output: {
-		path: __dirname +'/dist/',
-        publicPath: 'dist/',
-		filename: 'build.js'
+        path: production ? 'dist' : '',
+		filename: production ? '[name].[hash].js' : '[name].js'
 	},
 
-	devtool: production ? false : 'source-map',
+	devtool: production || forhtml ? false : 'source-map',
 
 	module: {
 		loaders: [
