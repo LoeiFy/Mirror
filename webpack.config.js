@@ -6,14 +6,14 @@ var forhtml = process.env.NODE_ENV === 'html'
 var plugins = []
 
 if (production) {
-	plugins = plugins.concat(
-		new webpack.optimize.UglifyJsPlugin({
-			mangle: true,
-			compress: {
-				warnings: false,
-			}
-		})
-	)
+    plugins = plugins.concat(
+        new webpack.optimize.UglifyJsPlugin({
+            mangle: true,
+            compress: {
+                warnings: false,
+            }
+        })
+    )
 }
 
 plugins = plugins.concat(
@@ -32,34 +32,34 @@ plugins = plugins.concat(
 
 module.exports = {
 
-	entry: {
+    entry: {
         build: forhtml ? './src/html.js' : './src/index.js'
     },
 
-	output: {
+    output: {
         path: production ? 'dist' : '',
-		filename: production ? '[name].[hash].js' : '[name].js'
-	},
+        filename: production ? '[name].[hash].js' : '[name].js'
+    },
 
-	devtool: production || forhtml ? false : 'source-map',
+    devtool: production || forhtml ? false : 'source-map',
 
-	module: {
-		loaders: [
-			{
-				test: /\.js$/,
-				exclude: /node_modules/,
-				loader: 'babel'
-			},
-			{
-				test: /\.scss$/,
+    module: {
+        loaders: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'babel'
+            },
+            {
+                test: /\.scss$/,
                 loader: production ? 'style!css!postcss!sass' : 'style!css?sourceMap!postcss!sass?sourceMap'
-			},
+            },
             {
                 test: /\.svg$/,
                 loader: 'svg-inline'
             }
-		]
-	},
+        ]
+    },
 
     babel: {
         presets: ['es2015']
@@ -69,5 +69,5 @@ module.exports = {
         require('autoprefixer')
     ],
     
-	plugins: plugins
+    plugins: plugins
 }
