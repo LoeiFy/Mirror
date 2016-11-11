@@ -2,10 +2,11 @@
   "name": "Mirror",
   "version": "0.1.0",
   "description": "A blog tool powered by github issues",
-  "main": "index.js",
+  "main": "./src/index.js",
   "scripts": {
     "dev": "NODE_ENV=html webpack --progress && webpack-dev-server --inline --hot --no-info",
-    "build": "NODE_ENV=production webpack --progress"
+    "build": "npm run clear && NODE_ENV=production webpack --progress && cp favicon.png dist",
+    "clear": "rm -f -R dist build.js index.html"
   },
   "repository": {
     "type": "git",
