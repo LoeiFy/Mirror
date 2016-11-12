@@ -1,5 +1,4 @@
 
-import config from './config'
 import * as api from './api'
 import template from './template'
 import { load, $ } from './util'
@@ -13,7 +12,7 @@ smoothscroll.polyfill()
 
 document.addEventListener('DOMContentLoaded', function() {
 
-    const { title, user, repo, per_page } = config
+    const { title, user, repo, per_page } = window.config
     let issues_data = []
     let page = 1
     let current = 'list'

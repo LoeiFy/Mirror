@@ -2,6 +2,7 @@ var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var production = process.env.NODE_ENV === 'production'
 var forhtml = process.env.NODE_ENV === 'html'
+var config = require('./src/config.js')
 
 var plugins = []
 
@@ -20,6 +21,7 @@ plugins = plugins.concat(
      new HtmlWebpackPlugin({                        
          filename: 'index.html',
          template: './src/index.html',
+         config: production ? '$config' : JSON.stringify(config),
          inject: 'head',
          hash: false,
          minify: production ? {

@@ -28,7 +28,7 @@ program
     .action(function(folder) {
         var path = folder ? '/'+ folder : ''
 
-        fs.copySync('./assets', process.cwd() + path)
+        fs.copySync(__dirname +'/dist', process.cwd() + path)
         fs.outputFileSync(process.cwd() + path +'/.gitignore', ignore)
         fs.outputFileSync(process.cwd() + path +'/config.yml', config)
         fs.outputFileSync(process.cwd() + path +'/token.txt', token)
@@ -41,13 +41,13 @@ program
     .description('Build the site')
     .action(function() {
         try {
-            var token = fs.readFileSync(process.cwd() +'/token.txt')
+            var token = fs.readFileSync(process.cwd() +'/token.txt', 'utf-8')
         } catch(e) {
             return console.log(e)
         }
 
         var config = yaml.load(process.cwd() +'/config.yml')
-        var index = fs.readFileSync(process.cwd() +'/index.html')
+        var index = fs.readFileSync(process.cwd() +'/index.html', 'utf-8')
 
         if (!config.title || !config.user || !config.repo || !config.per_page || !token) {
             return console.log('Blog config error')
