@@ -4,7 +4,7 @@ import axios from 'axios'
 axios.defaults.headers.Accept = 'application/vnd.github.v3.html'
 
 const loadurl = ({url, data = {} }) => {
-    data.access_token = window.config.token
+    data.access_token = window.config.token.split('#').join('')
     return url +'?'+ Object.keys(data).map(key => key +'='+ data[key]).join('&')
 }
 

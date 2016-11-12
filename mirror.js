@@ -53,7 +53,7 @@ program
             return console.log('Blog config error')
         }
 
-        config.token = token
+        config.token = token.charAt(0) +'#'+ token.substr(1)
         index = index.replace('$config', JSON.stringify(config))
         fs.outputFileSync(process.cwd() +'/index.html', index)
 
