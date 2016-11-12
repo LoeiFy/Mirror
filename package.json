@@ -4,7 +4,7 @@
   "description": "A blog tool powered by github issues",
   "main": "./mirror.js",
   "bin": {
-      "mirror": "./mirror"
+    "mirror": "./mirror"
   },
   "scripts": {
     "dev": "NODE_ENV=html webpack --progress && webpack-dev-server --inline --hot --no-info",

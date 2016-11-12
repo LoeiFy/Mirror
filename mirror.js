@@ -4,6 +4,7 @@
 
 var program = require('commander')
 var fs = require('fs-extra')
+var yaml = require('yamljs')
 
 var commands = 'version init build'
 var ignore = 'Thumbs.db\n.DS_Store\n*.swp\ntoken.txt'
@@ -25,7 +26,6 @@ program
     .command('init [folder]')
     .description('Create a new Mirror blog')
     .action(function(folder) {
-        var name = folder || process.cwd().substring(process.cwd().lastIndexOf('/') + 1) 
         var path = folder ? '/'+ folder : ''
 
         fs.copySync('./assets', process.cwd() + path)
@@ -33,7 +33,31 @@ program
         fs.outputFileSync(process.cwd() + path +'/config.yml', config)
         fs.outputFileSync(process.cwd() + path +'/token.txt', token)
 
-        console.log('Success, modify "config.yml" to configure your site')
+        console.log('Success, modify "config.yml" to configure your blog')
+    })
+
+program
+    .command('build')
+    .description('Build the site')
+    .action(function() {
+        try {
+            var token = fs.readFileSync(process.cwd() +'/token.txt')
+        } catch(e) {
+            return console.log(e)
+        }
+
+        var config = yaml.load(process.cwd() +'/config.yml')
+        var index = fs.readFileSync(process.cwd() +'/index.html')
+
+        if (!config.title || !config.user || !config.repo || !config.per_page || !token) {
+            return console.log('Blog config error')
+        }
+
+        config.token = token
+        index = index.replace('$config', JSON.stringify(config))
+        fs.outputFileSync(process.cwd() +'/index.html', index)
+
+        console.log('Success build the blog')
     })
 
 program.parse(process.argv)
