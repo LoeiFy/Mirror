@@ -6,6 +6,8 @@
 .DS_Store
 node_modules/*
 
+token.txt
+
 index.html
 !dist/index.html
 

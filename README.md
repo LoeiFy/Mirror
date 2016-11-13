@@ -67,6 +67,26 @@ push all files to a repo `gh-pages` branch
 
 and everything done, now you can write your blog on github issues :) 
 
+## Development
+
+fork and install modules
+
+```bash
+$ npm install
+```
+
+local test
+
+```bash
+$ npm run dev
+```
+
+build
+
+```bash
+$ npm run build
+```
+
 ## License
 
 MIT
