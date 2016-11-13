@@ -5,3 +5,8 @@
 *~
 .DS_Store
 node_modules/*
+
+index.html
+!dist/index.html
+
+build.js
