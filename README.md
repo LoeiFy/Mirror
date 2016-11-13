@@ -11,7 +11,7 @@ https://github.com/LoeiFy/Recordum
 ## Install
 
 ```bash
-$ sudo npm install mirror -g
+$ sudo npm install Mirror -g
 ```
 
 ## Usage
