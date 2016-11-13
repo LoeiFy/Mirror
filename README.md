@@ -4,42 +4,71 @@ A blog tool powered by GitHub issues
 
 http://mirror.am0200.com/
 
-#### Inspired by
+## Install
 
-https://github.com/wuhaoworld/github-issues-blog
-
-### Usage
-
-- fork and add new branch `gh-pages`
-- modify `index.html`
-
-```js
-// Define
-var config = {
-    user:       '',         // GitHub Username
-    repo:       '',         // GitHub Repo
-    token:      '',         // GitHub access_token
-    info:       '',         // About Yourself
-    per_page:   7,          // Per Page Posts Number
-    behance:    '',         // Behance URL
-    dribbble:   '',         // Dribbble URL
-    instagram:  ''          // Instagram URL
-}
+```bash
+$ sudo npm install mirror -g
 ```
 
-- modify `CNAME`
-- get your `access_token` here: https://github.com/settings/tokens
-- make sure the `access_token` only `public_repo` access
-- the `access_token` should be split like `'aae23aearta'+'asashda6as7dsa7d'`
+## Usage
 
-### License
+### create new blog
+
+```bash
+$ cd newblog
+$ mirror init 
+```
+
+or 
+
+```bash
+$ mirror init newblog
+```
+
+### config your blog
+
+modify `config.yml`
+
+```yml
+# site title
+title: Mirror
+
+# github user: your github username
+user: LoeiFy
+
+# issue repo: your issues repo, all blog content from here 
+repo: Recordum
+
+# per page
+per_page: 10
+```
+
+add your access token in `token.txt`
+
+https://github.com/settings/tokens
+
+![token](https://cloud.githubusercontent.com/assets/2193211/20244206/d4d72a80-a9b2-11e6-9c0d-bb557cab90ec.png)
+
+### build the blog
+
+```bash
+$ mirror build
+```
+
+### push your blog
+
+you can add domain in `CNAME`
+
+push all files to a repo `gh-pages` branch
+
+and everything done, now you can write your blog in github issues :) 
+
+## License
 
 MIT
 
-### Related
+## Related
 
 ![mirror](https://cloud.githubusercontent.com/assets/2193211/12321915/c66d8b12-baeb-11e5-9612-b188f5272e3b.jpg)
 
 `Mirror` by `DJ Okawari`
-
-
