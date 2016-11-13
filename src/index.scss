@@ -2,20 +2,17 @@
 @import "./reset.scss";
 @import "../node_modules/github-markdown-css/github-markdown.css";
 
+body:before {
+    border-top: 3px solid #e82d64;
+    content: '';
+    width: 96%;
+    display: block;
+    margin: 0 auto;
+}
+
 .container {
     position: relative;
     width: 100%;
-    overflow-x: hidden;
-
-    &:before {
-        border-top: 3px solid #e82d64;
-        content: '';
-        width: 96%;
-        display: block;
-        margin: 0 auto;
-        position: relative;
-        z-index: 1;
-    }
 }
 
 .left,
@@ -48,7 +45,7 @@
     transform: translateX(-100%)
 }
 .list .right {
-    transform: translateX(100%)
+    transform: translateX(-100%)
 }
 
 .container.post {
@@ -66,7 +63,7 @@
     }
 
     .right {
-        transform: translateX(100%);
+        transform: translateX(-100%);
     }
 }
 
