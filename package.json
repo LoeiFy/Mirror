@@ -4,13 +4,17 @@
   "description": "A blog tool powered by github issues",
   "main": "./mirror.js",
   "bin": {
-    "mirror": "./mirror"
+    "mirror": "./mirror.js"
   },
   "scripts": {
     "dev": "NODE_ENV=html webpack --progress && webpack-dev-server --inline --hot --no-info",
     "build": "npm run clear && NODE_ENV=production webpack --progress && cp favicon.png dist",
     "clear": "rm -f -R dist build.js index.html"
   },
+  "files": [
+    "dist",
+    "mirror.js"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/LoeiFy/Mirror.git"
@@ -18,9 +22,10 @@
   "keywords": [
     "blog",
     "issues",
+    "github",
     "personal"
   ],
-  "author": "LoeiFy",
+  "author": "LoeiFy@gmail.com",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/LoeiFy/Mirror/issues"
@@ -46,6 +51,7 @@
     "svg-inline-loader": "^0.7.1"
   },
   "dependencies": {
+    "commander": "^2.9.0",
     "fs-extra": "^1.0.0",
     "yamljs": "^0.2.8"
   }

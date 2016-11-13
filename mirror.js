@@ -9,7 +9,6 @@ var yaml = require('yamljs')
 var commands = 'version init build'
 var ignore = 'Thumbs.db\n.DS_Store\n*.swp\ntoken.txt'
 var config = '# site title\ntitle:\n\n# github user\nuser:\n\n# issue repo\nrepo:\n\n# per page\nper_page:'
-var token = ''
 
 program
     .allowUnknownOption()
@@ -31,7 +30,8 @@ program
         fs.copySync(__dirname +'/dist', process.cwd() + path)
         fs.outputFileSync(process.cwd() + path +'/.gitignore', ignore)
         fs.outputFileSync(process.cwd() + path +'/config.yml', config)
-        fs.outputFileSync(process.cwd() + path +'/token.txt', token)
+        fs.outputFileSync(process.cwd() + path +'/token.txt', '')
+        fs.outputFileSync(process.cwd() + path +'/CNAME', '')
 
         console.log('Success, modify "config.yml" to configure your blog')
     })
@@ -53,6 +53,7 @@ program
             return console.log('Blog config error')
         }
 
+        token = token.replace(/[\r\n]+/g, '')
         config.token = token.charAt(0) +'#'+ token.substr(1)
         index = index.replace('$config', JSON.stringify(config))
         fs.outputFileSync(process.cwd() +'/index.html', index)
