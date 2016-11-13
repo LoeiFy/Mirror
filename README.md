@@ -4,6 +4,10 @@ A blog tool powered by GitHub issues
 
 http://mirror.am0200.com/
 
+content from:
+
+https://github.com/LoeiFy/Recordum
+
 ## Install
 
 ```bash
@@ -61,7 +65,7 @@ you can add domain in `CNAME`
 
 push all files to a repo `gh-pages` branch
 
-and everything done, now you can write your blog in github issues :) 
+and everything done, now you can write your blog on github issues :) 
 
 ## License
 
