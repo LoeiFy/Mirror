@@ -6,7 +6,7 @@ http://mirror.am0200.com/
 
 content from:
 
-https://github.com/LoeiFy/Recordum
+https://github.com/LoeiFy/Recordum/issues
 
 ## Install
 
