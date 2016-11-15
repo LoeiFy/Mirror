@@ -18,7 +18,7 @@ body:before {
 .left,
 .right {
     width: 100%;
-    transition: all .5s cubic-bezier(.55,0,.1,1);
+    transition: all .5s cubic-bezier(.55, 0, .1, 1);
     position: absolute;
     top: 0;
     background: #fff;
@@ -49,10 +49,6 @@ body:before {
 }
 
 .container.post {
-    .left {
-        transform: translateX(-100%);
-    }
-
     .right {
         transform: translateX(0);
     }

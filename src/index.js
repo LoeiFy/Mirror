@@ -100,11 +100,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
             setTimeout(() => { window.scroll({ top: 0, left: 0, behavior: 'smooth' }) }, 600)
 
-            $('.container').classList.remove('single')
-            $('.container').classList.add('post')
+            setTimeout(() => {
+                $('.container').classList.remove('single')
+                $('.container').classList.add('post')
+            }, 0)
         } else {
-            $('#post').innerHTML = ''
-            document.title = title
+            setTimeout(() => {
+                $('#post').innerHTML = ''
+                document.title = title
+            }, 600)
 
             $('.container').classList.remove('post')
             $('.container').classList.add('single')

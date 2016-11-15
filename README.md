@@ -6,12 +6,12 @@ http://mirror.am0200.com/
 
 content from:
 
-https://github.com/LoeiFy/Recordum
+https://github.com/LoeiFy/Recordum/issues
 
 ## Install
 
 ```bash
-$ sudo npm install mirror -g
+$ sudo npm install Mirror -g
 ```
 
 ## Usage
@@ -66,6 +66,26 @@ you can add domain in `CNAME`
 push all files to a repo `gh-pages` branch
 
 and everything done, now you can write your blog on github issues :) 
+
+## Development
+
+fork and install modules
+
+```bash
+$ npm install
+```
+
+local test
+
+```bash
+$ npm run dev
+```
+
+build
+
+```bash
+$ npm run build
+```
 
 ## License
 
