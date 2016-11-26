@@ -13,6 +13,11 @@ smoothscroll.polyfill()
 document.addEventListener('DOMContentLoaded', function() {
 
     const { title, user, repo, per_page } = window.config
+
+    if (!title || !user || !repo || !per_page) {
+        alert('Missing configuration information')
+    }
+
     let issues_data = []
     let page = 1
     let current = 'list'
@@ -133,3 +138,5 @@ document.addEventListener('DOMContentLoaded', function() {
     })
 
 })
+
+console.log("%c Github %c","background:#24272A; color:#ffffff","","https://github.com/LoeiFy/Mirror")

@@ -6,6 +6,13 @@
 <meta name="google" content="notranslate" />
 <link rel="icon" href="favicon.png" />
 <title> Mirror </title>
+<script>
+
+// blog config here
+// token should be separated by '#'. example: 5#c31bffc137f44faf7efc4a84da827g7ca2cfeaa
+var config = <%= htmlWebpackPlugin.options.config %>
+
+</script>
 
 <style>
 html.loading { height: 100%; text-align: center; }
@@ -35,9 +42,6 @@ html.loading .container { display: none; }
 @keyframes loading { 100% { transform: rotate(360deg) } }
 @-webkit-keyframes loading { 100% { -webkit-transform: rotate(360deg) } }
 </style>
-
-<script>var config = <%= htmlWebpackPlugin.options.config %></script>
-
 </head>
 
 <body>

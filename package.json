@@ -1,6 +1,6 @@
 {
   "name": "Mirror",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A blog tool powered by github issues",
   "main": "./mirror.js",
   "bin": {
@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "NODE_ENV=html webpack --progress && webpack-dev-server --inline --hot --no-info --host 0.0.0.0",
     "build": "npm run clear && NODE_ENV=production webpack --progress && cp favicon.png dist",
+    "release": "npm run clear && NODE_ENV=npm webpack --progress && cp favicon.png dist",
     "clear": "rm -f -R dist build.js index.html"
   },
   "files": [
