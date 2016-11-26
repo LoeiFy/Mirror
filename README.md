@@ -10,13 +10,15 @@ https://github.com/LoeiFy/Recordum/issues
 
 ## Install
 
+there are two ways to install the blog
+
+### 1. use npm
+
 ```bash
 $ sudo npm install Mirror -g
 ```
 
-## Usage
-
-### create new blog
+> create
 
 ```bash
 $ cd newblog
@@ -29,7 +31,7 @@ or
 $ mirror init newblog
 ```
 
-### config your blog
+> configure
 
 modify `config.yml`
 
@@ -53,13 +55,28 @@ https://github.com/settings/tokens
 
 ![token](https://cloud.githubusercontent.com/assets/2193211/20244206/d4d72a80-a9b2-11e6-9c0d-bb557cab90ec.png)
 
-### build the blog
+> build
 
 ```bash
 $ mirror build
 ```
+### 2. just copy and configure
 
-### push your blog
+fork the repo and copy all the files in `dist`
+
+configure `index.html`
+
+```html
+<script>
+
+// blog config here
+// token should be separated by '#'. example: 5#c31bffc137f44faf7efc4a84da827g7ca2cfeaa
+var config = {"title":"","user":"","repo":"","token":"","per_page":""}
+
+</script>
+```
+
+## pulish your blog
 
 you can add domain in `CNAME`
 
