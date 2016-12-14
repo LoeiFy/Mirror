@@ -8,17 +8,15 @@ content from:
 
 https://github.com/LoeiFy/Recordum/issues
 
-## Install
+## How to use
 
-there are two ways to install the blog
-
-### 1. use npm
+### install
 
 ```bash
 $ sudo npm install Mirror -g
 ```
 
-> create
+### create
 
 ```bash
 $ cd newblog
@@ -31,7 +29,7 @@ or
 $ mirror init newblog
 ```
 
-> configure
+### configure
 
 modify `config.yml`
 
@@ -55,18 +53,21 @@ https://github.com/settings/tokens
 
 ![token](https://cloud.githubusercontent.com/assets/2193211/20244206/d4d72a80-a9b2-11e6-9c0d-bb557cab90ec.png)
 
-> build
+### build
 
 ```bash
 $ mirror build
 ```
-### 2. just copy and configure
 
-fork the repo and copy all the files in `dist`
+## Not installed Node.js ?
 
-configure `index.html`
+ok, you can download the `zip` and configure quickly 
+
+https://github.com/LoeiFy/Mirror/releases/download/v0.1.2/mirror_0.1.2.zip
 
 ```html
+<!-- index.html -->
+
 <script>
 
 // blog config here
@@ -76,7 +77,7 @@ var config = {"title":"","user":"","repo":"","token":"","per_page":""}
 </script>
 ```
 
-## pulish your blog
+### pulish your blog
 
 you can add domain in `CNAME`
 
