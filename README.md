@@ -59,6 +59,14 @@ https://github.com/settings/tokens
 $ mirror build
 ```
 
+### pulish your blog
+
+you can add domain in `CNAME`
+
+push all files to a repo `gh-pages` branch
+
+and everything done, now you can write your blog on github issues :) 
+
 ## Not installed Node.js ?
 
 ok, you can download the `zip` and configure quickly 
@@ -76,14 +84,6 @@ var config = {"title":"","user":"","repo":"","token":"","per_page":""}
 
 </script>
 ```
-
-### pulish your blog
-
-you can add domain in `CNAME`
-
-push all files to a repo `gh-pages` branch
-
-and everything done, now you can write your blog on github issues :) 
 
 ## Development
 
