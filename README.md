@@ -8,15 +8,15 @@ content from:
 
 https://github.com/LoeiFy/Recordum/issues
 
-## Install
+## How to use
+
+### install
 
 ```bash
 $ sudo npm install Mirror -g
 ```
 
-## Usage
-
-### create new blog
+### create
 
 ```bash
 $ cd newblog
@@ -29,7 +29,7 @@ or
 $ mirror init newblog
 ```
 
-### config your blog
+### configure
 
 modify `config.yml`
 
@@ -53,19 +53,37 @@ https://github.com/settings/tokens
 
 ![token](https://cloud.githubusercontent.com/assets/2193211/20244206/d4d72a80-a9b2-11e6-9c0d-bb557cab90ec.png)
 
-### build the blog
+### build
 
 ```bash
 $ mirror build
 ```
 
-### push your blog
+### pulish your blog
 
 you can add domain in `CNAME`
 
 push all files to a repo `gh-pages` branch
 
 and everything done, now you can write your blog on github issues :) 
+
+## Not installed Node.js ?
+
+ok, you can download the `zip` and configure quickly 
+
+https://github.com/LoeiFy/Mirror/releases/download/v0.1.2/mirror_0.1.2.zip
+
+```html
+<!-- index.html -->
+
+<script>
+
+// blog config here
+// token should be separated by '#'. example: 5#c31bffc137f44faf7efc4a84da827g7ca2cfeaa
+var config = {"title":"","user":"","repo":"","token":"","per_page":""}
+
+</script>
+```
 
 ## Development
 
