@@ -11,7 +11,6 @@ import smoothscroll from 'smoothscroll-polyfill'
 smoothscroll.polyfill()
 
 document.addEventListener('DOMContentLoaded', function() {
-
     const { title, user, repo, per_page } = window.config
 
     if (!title || !user || !repo || !per_page) {
@@ -21,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let issues_data = []
     let page = 1
     let current = 'list'
+    let scrollY = 0
 
     function ready() {
         document.body.parentNode.classList.remove('loading')
@@ -108,13 +108,22 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => {
                 $('.container').classList.remove('single')
                 $('.container').classList.add('post')
+                $('.left').style.display = 'none'
             }, 0)
+
+            scrollY = window.scrollY
         } else {
             setTimeout(() => {
                 $('#post').innerHTML = ''
-                document.title = title
-            }, 600)
+                $('.left').style.height = 'auto'
+                setTimeout(() => {
+                    window.scroll({ top: scrollY, left: 0, behavior: 'smooth' })
+                }, 100)
+            }, 500)
 
+            document.title = title
+            $('.left').style.display = 'block'
+            $('.left').style.height = window.innerHeight +'px'
             $('.container').classList.remove('post')
             $('.container').classList.add('single')
         }
