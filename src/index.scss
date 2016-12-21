@@ -3,7 +3,7 @@
 @import "../node_modules/github-markdown-css/github-markdown.css";
 
 body:before {
-    border-top: 3px solid #e82d64;
+    border-top: 3px solid #3f4d56;
     content: '';
     width: 96%;
     display: block;
@@ -51,6 +51,9 @@ body:before {
 .container.post {
     .right {
         transform: translateX(0);
+    }
+    .left {
+        display: none;
     }
 }
 .container.single {
@@ -185,7 +188,7 @@ body:before {
     .labels {
         margin-top: 20px;
 
-        span {
+        a {
             color: #fff;
             font-size: 13px;
             padding: 3px 8px 4px;

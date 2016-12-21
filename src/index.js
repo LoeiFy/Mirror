@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const { title, user, repo, per_page } = window.config
 
     if (!title || !user || !repo || !per_page) {
-        alert('Missing configuration information')
+        return alert('Missing configuration information')
     }
 
     let issues_data = []
