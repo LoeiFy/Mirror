@@ -102,28 +102,32 @@ document.addEventListener('DOMContentLoaded', function() {
             const issue = issues_data.find(issue => issue.number == hash)
             $('#post').innerHTML = template.issue(issue)
             document.title = issue.title +' - '+ title
+            scrollY = window.scrollY
 
-            setTimeout(() => { window.scroll({ top: 0, left: 0, behavior: 'smooth' }) }, 600)
+            let time = 0
 
-            setTimeout(() => {
+            if (scrollY > 0) {
+                window.scroll({ top: 0, left: 0, behavior: 'smooth' }) 
+                time = 500
+            }
+
+            setTimeout(() => { 
+                $('.left').style.display = 'none'
+            }, (time + 500))
+
+            setTimeout(() => { 
                 $('.container').classList.remove('single')
                 $('.container').classList.add('post')
-                $('.left').style.display = 'none'
-            }, 0)
-
-            scrollY = window.scrollY
+            }, time)
         } else {
-            setTimeout(() => {
-                $('#post').innerHTML = ''
-                $('.left').style.height = 'auto'
-                setTimeout(() => {
-                    window.scroll({ top: scrollY, left: 0, behavior: 'smooth' })
-                }, 100)
-            }, 500)
-
             document.title = title
             $('.left').style.display = 'block'
-            $('.left').style.height = window.innerHeight +'px'
+
+            setTimeout(() => {
+                $('#post').innerHTML = ''
+                window.scroll({ top: scrollY, left: 0, behavior: 'smooth' })
+            }, 500)
+
             $('.container').classList.remove('post')
             $('.container').classList.add('single')
         }

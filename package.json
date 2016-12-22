@@ -1,8 +1,7 @@
 {
   "name": "Mirror",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "A blog tool powered by github issues",
-  "main": "./mirror.js",
   "bin": {
     "mirror": "./mirror.js"
   },
