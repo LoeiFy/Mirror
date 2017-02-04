@@ -17,10 +17,14 @@ document.addEventListener('DOMContentLoaded', function() {
         return alert('Missing configuration information')
     }
 
+    let { authors } = window.config
     let issues_data = []
     let page = 1
     let current = 'list'
     let scrollY = 0
+
+    authors = authors.split(',')
+    authors.push(user)
 
     function ready() {
         document.body.parentNode.classList.remove('loading')
@@ -36,16 +40,21 @@ document.addEventListener('DOMContentLoaded', function() {
     function get_issues() {
         const _issues = {
             url: api.ISSUES(user, repo),
-            data: { creator: user, page, per_page }
+            data: { page, per_page }
         }
 
         const _user = { url: api.USER(user) }
 
         const build_list = (res) => {
             const { headers: { link }, data } = res
-            $('#posts').innerHTML += template.issues(data)
+            const issues = data.filter(issue => {
+                const { user: { login } } = issue
+                return authors.indexOf(login) > -1
+            })
 
-            issues_data = issues_data.concat(data)
+            $('#posts').innerHTML += template.issues(issues)
+
+            issues_data = issues_data.concat(issues)
 
             if (!link || link.indexOf('rel="next"') == -1) {
                 return $('#next').style.display = 'none'

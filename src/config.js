@@ -9,6 +9,8 @@ module.exports = {
 
     token: '',
 
-    per_page: 2
+    authors: '',
+
+    per_page: 3
 
 }
