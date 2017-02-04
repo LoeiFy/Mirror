@@ -5,6 +5,8 @@ import icon_email from './svg/email.svg'
 import icon_link from './svg/link.svg'
 import icon_github from './svg/github.svg'
 
+const { user, repo } = window.config
+
 export default {
 
     issues(data) {
@@ -89,7 +91,7 @@ export default {
         for (let i = 0; i < labels.length; i ++) {
             const { color, name } = labels[i]
 
-            labels_html += `<span style="background:#${color}">#${name}</span>`
+            labels_html += `<a target="_blank" href="https://github.com/${user}/${repo}/labels/${name}" style="background:#${color}">#${name}</a>`
         }
 
         if (labels_html) {

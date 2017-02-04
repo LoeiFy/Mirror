@@ -71,7 +71,7 @@ and everything done, now you can write your blog on github issues :)
 
 ok, you can download the `zip` and configure quickly 
 
-https://github.com/LoeiFy/Mirror/releases/download/v0.1.2/mirror_0.1.2.zip
+https://github.com/LoeiFy/Mirror/releases/download/v0.1.5/Mirror.zip
 
 ```html
 <!-- index.html -->

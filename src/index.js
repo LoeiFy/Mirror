@@ -11,16 +11,16 @@ import smoothscroll from 'smoothscroll-polyfill'
 smoothscroll.polyfill()
 
 document.addEventListener('DOMContentLoaded', function() {
-
     const { title, user, repo, per_page } = window.config
 
     if (!title || !user || !repo || !per_page) {
-        alert('Missing configuration information')
+        return alert('Missing configuration information')
     }
 
     let issues_data = []
     let page = 1
     let current = 'list'
+    let scrollY = 0
 
     function ready() {
         document.body.parentNode.classList.remove('loading')
@@ -102,18 +102,31 @@ document.addEventListener('DOMContentLoaded', function() {
             const issue = issues_data.find(issue => issue.number == hash)
             $('#post').innerHTML = template.issue(issue)
             document.title = issue.title +' - '+ title
+            scrollY = window.scrollY
 
-            setTimeout(() => { window.scroll({ top: 0, left: 0, behavior: 'smooth' }) }, 600)
+            let time = 0
 
-            setTimeout(() => {
+            if (scrollY > 0) {
+                window.scroll({ top: 0, left: 0, behavior: 'smooth' }) 
+                time = 500
+            }
+
+            setTimeout(() => { 
+                $('.left').style.display = 'none'
+            }, (time + 500))
+
+            setTimeout(() => { 
                 $('.container').classList.remove('single')
                 $('.container').classList.add('post')
-            }, 0)
+            }, time)
         } else {
+            document.title = title
+            $('.left').style.display = 'block'
+
             setTimeout(() => {
                 $('#post').innerHTML = ''
-                document.title = title
-            }, 600)
+                window.scroll({ top: scrollY, left: 0, behavior: 'smooth' })
+            }, 500)
 
             $('.container').classList.remove('post')
             $('.container').classList.add('single')
