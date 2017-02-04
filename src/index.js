@@ -23,7 +23,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let current = 'list'
     let scrollY = 0
 
-    authors = authors.split(',')
+    authors = authors || ''
+    authors = authors.split(',').map(author => author.toString().trim())
     authors.push(user)
 
     function ready() {

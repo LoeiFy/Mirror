@@ -9,7 +9,7 @@ var yaml = require('yamljs')
 
 var commands = 'version init build'
 var ignore = 'Thumbs.db\n.DS_Store\n*.swp\ntoken.txt'
-var config = '# site title\ntitle:\n\n# github user\nuser:\n\n# issue repo\nrepo:\n\n# per page\nper_page:'
+var config = '# site title\ntitle:\n\n# github user\nuser:\n\n# issue repo\nrepo:\n\n# multi-author\nauthors:\n\n# per page\nper_page:'
 
 function outputFile(folder, files) {
     files.forEach(function(file) {

@@ -43,6 +43,10 @@ user: LoeiFy
 # issue repo: your issues repo, all blog content from here 
 repo: Recordum
 
+# multi-author, should be separated by ','
+# example: author0,author1
+authors:
+
 # per page
 per_page: 10
 ```
@@ -69,9 +73,9 @@ and everything done, now you can write your blog on github issues :)
 
 ## Not installed Node.js ?
 
-ok, you can download the `zip` and configure quickly 
+ok, you can download the latest release and configure quickly 
 
-https://github.com/LoeiFy/Mirror/releases/download/v0.1.5/Mirror.zip
+https://github.com/LoeiFy/Mirror/releases
 
 ```html
 <!-- index.html -->
@@ -80,7 +84,7 @@ https://github.com/LoeiFy/Mirror/releases/download/v0.1.5/Mirror.zip
 
 // blog config here
 // token should be separated by '#'. example: 5#c31bffc137f44faf7efc4a84da827g7ca2cfeaa
-var config = {"title":"","user":"","repo":"","token":"","per_page":""}
+var config = {"title":"","user":"","repo":"","token":"","authors":"","per_page":""}
 
 </script>
 ```
