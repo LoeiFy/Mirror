@@ -1,6 +1,6 @@
-
 @import "./reset.scss";
 @import "../node_modules/github-markdown-css/github-markdown.css";
+@keyframes spin { to { transform: translateY(-136px); } }
 
 body:before {
     border-top: 3px solid #3f4d56;
@@ -9,12 +9,10 @@ body:before {
     display: block;
     margin: 0 auto;
 }
-
 .container {
     position: relative;
     width: 100%;
 }
-
 .left,
 .right {
     width: 100%;
@@ -23,7 +21,6 @@ body:before {
     top: 0;
     background: #fff;
 }
-
 .right > a {
     position: absolute;
     right: 50%;
@@ -31,23 +28,19 @@ body:before {
     top: 72px;
     width: 30px;
     height: 30px;
-
     &:hover path {
         fill: #5c646b;
     }
-
     path {
         fill: #949fa9;
     }
 }
-
 .single .left {
     transform: translateX(-100%)
 }
 .list .right {
     transform: translateX(-100%)
 }
-
 .container.post {
     .right {
         transform: translateX(0);
@@ -57,19 +50,16 @@ body:before {
     .left {
         transform: translateX(0);
     }
-
     .right {
         transform: translateX(-100%);
     }
 }
-
 #user {
     text-align: center;
     line-height: 1;
     max-width: 600px;
     padding: 0 20px;
     margin: 0 auto;
-
     &:after {
         display: block;
         margin: 10px auto 0;
@@ -78,7 +68,6 @@ body:before {
         height: 1px;
         background: #f1f1f1;
     }
-
     img {
         padding: 4px;
         border: 1px solid #eaeaea;
@@ -88,103 +77,105 @@ body:before {
         margin: 70px auto 0;
         border-radius: 50%;
     }
-
     h1 {
         font-size: 26px;
         margin-top: 20px;
         color: #42505a;
         font-weight: 600;
     }
-
     p {
         color: #5E656B;
         font-size: 16px;
         line-height: 1.4;
         margin: 14px 20px 0;
     }
-
     a {
         display: inline-block;
         margin: 20px 8px; 
-
         &:hover path {
             fill: #363a42;
         }
     }
-
     svg {
         display: block;
         width: 22px!important;
         height: auto!important;
     }
-
     path {
         fill: #565b65;
     }
 }
-
 #posts {
     display: block;
     margin: 50px auto 0;
-    max-width: 600px;
+    max-width: 640px;
     padding: 0 20px;
-
     a {
+        position: relative;
         padding: 20px 10px;
         display: block;
-
         &:hover {
             background: #F6F7F7;
         }
+        div {
+            position: absolute;
+            right: 10px;
+            top: 20px;
+        }
+        em {
+            margin: 0 3px;
+            font-size: 13px;
+            font-style: normal;
+            color: #565b65;
+            border: 1px solid #e1e1e1;
+            background: #e8e8e8;
+            border-radius: 3px;
+            padding: 1px 3px 2px;
+        }
     }
-
     h1 {
         color: #485763;
         font-size: 16px;
         line-height: 1.4;
         font-weight: 500;
+        width: 60%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
-
     p {
         font-size: 14px;
         color: #969696;
         margin-top: 10px;
     }
-    
     span {
         letter-spacing: .5px;
         margin-left: 10px;
         color: #788590;
     }
 }
-
 #post {
     display: block;
     margin: 70px auto 0;
-    max-width: 600px;
+    max-width: 640px;
     padding: 0 20px 100px;
-
     & > h1 {
         font-size: 24px;
         font-weight: 500;
         line-height: 1.4;
         color: #3d4348;
     }
-
     & > p {
         font-size: 14px;
         color: #788590;
         margin-top: 10px;
-
         span {
             margin-left: 10px;
             color: #565f67;
         }
     }
-
     .labels {
         margin-top: 20px;
-
         a {
             color: #fff;
             font-size: 13px;
@@ -194,34 +185,28 @@ body:before {
             margin-right: 10px;
         }
     }
-
     & > .markdown-body {
         margin-top: 40px;
         font-size: 14px;
     }
-
     .highlight {
         font-size: 15px;
     }
-
     .button {
         width: 140px;
     }
 }
-
 #footer {
     text-align: center;
     font-size: 14px;
     margin-top: 100px;
     color: #5c6e7b;
     padding-bottom: 70px;
-
     a {
         color: #37444E;
         text-decoration: underline;
     }
 }
-
 .button {
     margin: 50px auto 0;
     width: 120px;
@@ -236,15 +221,12 @@ body:before {
     background: #fff;
     overflow: hidden;
     position: relative;
-
     &:hover {
         background: #f1f1f1;
     }
-
     &:disabled {
         text-indent: -9999px;
     }
-
     &:disabled:after {
         content: "\A·\A· ·\A· · ·";
         animation: spin 1.5s steps(4) infinite;
@@ -261,14 +243,10 @@ body:before {
         height: 136px;
     }
 }
-
 a.button {
     line-height: 30px;
     height: 30px;
 }
-
-@keyframes spin { to { transform: translateY(-136px); } }
-
 .comment_list {
     &:before {
         display: block;
@@ -278,14 +256,12 @@ a.button {
         background: #f1f1f1;
         margin: 50px auto;
     }
-
     & > li {
         list-style: none;
         margin-top: 20px;
         position: relative;
         padding: 10px 0 10px 70px;
     }
-
     .author {
         border: 1px solid #eee;
         position: absolute;
@@ -295,20 +271,17 @@ a.button {
         height: 48px;
         border-radius: 50%;
         overflow: hidden;
-
         img {
             display: block;
             width: 100%;
             height: auto;
         }
     }
-
     .body {
         background: #f8f8f8;
         padding: 14px 14px 14px 18px;
         border-radius: 3px;
         position: relative;
-
         &:before {
             content: '';
             position: absolute;
@@ -319,49 +292,50 @@ a.button {
             top: 20px;
             transform: rotate(-45deg);
         }
-
         & > a {
             color: #333;
             text-decoration: none;
             font-weight: bold;
         }
-
         & > span {
             font-size: 14px;
             color: #767676;
         }
-
         .markdown-body {
             margin-top: 10px;
             font-size: 14px;
         }
-
         .highlight {
             font-size: 15px;
-
             pre {
                 background: #fff;
             }
         }
     }
 }
-
 @media (max-width: 700px) {
+    #posts {
+        a {
+            div {
+                display: none;
+            }
+        }
+        h1 {
+            width: 100%;
+        }
+    }
     .right > a {
         top: 20px;
         left: 20px;
     }
-
     .comment_list {
         .author {
             width: 36px;
             height: 36px;
         }
-
         & > li {
             padding-left: 60px;
         }
-
         .body:before {
             top: 16px;
         }

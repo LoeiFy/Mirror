@@ -16,11 +16,15 @@ export default {
             const number = data[i].number
             const title = data[i].title
             const time = timeFormat(data[i].updated_at)
+            const labels = data[i].labels.map(label => {
+                return `<em>#${label.name}</em>`
+            }).slice(0, 3).join('')
 
             issues += `
                 <a href="#${number}">
                     <h1>${title}</h1>
                     <p>Updated at<span>${time}</span></p>
+                    <div>${labels}</div>
                 </a>
             ` 
         }
