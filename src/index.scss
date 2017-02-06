@@ -313,6 +313,17 @@ a.button {
         }
     }
 }
+.box {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(255, 255, 255, .97);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 @media (max-width: 800px) {
     #posts {
         a {

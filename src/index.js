@@ -1,7 +1,6 @@
-
 import * as api from './api'
 import template from './template'
-import { load, $ } from './util'
+import { load, $, box } from './util'
 
 import './index.scss'
 import icon_back from './svg/back.svg'
@@ -151,6 +150,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             $('.container').classList.remove('post')
             $('.container').classList.add('single')
+            box()
         }
     })
 
@@ -171,6 +171,25 @@ document.addEventListener('DOMContentLoaded', function() {
         })
     })
 
+    document.body.addEventListener('click', (e) => {
+        const { target } = e
+        const { tagName, src, className } = target
+
+        if (!location.hash) {
+            return
+        }
+
+        if (className == 'box' || target.parentNode.className == 'box') {
+            return box()
+        }
+
+        if (window.innerWidth < 600 || tagName != 'IMG') {
+            return
+        }
+
+        e.preventDefault()
+        box(src)
+    })
 })
 
 console.log("%c Github %c","background:#24272A; color:#ffffff","","https://github.com/LoeiFy/Mirror")

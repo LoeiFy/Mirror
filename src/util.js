@@ -27,3 +27,17 @@ export const $ = (dom) => {
 
     return dom[0]
 }
+
+export const box = (src) => {
+    if (!src) {
+        return document.body.removeChild(document.querySelector('.box'))
+    }
+
+    const tpl = `
+        <div class="box">
+            <img src="${src}" />
+        </div>
+    `
+
+    document.body.innerHTML += tpl
+}
