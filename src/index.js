@@ -85,11 +85,17 @@ document.addEventListener('DOMContentLoaded', function() {
         const hash = location.hash.split('#')[1]
 
         load({ url: api.ISSUE(user, repo, hash) }).then(res => {
+            const { data: { closed_at } } = res[0]
+
+            if (closed_at) {
+                return location.replace('/')
+            }
+
             $('#post').innerHTML = template.issue(res[0].data)
             document.title = res[0].data.title +' - '+ title
 
             ready()
-        })
+        }).catch(err => location.replace('/'))
     } else {
         document.title = title
 
@@ -110,6 +116,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (hash) {
             const issue = issues_data.find(issue => issue.number == hash)
+
+            if (!issue) {
+                return location.replace('/')
+            }
+
             $('#post').innerHTML = template.issue(issue)
             document.title = issue.title +' - '+ title
             scrollY = window.scrollY
