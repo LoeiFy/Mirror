@@ -30,7 +30,11 @@ export const $ = (dom) => {
 
 export const box = (src) => {
     if (!src) {
-        return document.body.removeChild(document.querySelector('.box'))
+        const el = document.querySelector('.box')
+        if (el) {
+            return document.body.removeChild(el)
+        }
+        return
     }
 
     const tpl = `
