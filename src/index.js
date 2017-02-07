@@ -22,8 +22,9 @@ document.addEventListener('DOMContentLoaded', function() {
     let scrollY = 0
     let total = 0
 
-    function ifPrev() {
+    function ifPager() {
         $('#prev').style.display = page == 1 ? 'none' : 'inline-block'
+        $('#next').style.display = (total && page == total) ? 'none' : 'inline-block'
     }
 
     function ready() {
@@ -57,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
                 
             $('#next').removeAttribute('disabled')
-            ifPrev()
+            ifPager()
         }
 
         const build_user = (res) => {
@@ -74,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (issues_data.length > (page - 1) * per_page) {
                 $('#posts').innerHTML = template.issues(clone(issues_data).splice((page - 1) * per_page, per_page))
                 $('#next').removeAttribute('disabled')
-                ifPrev()
+                ifPager()
             } else {
                 load(_issues).then(res => build_list(res[0]))
             }
@@ -110,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
     $('#prev').addEventListener('click', (e) => {
         page -= 1
         $('#posts').innerHTML = template.issues(clone(issues_data).splice((page - 1) * per_page, per_page))
-        ifPrev()
+        ifPager()
     })
 
     window.addEventListener('hashchange', () => {

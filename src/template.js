@@ -68,7 +68,7 @@ export default {
     },
 
     user(data) {
-        const { html_url, blog, email, avatar_url, name, bio } = data
+        const { html_url, blog, email, avatar_url, login, name, bio } = data
 
         let social = `<a target="_blank" href="${html_url}">${icon_github}</a>`
         let about = '' 
@@ -87,7 +87,7 @@ export default {
 
         return `
             <img src="${avatar_url}" />
-            <h1>${name}</h1>
+            <h1>${name || login}</h1>
             ${about}
             <div>${social}</div>
         `

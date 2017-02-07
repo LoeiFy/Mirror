@@ -3,14 +3,14 @@ module.exports = {
 
     title: 'rorriM',
 
-    user: 'lifesinger',
+    user: 'acyortjs',
 
-    repo: 'blog',
+    repo: 'acyortjs.github.io',
 
     token: '',
 
-    authors: '',
+    authors: 'LoeiFy',
 
-    per_page: 10
+    per_page: 1
 
 }
