@@ -28,6 +28,8 @@ export const $ = (dom) => {
     return dom[0]
 }
 
+export const clone = (o) => JSON.parse(JSON.stringify(o))
+
 export const box = (src) => {
     if (!src) {
         const el = document.querySelector('.box')

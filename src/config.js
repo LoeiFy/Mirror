@@ -3,14 +3,14 @@ module.exports = {
 
     title: 'rorriM',
 
-    user: 'LoeiFy',
+    user: 'lifesinger',
 
-    repo: 'Recordum',
+    repo: 'blog',
 
     token: '',
 
     authors: '',
 
-    per_page: 3
+    per_page: 10
 
 }

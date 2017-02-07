@@ -1,6 +1,6 @@
 import * as api from './api'
 import template from './template'
-import { load, $, box } from './util'
+import { load, $, box, clone } from './util'
 
 import './index.scss'
 import icon_back from './svg/back.svg'
@@ -16,15 +16,15 @@ document.addEventListener('DOMContentLoaded', function() {
         return alert('Missing configuration information')
     }
 
-    let { authors } = window.config
     let issues_data = []
     let page = 1
     let current = 'list'
     let scrollY = 0
+    let total = 0
 
-    authors = authors || ''
-    authors = authors.split(',').map(author => author.toString().trim())
-    authors.push(user)
+    function ifPrev() {
+        $('#prev').style.display = page == 1 ? 'none' : 'inline-block'
+    }
 
     function ready() {
         document.body.parentNode.classList.remove('loading')
@@ -47,21 +47,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const build_list = (res) => {
             const { headers: { link }, data } = res
-            const issues = data.filter(issue => {
-                const { user: { login } } = issue
-                return authors.indexOf(login) > -1
-            })
 
-            $('#posts').innerHTML += template.issues(issues)
-
-            issues_data = issues_data.concat(issues)
+            $('#posts').innerHTML = template.issues(data)
+            issues_data = issues_data.concat(data)
 
             if (!link || link.indexOf('rel="next"') == -1) {
-                return $('#next').style.display = 'none'
+                $('#next').style.display = 'none'
+                total = page
             }
                 
             $('#next').removeAttribute('disabled')
-            page ++    
+            ifPrev()
         }
 
         const build_user = (res) => {
@@ -75,7 +71,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 ready()
             })
         } else {
-            load(_issues).then(res => build_list(res[0]))
+            if (issues_data.length > (page - 1) * per_page) {
+                $('#posts').innerHTML = template.issues(clone(issues_data).splice((page - 1) * per_page, per_page))
+                $('#next').removeAttribute('disabled')
+                ifPrev()
+            } else {
+                load(_issues).then(res => build_list(res[0]))
+            }
         }
     }
 
@@ -92,18 +94,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
             $('#post').innerHTML = template.issue(res[0].data)
             document.title = res[0].data.title +' - '+ title
-
             ready()
         }).catch(err => location.replace('/'))
     } else {
         document.title = title
-
         get_issues()
     }
 
     $('#next').addEventListener('click', (e) => {
+        page += 1
         e.target.setAttribute('disabled', true)
         get_issues()
+    })
+
+    $('#prev').addEventListener('click', (e) => {
+        page -= 1
+        $('#posts').innerHTML = template.issues(clone(issues_data).splice((page - 1) * per_page, per_page))
+        ifPrev()
     })
 
     window.addEventListener('hashchange', () => {

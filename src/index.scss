@@ -54,6 +54,9 @@ body:before {
         transform: translateX(-100%);
     }
 }
+#prev {
+    display: none;
+}
 #user {
     text-align: center;
     line-height: 1;
@@ -194,6 +197,8 @@ body:before {
     }
     .button {
         width: 140px;
+        margin: 50px auto 0;
+        display: block;
     }
 }
 #footer {
@@ -207,17 +212,21 @@ body:before {
         text-decoration: underline;
     }
 }
+.btns {
+    margin-top: 50px;
+    text-align: center;
+}
 .button {
-    margin: 50px auto 0;
+    margin: 0 5px;
     width: 120px;
     cursor: pointer;
-    display: block;
+    display: inline-block;
     text-align: center;
     border: 2px solid #c3c2c9;
     color: #686868;
     border-radius: 5px;
     font-size: 14px;
-    height: 34px;
+    height: 32px;
     background: #fff;
     overflow: hidden;
     position: relative;

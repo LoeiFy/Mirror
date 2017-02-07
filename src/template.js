@@ -7,9 +7,20 @@ import icon_github from './svg/github.svg'
 
 const { user, repo } = window.config
 
+let { authors } = window.config
+
+authors = authors || ''
+authors = authors.split(',').map(author => author.toString().trim())
+authors.push(user)
+
 export default {
 
     issues(data) {
+        data = data.filter(issue => {
+            const { user: { login } } = issue
+            return authors.indexOf(login) > -1
+        })
+        
         let issues = ''
 
         for (let i = 0; i < data.length; i ++) {
@@ -46,7 +57,7 @@ export default {
                     </a>
                     <div class="body">
                         <a target="_blank" href="http://github.com/${login}">${login}</a>
-                        <span>${timeFormat(updated_at)}</span>
+                        <span>commented on ${timeFormat(updated_at)}</span>
                         <div class="markdown-body">${body_html}</div>   
                     </div>
                 </li>
