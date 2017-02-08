@@ -10,10 +10,14 @@ import smoothscroll from 'smoothscroll-polyfill'
 smoothscroll.polyfill()
 
 document.addEventListener('DOMContentLoaded', function() {
-    let { title, user, repo, per_page } = window.config
+    let { title, user, repo, per_page, sandbox } = window.config
 
     if (!title || !user || !repo || !per_page) {
         return alert('Missing configuration information')
+    }
+
+    if (sandbox) {
+        $('#sandbox').style.display = 'inline'
     }
 
     let issues_data = []

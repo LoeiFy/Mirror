@@ -3,9 +3,9 @@ module.exports = {
 
     title: 'rorriM',
 
-    user: 'acyortjs',
+    user: 'LoeiFy',
 
-    repo: 'acyortjs.github.io',
+    repo: 'Recordum',
 
     token: '',
 

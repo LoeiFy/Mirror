@@ -334,6 +334,9 @@ a.button {
     bottom: auto;
     display: none;
 }
+#sandbox {
+    display: none;
+}
 .sandbox.active {
     display: flex;
 }
