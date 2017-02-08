@@ -5,22 +5,20 @@ import icon_email from './svg/email.svg'
 import icon_link from './svg/link.svg'
 import icon_github from './svg/github.svg'
 
-const { user, repo } = window.config
-
-let { authors } = window.config
-
-authors = authors || ''
-authors = authors.split(',').map(author => author.toString().trim())
-authors.push(user)
-
 export default {
 
     issues(data) {
+        let { authors, user } = window.config
+
+        authors = authors || ''
+        authors = authors.split(',').map(author => author.toString().trim())
+        authors.push(user)
+
         data = data.filter(issue => {
             const { user: { login } } = issue
             return authors.indexOf(login) > -1
         })
-        
+
         let issues = ''
 
         for (let i = 0; i < data.length; i ++) {

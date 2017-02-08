@@ -8,9 +8,16 @@
 <title> Mirror </title>
 <script>
 
-// blog config here
-// token should be separated by '#'. example: 5#c31bffc137f44faf7efc4a84da827g7ca2cfeaa
-var config = <%= htmlWebpackPlugin.options.config %>
+/*
+**
+** blog config here
+** token should be separated by '#'. example: 5#c31bffc137f44faf7efc4a84da827g7ca2cfeaa
+** example: 
+** global.config = {"title":"rorriM","user":"acyortjs","repo":"acyortjs.github.io","token":"5#c31bffc137f44faf7efc4a84da827g7ca2cfeaa","authors":"LoeiFy,User0","per_page":1,"sandbox":false}
+**
+*/
+
+window.config = <%= htmlWebpackPlugin.options.config %>
 
 </script>
 
@@ -52,12 +59,25 @@ html.loading .container { display: none; }
             <div id="user"></div>
             <div id="posts"></div>
             <div class="btns">
-                <button class="button" id="prev">Newer Posts</button>
-                <button class="button" id="next">Older Posts</button>
+                <button class="button" id="prev">← Newer Posts</button>
+                <button class="button" id="next">Older Posts →</button>
             </div>
 
             <div id="footer">
-                <a href="https://github.com/LoeiFy/Mirror" target="_blank">Mirror</a> . Powered with <span>♥</span> by GitHub 
+                <a href="https://github.com/LoeiFy/Mirror" target="_blank">Mirror</a> . Powered with <span>♥</span> by GitHub . <a id="sandbox">SandBox</a>
+            </div>
+
+            <div class="sandbox">
+                <div id="close">&#x2716;</div>
+                <form id="form" autocomplete="off">
+                    <p>Submit your imformation and preview your blog</p>
+                    <input type="text" name="title" placeholder="Blog Title" />
+                    <input type="text" name="user" placeholder="GitHub Username" />
+                    <input type="text" name="repo" placeholder="GitHub Repo" />
+                    <input type="text" name="authors" placeholder="Authors Filter(Optional)" />
+                    <input type="number" name="per_page" placeholder="Number of Per Page" />
+                    <button type="submit" name="submit" class="button">Start</button>
+                </form>
             </div>
         </div>
 

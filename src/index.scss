@@ -54,9 +54,6 @@ body:before {
         transform: translateX(-100%);
     }
 }
-#prev {
-    display: none;
-}
 #user {
     text-align: center;
     line-height: 1;
@@ -196,7 +193,6 @@ body:before {
         font-size: 15px;
     }
     .button {
-        width: 140px;
         margin: 50px auto 0;
         display: block;
     }
@@ -218,7 +214,7 @@ body:before {
 }
 .button {
     margin: 0 5px;
-    width: 120px;
+    width: 130px;
     cursor: pointer;
     display: inline-block;
     text-align: center;
@@ -322,7 +318,7 @@ a.button {
         }
     }
 }
-.box {
+.box, .sandbox {
     position: fixed;
     top: 0;
     left: 0;
@@ -332,6 +328,53 @@ a.button {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.sandbox {
+    display: none;
+}
+.sandbox.active {
+    display: flex;
+}
+#form {
+    position: relative;
+    text-align: center;
+    width: 400px;
+    input[type=text], input[type=number] {
+        display: inline-block;
+        border: 2px solid #c3c2c9;
+        padding: 8px;
+        border-radius: 4px;
+        margin-bottom: 10px;
+        width: 300px;
+        font-size: 14px;
+    }
+    button {
+        display: block;
+        background: #3f4d56;
+        border-color: #3f4d56;
+        color: #fff;
+        margin: 10px auto 0;
+        &:hover {
+            background: #56656f;
+        }
+        &:disabled:after {
+            color: #fff;
+        }
+    }
+    p {
+        line-height: 1.6;
+        color: #3f4d56;
+        font-size: 16px;
+        margin-bottom: 30px;
+    }
+}
+#close {
+    margin-bottom: 40px;
+    font-size: 18px;
+    right: 20px;
+    top: 20px;
+    cursor: pointer;
+    position: absolute;
 }
 @media (max-width: 800px) {
     #posts {

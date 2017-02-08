@@ -10,7 +10,7 @@ import smoothscroll from 'smoothscroll-polyfill'
 smoothscroll.polyfill()
 
 document.addEventListener('DOMContentLoaded', function() {
-    const { title, user, repo, per_page } = window.config
+    let { title, user, repo, per_page } = window.config
 
     if (!title || !user || !repo || !per_page) {
         return alert('Missing configuration information')
@@ -70,6 +70,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 build_list(res[0])
                 build_user(res[1])
                 ready()
+
+                $('#form .button').removeAttribute('disabled')
+                $('.sandbox').classList.remove('active')
             })
         } else {
             if (issues_data.length > (page - 1) * per_page) {
@@ -82,25 +85,33 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    if (location.hash) {
-        current = 'single'
-        const hash = location.hash.split('#')[1]
+    function start() {
+        issues_data = []
+        page = 1
+        total = 0
 
-        load({ url: api.ISSUE(user, repo, hash) }).then(res => {
-            const { data: { closed_at } } = res[0]
+        if (location.hash) {
+            current = 'single'
+            const hash = location.hash.split('#')[1]
 
-            if (closed_at) {
-                return location.replace('/')
-            }
+            load({ url: api.ISSUE(user, repo, hash) }).then(res => {
+                const { data: { closed_at } } = res[0]
 
-            $('#post').innerHTML = template.issue(res[0].data)
-            document.title = res[0].data.title +' - '+ title
-            ready()
-        }).catch(err => location.replace('/'))
-    } else {
-        document.title = title
-        get_issues()
+                if (closed_at) {
+                    return location.replace('/')
+                }
+
+                $('#post').innerHTML = template.issue(res[0].data)
+                document.title = res[0].data.title +' - '+ title
+                ready()
+            }).catch(err => location.replace('/'))
+        } else {
+            document.title = title
+            get_issues()
+        }
     }
+
+    start()
 
     $('#next').addEventListener('click', (e) => {
         page += 1
@@ -122,6 +133,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         if (hash) {
+            $('.sandbox').classList.remove('active')
+
             const issue = issues_data.find(issue => issue.number == hash)
 
             if (!issue) {
@@ -177,6 +190,47 @@ document.addEventListener('DOMContentLoaded', function() {
             pnd.removeChild(e)
             pnd.innerHTML += template.comments(res[0].data)
         })
+    })
+
+    $('#close').addEventListener('click', () => {
+        $('.sandbox').classList.remove('active')
+    })
+
+    $('#sandbox').addEventListener('click', () => {
+        $('.sandbox').classList.add('active')
+    })
+
+    $('#form').addEventListener('submit', function(e) {
+        e.preventDefault()
+
+        const _title = this.title.value
+        const _user = this.user.value
+        const _repo = this.repo.value
+        const _authors = this.authors.value || ''
+        const _per_page = this.per_page.value
+
+        if (!_title || !_user || !_repo || !_per_page) {
+            return alert('Missing configuration information')
+        }
+
+        this.submit.setAttribute('disabled', true)
+
+        title = _title
+        user = _user
+        repo = _repo
+        per_page = _per_page
+
+        window.config = {
+            title: _title,
+            user: _user,
+            repo: _repo,
+            per_page: _per_page,
+            token: '',
+            authors: _authors,
+            sandbox: true
+        }
+
+        start()
     })
 
     document.body.addEventListener('click', (e) => {
