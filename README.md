@@ -49,6 +49,10 @@ authors:
 
 # per page
 per_page: 10
+
+# sandbox
+# quick preview other blog
+sandbox: false
 ```
 
 add your access token in `token.txt`
@@ -84,7 +88,9 @@ https://github.com/LoeiFy/Mirror/releases
 
 // blog config here
 // token should be separated by '#'. example: 5#c31bffc137f44faf7efc4a84da827g7ca2cfeaa
-var config = {"title":"","user":"","repo":"","token":"","authors":"","per_page":""}
+// example:
+// window.config = {"title":"rorriM","user":"acyortjs","repo":"acyortjs.github.io","token":"5#c31bffc137f44faf7efc4a84da827g7ca2cfeaa","authors":"LoeiFy,User0","per_page":1,"sandbox":false}
+window.config = {"title":"","user":"","repo":"","token":"","authors":"","per_page":"", "sandbox":false}
 
 </script>
 ```

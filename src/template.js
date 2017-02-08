@@ -55,7 +55,7 @@ export default {
                     </a>
                     <div class="body">
                         <a target="_blank" href="http://github.com/${login}">${login}</a>
-                        <span>commented on ${timeFormat(updated_at)}</span>
+                        <span>on ${timeFormat(updated_at)}</span>
                         <div class="markdown-body">${body_html}</div>   
                     </div>
                 </li>
