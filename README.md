@@ -75,6 +75,35 @@ push all files to a repo `gh-pages` branch
 
 and everything done, now you can write your blog on github issues :) 
 
+### upgrade
+
+1. upgrade mirror
+
+```bash
+$ sudo npm install Mirror -g
+```
+
+2. remove your config file
+
+```bash
+$ cd yourblog
+$ rm config.yml
+```
+
+3. reinitialize blog
+
+```bash
+$ mirror init
+```
+
+4. configure `config.yml`
+
+5. rebuild
+
+```bash
+$ mirror build
+```
+
 ## Not installed Node.js ?
 
 ok, you can download the latest release and configure quickly 
