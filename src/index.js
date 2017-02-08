@@ -77,6 +77,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 $('#form .button').removeAttribute('disabled')
                 $('.sandbox').classList.remove('active')
+            }).catch(err => {
+                alert('Something went wrong, please checkout the configurations')
+                $('#form .button').removeAttribute('disabled')
             })
         } else {
             if (issues_data.length > (page - 1) * per_page) {
