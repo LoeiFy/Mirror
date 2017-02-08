@@ -193,6 +193,7 @@ body:before {
         font-size: 15px;
     }
     .button {
+        width: 140px;
         margin: 50px auto 0;
         display: block;
     }
@@ -330,6 +331,7 @@ a.button {
     justify-content: center;
 }
 .sandbox {
+    bottom: auto;
     display: none;
 }
 .sandbox.active {

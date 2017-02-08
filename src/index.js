@@ -197,6 +197,8 @@ document.addEventListener('DOMContentLoaded', function() {
     })
 
     $('#sandbox').addEventListener('click', () => {
+        window.scrollTo(0, 0)
+        $('.sandbox').style.height = `${window.innerHeight}px`
         $('.sandbox').classList.add('active')
     })
 
@@ -252,6 +254,12 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault()
         box(src)
     })
+
+    window.ontouchmove = function(e) {
+        if ($('.sandbox').classList.contains('active')) {
+            e.preventDefault()
+        }
+    }
 })
 
 console.log("%c Github %c","background:#24272A; color:#ffffff","","https://github.com/LoeiFy/Mirror")

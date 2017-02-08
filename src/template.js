@@ -92,6 +92,8 @@ export default {
     },
 
     issue(data) {
+        const { user, repo } = window.config
+        
         if (!data) {
             return ''
         }
