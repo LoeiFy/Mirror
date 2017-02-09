@@ -6,6 +6,8 @@
 .DS_Store
 node_modules/*
 
+.vscode
+
 token.txt
 
 index.html
