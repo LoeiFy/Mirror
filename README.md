@@ -77,28 +77,28 @@ and everything done, now you can write your blog on github issues :)
 
 ### upgrade
 
-1. upgrade mirror
+> upgrade mirror
 
 ```bash
 $ sudo npm install Mirror -g
 ```
 
-2. remove your config file
+> remove your config file
 
 ```bash
 $ cd yourblog
 $ rm config.yml
 ```
 
-3. reinitialize blog
+> reinitialize blog
 
 ```bash
 $ mirror init
 ```
 
-4. configure `config.yml`
+> configure `config.yml`
 
-5. rebuild
+> rebuild
 
 ```bash
 $ mirror build
