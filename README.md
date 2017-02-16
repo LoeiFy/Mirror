@@ -2,6 +2,8 @@
 
 A blog tool powered by GitHub issues 
 
+[中文说明](http://mirror.am0200.com/#11)
+
 http://mirror.am0200.com/
 
 content from:
@@ -43,7 +45,7 @@ user: LoeiFy
 # issue repo: your issues repo, all blog content from here 
 repo: Recordum
 
-# multi-author, should be separated by ','
+# multi-authors, `user` is included by default
 # example: author0,author1
 authors:
 
@@ -55,7 +57,7 @@ per_page: 10
 sandbox: false
 ```
 
-add your access token in `token.txt`
+Add your access token in `token.txt`, this token is read-only
 
 https://github.com/settings/tokens
 
@@ -72,6 +74,8 @@ $ mirror build
 you can add domain in `CNAME`
 
 push all files to a repo `gh-pages` branch
+
+example: https://github.com/LoeiFy/Mirror/tree/gh-pages
 
 and everything done, now you can write your blog on github issues :) 
 

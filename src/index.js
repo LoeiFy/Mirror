@@ -6,6 +6,7 @@ import './index.scss'
 import icon_back from './svg/back.svg'
 
 import 'core-js/fn/array/find'
+import 'es6-promise/auto'
 import smoothscroll from 'smoothscroll-polyfill'
 smoothscroll.polyfill()
 

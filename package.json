@@ -1,6 +1,6 @@
 {
   "name": "Mirror",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "A blog tool powered by github issues",
   "bin": {
     "mirror": "./mirror.js"
@@ -53,6 +53,7 @@
   },
   "dependencies": {
     "commander": "^2.9.0",
+    "es6-promise": "^4.0.5",
     "fs-extra": "^1.0.0",
     "yamljs": "^0.2.8"
   }

@@ -34,7 +34,7 @@ a {
     text-decoration: none;
     cursor: pointer;
 }
-input {
+input[type=text], input[type=number] {
     appearance: none;
     text-align: center;
     border: none;
