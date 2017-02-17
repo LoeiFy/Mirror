@@ -17,7 +17,10 @@ if (production || fornpm) {
         new webpack.optimize.UglifyJsPlugin({
             mangle: true,
             compress: {
-                warnings: false,
+                warnings: false
+            },
+            output: {
+                comments: false
             }
         })
     )
