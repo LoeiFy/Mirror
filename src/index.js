@@ -39,7 +39,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function get_back() {
-        let link = current == 'list' ? 'javascript:history.back()' : '/'
+        let location = window.location
+        let url = `${location.origin}${location.pathname}`
+        let link = current == 'list' ? 'javascript:history.back()' : url
         return `<a href="${link}">${icon_back}</a>`
     }
 
@@ -61,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 $('#next').style.display = 'none'
                 total = page
             }
-                
+
             $('#next').removeAttribute('disabled')
             ifPager()
         }
@@ -156,15 +158,15 @@ document.addEventListener('DOMContentLoaded', function() {
             let time = 0
 
             if (scrollY > 0) {
-                window.scroll({ top: 0, left: 0, behavior: 'smooth' }) 
+                window.scroll({ top: 0, left: 0, behavior: 'smooth' })
                 time = 500
             }
 
-            setTimeout(() => { 
+            setTimeout(() => {
                 $('.left').style.display = 'none'
             }, (time + 500))
 
-            setTimeout(() => { 
+            setTimeout(() => {
                 $('.container').classList.remove('single')
                 $('.container').classList.add('post')
             }, time)
