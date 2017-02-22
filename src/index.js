@@ -100,6 +100,8 @@ document.addEventListener('DOMContentLoaded', function() {
         page = 1
         total = 0
 
+        $('#source').href = `https://github.com/${user}/${repo}/issues`
+
         if (location.hash) {
             current = 'single'
             const hash = location.hash.split('#')[1]

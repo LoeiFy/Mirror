@@ -6,10 +6,6 @@ A blog tool powered by GitHub issues
 
 http://mirror.am0200.com/
 
-content from:
-
-https://github.com/LoeiFy/Recordum/issues
-
 ## How to use
 
 ### install
