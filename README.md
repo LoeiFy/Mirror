@@ -1,8 +1,8 @@
 # Mirror
 
-A blog tool powered by GitHub issues 
-
 [中文说明](http://mirror.am0200.com/#11)
+
+A blog tool powered by GitHub issues 
 
 http://mirror.am0200.com/
 
@@ -108,7 +108,7 @@ $ mirror build
 
 ok, you can download the latest release and configure quickly 
 
-https://github.com/LoeiFy/Mirror/releases
+https://github.com/LoeiFy/Mirror/raw/master/mirror.zip
 
 ```html
 <!-- index.html -->
