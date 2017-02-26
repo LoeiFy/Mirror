@@ -47,3 +47,13 @@ export const box = (src) => {
 
     document.body.innerHTML += tpl
 }
+
+// http://jsfiddle.net/salman/f9Re3/
+export const invert = (color) => {
+    color = parseInt(color, 16)
+    color = 0xFFFFFF ^ color
+    color = color.toString(16)
+    color = `000000${color}`.slice(-6)
+
+    return color
+}

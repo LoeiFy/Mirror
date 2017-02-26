@@ -1,5 +1,5 @@
 
-import { timeFormat } from './util'
+import { timeFormat, invert } from './util'
 
 import icon_email from './svg/email.svg'
 import icon_link from './svg/link.svg'
@@ -106,7 +106,7 @@ export default {
         for (let i = 0; i < labels.length; i ++) {
             const { color, name } = labels[i]
 
-            labels_html += `<a target="_blank" href="https://github.com/${user}/${repo}/labels/${name}" style="background:#${color}">#${name}</a>`
+            labels_html += `<a target="_blank" href="https://github.com/${user}/${repo}/labels/${name}" style="background:#${color};color:#${invert(color)};">#${name}</a>`
         }
 
         if (labels_html) {
