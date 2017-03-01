@@ -2,7 +2,7 @@
 
 [中文说明](http://mirror.am0200.com/#11)
 
-A blog tool powered by GitHub issues 
+A blog tool powered by GitHub, write your blog on GitHub issue 
 
 http://mirror.am0200.com/
 
@@ -71,9 +71,23 @@ you can add domain in `CNAME`
 
 push all files to a repo `gh-pages` branch
 
-example: https://github.com/LoeiFy/Mirror/tree/gh-pages
+> example 
 
-and everything done, now you can write your blog on github issues :) 
+https://github.com/LoeiFy/Mirror/tree/gh-pages
+
+### finally
+
+everything done, now you can write your blog on GitHub issue :) 
+
+> example
+
+write the blog on this issues 
+
+https://github.com/LoeiFy/Recordum/issues
+
+and the blog will update automatically
+
+http://mirror.am0200.com/ 
 
 ### upgrade
 
