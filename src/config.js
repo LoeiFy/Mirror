@@ -11,7 +11,7 @@ module.exports = {
 
     authors: 'LoeiFy',
 
-    per_page: 1,
+    per_page: 5,
 
     sandbox: true
 

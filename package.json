@@ -1,6 +1,6 @@
 {
   "name": "Mirror",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "description": "A blog tool powered by github issues",
   "bin": {
     "mirror": "./mirror.js"

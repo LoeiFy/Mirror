@@ -206,11 +206,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     $('#close').addEventListener('click', () => {
         $('.sandbox').classList.remove('active')
+        $('.left').style.height = 'auto'
     })
 
     $('#sandbox').addEventListener('click', () => {
         window.scrollTo(0, 0)
         $('.sandbox').style.height = `${window.innerHeight}px`
+        $('.left').style.height = `${window.innerHeight}px`
         $('.sandbox').classList.add('active')
     })
 
@@ -247,6 +249,10 @@ document.addEventListener('DOMContentLoaded', function() {
         start()
     })
 
+    $('#form').addEventListener('blur', (e) => {
+        window.scroll(0, 0)
+    }, true)
+
     document.body.addEventListener('click', (e) => {
         const { target } = e
         const { tagName, src, className } = target
@@ -270,6 +276,12 @@ document.addEventListener('DOMContentLoaded', function() {
     window.ontouchmove = function(e) {
         if ($('.sandbox').classList.contains('active')) {
             e.preventDefault()
+        }
+    }
+
+    window.onorientationchange = function() {
+        if ($('.sandbox').classList.contains('active')) {
+            $('.sandbox').style.height = `${window.innerHeight}px`
         }
     }
 })

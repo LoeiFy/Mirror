@@ -19,6 +19,7 @@ body:before {
     transition: all .5s cubic-bezier(.55, 0, .1, 1);
     position: absolute;
     top: 0;
+    overflow: hidden;
     background: #fff;
 }
 .right > a {
@@ -198,6 +199,7 @@ body:before {
     }
 }
 #footer {
+    line-height: 1.4;
     text-align: center;
     font-size: 14px;
     margin-top: 100px;
@@ -332,6 +334,7 @@ a.button {
 .sandbox {
     bottom: auto;
     display: none;
+    overflow-y: auto;
 }
 #sandbox {
     display: none;
@@ -360,7 +363,7 @@ a.button {
         background: #3f4d56;
         border-color: #3f4d56;
         color: #fff;
-        margin: 10px auto 0;
+        margin: 10px auto 30px;
         &:hover {
             background: #56656f;
         }
@@ -372,7 +375,7 @@ a.button {
         line-height: 1.6;
         color: #3f4d56;
         font-size: 16px;
-        margin-bottom: 30px;
+        margin: 30px 0;
     }
 }
 #close {
@@ -409,5 +412,8 @@ a.button {
         .body:before {
             top: 16px;
         }
+    }
+    #footer {
+        margin-top: 50px;
     }
 }
