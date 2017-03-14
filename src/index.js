@@ -80,6 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 $('#form .button').removeAttribute('disabled')
                 $('.sandbox').classList.remove('active')
+                $('.left').style.height = 'auto'
             }).catch(err => {
                 alert('Something went wrong, please checkout the configurations')
                 $('#form .button').removeAttribute('disabled')
