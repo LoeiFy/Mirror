@@ -1,6 +1,6 @@
 import * as api from './api'
 import template from './template'
-import { load, $, box, clone } from './util'
+import { load, $, box, clone, titleFormat } from './util'
 
 import './index.scss'
 import icon_back from './svg/back.svg'
@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
 
                 $('#post').innerHTML = template.issue(res[0].data)
-                document.title = res[0].data.title +' - '+ title
+                document.title = `${titleFormat(res[0].data.title)} - ${title}`
                 ready()
             }).catch(err => location.replace('/'))
         } else {
@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             $('#post').innerHTML = template.issue(issue)
-            document.title = issue.title +' - '+ title
+            document.title = `${titleFormat(issue.title)} - ${title}`
             scrollY = window.scrollY
 
             let time = 0

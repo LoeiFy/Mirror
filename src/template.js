@@ -1,5 +1,5 @@
 
-import { timeFormat } from './util'
+import { timeFormat, titleFormat } from './util'
 
 import icon_email from './svg/email.svg'
 import icon_link from './svg/link.svg'
@@ -23,7 +23,7 @@ export default {
 
         for (let i = 0; i < data.length; i ++) {
             const number = data[i].number
-            const title = data[i].title
+            const title = titleFormat(data[i].title)
             const time = timeFormat(data[i].updated_at)
             const labels = data[i].labels.map(label => {
                 return `<em>#${label.name}</em>`
@@ -107,7 +107,7 @@ export default {
         }
 
         issue = `
-            <h1>${title}</h1>
+            <h1>${titleFormat(title)}</h1>
             <p>Updated at<span>${timeFormat(updated_at)}</span></p>
             <div class="markdown-body">${body_html}</div>
         `

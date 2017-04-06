@@ -20,6 +20,8 @@ export const timeFormat = (time) => {
     return `${months[monthIndex]} ${day}, ${year}`
 }
 
+export const titleFormat = (title) => title.split(/\[.*?\]/g).join('')
+
 export const load = (...args) => {
     const rqs = args.map(arg => axios.get(loadurl(arg)))
     return axios.all(rqs).then(axios.spread((...res) => res))
