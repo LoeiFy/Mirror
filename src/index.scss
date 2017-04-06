@@ -58,7 +58,7 @@ body:before {
 #user {
     text-align: center;
     line-height: 1;
-    max-width: 600px;
+    max-width: 640px;
     padding: 0 20px;
     margin: 0 auto;
     &:after {
@@ -92,7 +92,7 @@ body:before {
     }
     a {
         display: inline-block;
-        margin: 20px 8px; 
+        margin: 20px 8px;
         &:hover path {
             fill: #363a42;
         }
@@ -146,13 +146,8 @@ body:before {
     }
     p {
         font-size: 14px;
-        color: #969696;
-        margin-top: 10px;
-    }
-    span {
-        letter-spacing: .5px;
-        margin-left: 10px;
         color: #788590;
+        margin: 14px 0 0 1px;
     }
 }
 #post {
@@ -175,19 +170,18 @@ body:before {
             color: #565f67;
         }
     }
-    .labels {
-        margin-top: 20px;
-        a {
-            font-size: 13px;
-            padding: 3px 8px 4px;
-            border-radius: 3px;
-            display: inline-block;
-            margin-right: 10px;
-        }
-    }
     & > .markdown-body {
         margin-top: 40px;
         font-size: 14px;
+
+        &:before {
+            content: '';
+            width: 30px;
+            display: block;
+            margin-bottom: 20px;
+            height: 1px;
+            background: #eee;
+        }
     }
     .highlight {
         font-size: 15px;

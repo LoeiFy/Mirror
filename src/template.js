@@ -1,5 +1,5 @@
 
-import { timeFormat, invert } from './util'
+import { timeFormat } from './util'
 
 import icon_email from './svg/email.svg'
 import icon_link from './svg/link.svg'
@@ -32,10 +32,10 @@ export default {
             issues += `
                 <a href="#${number}">
                     <h1>${title}</h1>
-                    <p>Updated at<span>${time}</span></p>
                     <div>${labels}</div>
+                    <p>${time}</p>
                 </a>
-            ` 
+            `
         }
 
         return issues
@@ -56,10 +56,10 @@ export default {
                     <div class="body">
                         <a target="_blank" href="http://github.com/${login}">${login}</a>
                         <span>on ${timeFormat(updated_at)}</span>
-                        <div class="markdown-body">${body_html}</div>   
+                        <div class="markdown-body">${body_html}</div>
                     </div>
                 </li>
-            ` 
+            `
         }
 
         return `<ul class="comment_list">${comments}</ul><a target="_blank" class="button" href="${issue_url}#new_comment_field">Add Comment</a>`
@@ -69,7 +69,7 @@ export default {
         const { html_url, blog, email, avatar_url, login, name, bio } = data
 
         let social = `<a target="_blank" href="${html_url}">${icon_github}</a>`
-        let about = '' 
+        let about = ''
 
         if (blog) {
             social += `<a target="_blank" href="${blog}">${icon_link}</a>`
@@ -93,38 +93,26 @@ export default {
 
     issue(data) {
         const { user, repo } = window.config
-        
+
         if (!data) {
             return ''
         }
 
-        const { labels, number, html_url, comments, title, updated_at, body_html } = data
+        const { number, html_url, comments, title, updated_at, body_html } = data
         let comment = `<a class="button" href="${html_url}#new_comment_field" target="_blank">Add Comment</a>`
-        let labels_html = ''
         let issue = ''
 
-        for (let i = 0; i < labels.length; i ++) {
-            const { color, name } = labels[i]
-
-            labels_html += `<a target="_blank" href="https://github.com/${user}/${repo}/labels/${name}" style="background:#${color};color:#${invert(color)};">#${name}</a>`
-        }
-
-        if (labels_html) {
-            labels_html = `<div class="labels">${labels_html}</div>`
-        }
-
         if (comments > 0) {
-            comment = `<button class="comment button" data-id="${number}">View Comments</button>` 
+            comment = `<button class="comment button" data-id="${number}">View Comments</button>`
         }
 
         issue = `
             <h1>${title}</h1>
             <p>Updated at<span>${timeFormat(updated_at)}</span></p>
-            ${labels_html}
             <div class="markdown-body">${body_html}</div>
         `
 
         return issue + comment
-    } 
+    }
 
 }

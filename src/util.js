@@ -11,7 +11,14 @@ const loadurl = ({url, data = {} }) => {
     return url +'?'+ Object.keys(data).map(key => key +'='+ data[key]).join('&')
 }
 
-export const timeFormat = (time) => time.split('T')[0]
+export const timeFormat = (time) => {
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    const data = new Date(time)
+    const day = data.getDate()
+    const monthIndex = data.getMonth()
+    const year = data.getFullYear()
+    return `${months[monthIndex]} ${day}, ${year}`
+}
 
 export const load = (...args) => {
     const rqs = args.map(arg => axios.get(loadurl(arg)))
