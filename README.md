@@ -57,7 +57,9 @@ Add your access token in `token.txt`, this token is read-only
 
 https://github.com/settings/tokens
 
-![token](https://cloud.githubusercontent.com/assets/2193211/20244206/d4d72a80-a9b2-11e6-9c0d-bb557cab90ec.png)
+**DO NOT** check any any permissions
+
+grants read-only access to public information (includes public user profile info, public repository info, and gists)
 
 ### build
 
