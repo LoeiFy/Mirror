@@ -3,13 +3,13 @@ module.exports = {
 
     title: 'rorriM',
 
-    user: 'LoeiFy',
+    user: 'ibrahim-islam',
 
-    repo: 'Recordum',
+    repo: 'Ibrahim-Islam.github.io',
 
     token: '',
 
-    authors: 'LoeiFy',
+    authors: null,
 
     per_page: 5,
 

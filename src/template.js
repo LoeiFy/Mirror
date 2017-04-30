@@ -11,12 +11,12 @@ export default {
         let { authors, user } = window.config
 
         authors = authors || ''
-        authors = authors.split(',').map(author => author.toString().trim())
-        authors.push(user)
+        authors = authors.split(',').map(author => author.toString().toLowerCase().trim())
+        authors.push(user.toLowerCase())
 
         data = data.filter(issue => {
             const { user: { login } } = issue
-            return authors.indexOf(login) > -1
+            return authors.indexOf(login.toLowerCase()) > -1
         })
 
         let issues = ''
