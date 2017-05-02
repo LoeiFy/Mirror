@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let current = 'list'
     let scrollY = 0
     let total = 0
+    let sort = 'updated'
 
     function ifPager() {
         $('#prev').style.display = page == 1 ? 'none' : 'inline-block'
@@ -48,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function get_issues() {
         const _issues = {
             url: api.ISSUES(user, repo),
-            data: { page, per_page }
+            data: { page, per_page, sort }
         }
 
         const _user = { url: api.USER(user) }
