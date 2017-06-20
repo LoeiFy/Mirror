@@ -31,6 +31,7 @@ const schema = {
           hasPreviousPage
           endCursor
         }
+        totalCount
         edges {
           node {
             number
@@ -47,6 +48,54 @@ const schema = {
                   color
                   name
                 }
+              }
+            }
+          }
+        }
+      }
+    }
+  }`,
+  issue: `{
+    repository(owner: "LoeiFy", name: "Recordum") {
+      issue(number: 18) {
+        title
+        author {
+          avatarUrl
+          login
+          url
+        }
+        bodyHTML
+        createdAt
+        updatedAt
+        id
+        labels(first: 3) {
+          edges {
+            node {
+              color
+              name
+            }
+          }
+        }
+        number
+        comments {
+          totalCount
+        }
+      }
+    }
+  }`,
+  comments: `{
+    repository(owner: "LoeiFy", name: "Recordum") {
+      issue(number: 11) {
+        comments(first: 10) {
+          totalCount
+          edges {
+            node {
+              updatedAt
+              bodyHTML
+              author {
+                avatarUrl
+                login
+                url
               }
             }
           }

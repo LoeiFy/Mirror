@@ -1,7 +1,8 @@
 
 import axios from 'axios'
 
-axios.defaults.headers.Accept = 'application/vnd.github.v3.html'
+// axios.defaults.headers.Accept = 'application/vnd.github.v3.html'
+axios.defaults.headers.Authorization = 'bearer tokenxxxxx'
 
 const loadurl = ({url, data = {} }) => {
     if (window.config.token) {
