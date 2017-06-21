@@ -7,7 +7,7 @@ module.exports = {
 
     repo: 'Recordum',
 
-    token: '',
+    // token: '5#c21bffc137f44faf7e9c4a84da827f7cc2cfeaa',
 
     authors: 'LoeiFy',
 

@@ -11,18 +11,20 @@ export const COMMENTS = (user, repo, id) => `${ISSUE(user, repo, id)}/comments`
 
 const api = 'https://api.github.com/graphql'
 
-const schema = {
-  user: `{
-    user(login: "LoeiFy") {
-      name
-      avatarUrl
-      email
-      websiteUrl
-      url
-      bio
-      login
-    }
-  }`,
+export const schema = {
+  user(login) { 
+    return `{
+      user(login: "${login}") {
+        name
+        avatarUrl
+        email
+        websiteUrl
+        url
+        bio
+        login
+      }
+    }`
+  },
   issues: `{
     repository(owner: "LoeiFy", name: "Recordum") {
       issues(first: 3, states: OPEN, after: "Y3Vyc29yOnYyOpLOB48Tds4HjxN2", orderBy: {field: CREATED_AT, direction: ASC}) {

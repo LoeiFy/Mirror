@@ -1,6 +1,7 @@
 import * as api from './api'
 import template from './template'
 import { load, $, box, clone, titleFormat } from './util'
+import axios from 'axios'
 
 import './index.scss'
 import icon_back from './svg/back.svg'
@@ -10,7 +11,24 @@ import 'es6-promise/auto'
 import smoothscroll from 'smoothscroll-polyfill'
 smoothscroll.polyfill()
 
+if (window.config.token) {
+    const token = window.config.token.split('#').join('')
+    axios.defaults.headers.Authorization = `bearer ${token}`
+}
+
+const host = 'https://api.github.com/graphql'
+
 document.addEventListener('DOMContentLoaded', function() {
+
+    // console.log(api.schema.user('LoeiFy'))
+
+    axios.post(host, {
+        query: api.schema.issue
+    })
+    .then(data => console.log(data.data))
+
+    return false
+
     let { title, user, repo, per_page, sandbox } = window.config
 
     if (!title || !user || !repo || !per_page) {
