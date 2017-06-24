@@ -10,10 +10,10 @@ class Issues extends Request {
   }
 
   schema(after) {
-    after = after ? `after: "${after}"` : ''
+    after = after ? `after: "${after}", ` : ''
     return `{
       repository(owner: "${this.user}", name: "${this.repository}") {
-        issues(first: ${this.perpage}, states: OPEN, ${after}, orderBy: {field: CREATED_AT, direction: ASC}) {
+        issues(first: ${this.perpage}, states: OPEN, ${after}orderBy: {field: CREATED_AT, direction: ASC}) {
           pageInfo {
             hasNextPage
             endCursor

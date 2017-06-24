@@ -8,11 +8,13 @@ class Comments extends Request {
     this.repository = repository
   }
 
-  schema(number) {
+  schema(number, after) {
+    after = after ? `after: "${after}", ` : ''
     return `{
       repository(owner: "${this.user}", name: "${this.repository}") {
         issue(number: ${number}) {
-          comments(first: 10) {
+          number
+          comments(first: 10, ${after}) {
             totalCount
             edges {
               node {
