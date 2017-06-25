@@ -1,9 +1,61 @@
-var webpack = require('webpack')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
-var production = process.env.NODE_ENV === 'production'
-var forhtml = process.env.NODE_ENV === 'html'
-var fornpm = process.env.NODE_ENV === 'npm'
-var config = require('./src/config.js')
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const config = require('./src/config.js')
+// const isProd = process.env.NODE_ENV === 'production'
+
+const base = {
+  entry: {
+    build: './src/'
+  },
+
+  output: {
+    publicPath: '/',
+    path: '/',
+    filename: '[name].js'
+  },
+
+  resolve: {
+    extensions: ['.js', '.css']
+  },
+
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: 'src/index.html',
+      config: JSON.stringify(config)
+    })
+  ],
+
+  devServer: {
+    historyApiFallback: true,
+    noInfo: true,
+    host: '0.0.0.0',
+    port: 1234
+  },
+
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        loader: ['style-loader', 'css-loader', 'postcss-loader']
+      },
+      {
+        test: /\.svg$/,
+        loader: 'svg-inline-loader'
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader'
+      }
+    ]
+  },
+
+  devtool: '#source-map'
+}
+
+module.exports = base
+
+/*
 var _config = {}
 
 Object.keys(config).forEach(function(key) {
@@ -97,3 +149,4 @@ module.exports = {
     
     plugins: plugins
 }
+*/

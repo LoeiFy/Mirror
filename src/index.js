@@ -1,3 +1,12 @@
+import 'es6-promise/auto'
+import icon_back from './svg/back.svg'
+import './styles/global'
+import smoothscroll from 'smoothscroll-polyfill'
+smoothscroll.polyfill()
+
+document.querySelector('#main').innerHTML = `<a>${icon_back}</a>`
+
+/*
 import * as api from './api'
 import template from './template'
 import { load, $, box, clone, titleFormat } from './util'
@@ -6,7 +15,6 @@ import axios from 'axios'
 import './index.scss'
 import icon_back from './svg/back.svg'
 
-import 'core-js/fn/array/find'
 import 'es6-promise/auto'
 import smoothscroll from 'smoothscroll-polyfill'
 smoothscroll.polyfill()
@@ -305,5 +313,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 })
+*/
 
 console.log("%c Github %c","background:#24272A; color:#ffffff","","https://github.com/LoeiFy/Mirror")

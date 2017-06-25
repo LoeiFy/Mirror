@@ -3,8 +3,6 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="google" content="notranslate" />
-<link rel="icon" href="favicon.png" />
 <title> Loading... </title>
 <script>
 
@@ -50,46 +48,7 @@ html.loading .container { display: none; }
 @-webkit-keyframes loading { 100% { -webkit-transform: rotate(360deg) } }
 </style>
 </head>
-
 <body>
-
-    <div class="container">
-
-        <div class="left">
-            <div id="user"></div>
-            <div id="posts"></div>
-            <div class="btns">
-                <button class="button" id="prev">← Newer Posts</button>
-                <button class="button" id="next">Older Posts →</button>
-            </div>
-
-            <div id="footer">
-                Powered by <a href="https://github.com/LoeiFy/Mirror" target="_blank">Mirror</a> & GitHub .
-                <a id="source" target="_blank">Source</a>
-                <span id="sandbox"> | <a>SandBox</a></span>
-            </div>
-
-            <div class="sandbox">
-                <div id="close">&#x2716;</div>
-                <form id="form" autocomplete="off">
-                    <p>Submit the imformation and preview</p>
-                    <input type="text" name="title" placeholder="Blog Title" />
-                    <input type="text" name="user" placeholder="GitHub Username" />
-                    <input type="text" name="repo" placeholder="GitHub Repo" />
-                    <input type="text" name="authors" placeholder="Authors Filter(Optional)" />
-                    <input type="number" name="per_page" placeholder="Number of Per Page" />
-                    <button type="submit" name="submit" class="button">Start</button>
-                </form>
-            </div>
-        </div>
-
-
-        <div class="right">
-            <div id="post"></div>
-        </div>
-
-    </div>
-
+<div id="main"></div>
 </body>
-
 </html>

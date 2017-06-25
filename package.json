@@ -7,7 +7,7 @@
     "mirror": "./mirror.js"
   },
   "scripts": {
-    "dev": "cross-env NODE_ENV=html webpack --progress && webpack-dev-server --inline --hot --no-info --host 0.0.0.0",
+    "dev": "webpack-dev-server --inline --hot",
     "build": "npm run clean && cross-env NODE_ENV=production webpack --progress && cp favicon.png dist && node zip.js && npm run release",
     "release": "npm run clean && cross-env NODE_ENV=npm webpack --progress && cp favicon.png dist",
     "clean": "rm -f -R dist build.js index.html"
