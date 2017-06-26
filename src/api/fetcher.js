@@ -15,7 +15,7 @@ class Request {
       headers: {
         Authorization: `bearer ${this.token}`
       },
-      data: query
+      data: { query }
     }
     return axios(config)
   }

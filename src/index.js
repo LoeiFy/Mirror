@@ -1,8 +1,14 @@
 import 'es6-promise/auto'
-import icon_back from './svg/back.svg'
-import './styles/global'
 import smoothscroll from 'smoothscroll-polyfill'
+
+import api from './api/'
+
+import icon_back from './svg/back.svg'
+import './styles/'
+
 smoothscroll.polyfill()
+
+// api.issues._("Y3Vyc29yOnYyOpK5MjAxNy0wMi0wNFQxMTozNDoxNiswODowMM4MPO5b").then(res => console.log(res))
 
 document.querySelector('#main').innerHTML = `<a>${icon_back}</a>`
 
@@ -315,4 +321,4 @@ document.addEventListener('DOMContentLoaded', function() {
 })
 */
 
-console.log("%c Github %c","background:#24272A; color:#ffffff","","https://github.com/LoeiFy/Mirror")
+// console.log("%c Github %c","background:#24272A; color:#ffffff","","https://github.com/LoeiFy/Mirror")

@@ -1,8 +1,8 @@
-import Request from './request'
+import Fetcher from './fetcher'
 
 const { user, repository, perpage } = window.config
 
-class Issues extends Request {
+class Issues extends Fetcher {
   constructor() {
     super()
     this.user = user

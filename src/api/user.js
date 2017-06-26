@@ -1,8 +1,8 @@
-import Request from './request'
+import Fetcher from './fetcher'
 
 const { user } = window.config
 
-class User extends Request {
+class User extends Fetcher {
   constructor() {
     super()
     this.user = user

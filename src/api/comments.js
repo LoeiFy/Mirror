@@ -1,8 +1,8 @@
-import Request from './request'
+import Fetcher from './fetcher'
 
-const { user. repository } = window.config
+const { user, repository } = window.config
 
-class Comments extends Request {
+class Comments extends Fetcher {
   constructor() {
     super()
     this.user = user
