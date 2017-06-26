@@ -1,20 +1,31 @@
 import Request from './request'
 
+const { user. repository } = window.config
+
 class Comments extends Request {
-  constructor(config) {
-    const { user, repository, token } = config
-    super(token)
+  constructor() {
+    super()
     this.user = user
     this.repository = repository
+    this.perpage = 10
   }
 
-  schema(number, after) {
-    after = after ? `after: "${after}", ` : ''
+  query(number, after) {
+    let variables = `first: ${this.perpage}`
+
+    if (after) {
+      variables += `after: "${after}"`
+    }
+
     return `{
       repository(owner: "${this.user}", name: "${this.repository}") {
         issue(number: ${number}) {
           number
-          comments(first: 10, ${after}) {
+          comments(${variables}) {
+            pageInfo {
+              hasNextPage
+              endCursor
+            }
             totalCount
             edges {
               node {
@@ -33,8 +44,8 @@ class Comments extends Request {
     }`
   }
 
-  _(number) {
-    return this.fetch(this.schema(number))
+  _(number, after) {
+    return this.fetch(this.query(number, after))
   }
 }
 

@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+const { token } = window.config
+
 class Request {
   constructor() {
     this.host = 'https://api.github.com/graphql'

@@ -1,13 +1,14 @@
 import Request from './request'
 
+const { user } = window.config
+
 class User extends Request {
-  constructor(config) {
-    const { user, token } = config
-    super(token)
+  constructor() {
+    super()
     this.user = user
   }
 
-  get schema() {
+  get query() {
     return `{
       user(login: "${this.user}") {
         name
@@ -22,7 +23,7 @@ class User extends Request {
   }
 
   _() {
-    return this.fetch(this.schema)
+    return this.fetch(this.query)
   }
 }
 

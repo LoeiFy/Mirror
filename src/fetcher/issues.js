@@ -1,19 +1,26 @@
 import Request from './request'
 
+const { user, repository, perpage } = window.config
+
 class Issues extends Request {
-  constructor(config) {
-    const { user, repository, perpage, token } = config
-    super(token)
+  constructor() {
+    super()
     this.user = user
     this.repository = repository
     this.perpage = perpage
+    this.labelsNum = 3
   }
 
-  schema(after) {
-    after = after ? `after: "${after}", ` : ''
+  query(after) {
+    let variables = `first: ${this.perpage}, states: OPEN, orderBy: {field: CREATED_AT, direction: ASC}`
+
+    if (after) {
+      variables += `, after: "${after}"`
+    }
+
     return `{
       repository(owner: "${this.user}", name: "${this.repository}") {
-        issues(first: ${this.perpage}, states: OPEN, ${after}orderBy: {field: CREATED_AT, direction: ASC}) {
+        issues(${variables}) {
           pageInfo {
             hasNextPage
             endCursor
@@ -29,7 +36,7 @@ class Issues extends Request {
                 url
               }
               updatedAt
-              labels(first: 1) {
+              labels(first: ${this.labelsNum}) {
                 edges {
                   node {
                     color
@@ -45,7 +52,7 @@ class Issues extends Request {
   }
 
   _(after) {
-    return this.fetch(this.schema(after))
+    return this.fetch(this.query(after))
   }
 }
 

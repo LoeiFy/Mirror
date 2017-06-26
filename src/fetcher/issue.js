@@ -1,14 +1,15 @@
 import Request from './request'
 
+const { user, repository } = window.config
+
 class Issue extends Request {
-  constructor(config) {
-    const { user, repository, token } = config
-    super(token)
+  constructor() {
+    super()
     this.user = user
     this.repository = repository
   }
 
-  schema(number) {
+  query(number) {
     return `{
       repository(owner: "${this.user}", name: "${this.repository}") {
         issue(number: ${number}) {
@@ -38,7 +39,7 @@ class Issue extends Request {
   }
 
   _(number) {
-    return this.fetch(this.schema(number))
+    return this.fetch(this.query(number))
   }
 }
 
