@@ -4,7 +4,7 @@ import smoothscroll from 'smoothscroll-polyfill'
 import api from './api/'
 
 import icon_back from './svg/back.svg'
-import './styles/'
+import './style/'
 
 smoothscroll.polyfill()
 

@@ -1,9 +1,12 @@
 import timeFormat from '../utils/time'
 
 class Comments {
-  constructor(config, comments) {
-    this.config = config
-    this.comments = comments
+  constructor(props) {
+    this.state = {
+      comments: props.edges,
+      page: props.pageInfo,
+      total: props.totalCount
+    }
   }
 
   comment(data) {
@@ -11,7 +14,7 @@ class Comments {
       bodyHTML,
       updatedAt,
       user: { url, login, avatarUrl }
-    } = data
+    } = data.node
 
     return `
       <li>
@@ -27,10 +30,14 @@ class Comments {
     `
   }
 
+  get next() {
+    if (this) 
+  }
+
   render() {
     return `
       <ul class="comment-list">
-        ${this.comments.map(comment => this.comment(comment)).join('')}
+        ${this.state.comments.map(comment => this.comment(comment)).join('')}
       </ul>
     `
   }
