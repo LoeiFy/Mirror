@@ -23,12 +23,12 @@ t.notFound = function(params) {
 t.start()
 
 function onPosts() {
-  api.issues._("Y3Vyc29yOnYyOpK5MjAxNy0wMi0wNFQxMTozNDoxNiswODowMM4MPO5b")
+  // api.issues._("Y3Vyc29yOnYyOpK5MjAxNy0wMi0wNFQxMTozNDoxNiswODowMM4MPO5b")
+  api.issues._()
   .then(res => {
-    issues.render(res)
+    issues.setIssues(res.repository.issues)
   })
   .catch(err => console.log(err))
-  // api.issues._("Y3Vyc29yOnYyOpK5MjAxNy0wMi0wNFQxMTozNDoxNiswODowMM4MPO5").then(res => console.log(res))
 }
 
 function onPost(params) {

@@ -13,6 +13,7 @@ const { authors, user } = window.config
 class Posts {
   constructor(selector) {
     this.container = document.querySelector(selector)
+    this.issues = { posts: [], pageInfo: {}, totalCount: 0 }
   }
 
   get authors() {
@@ -26,7 +27,21 @@ class Posts {
     return trimAuthors
   }
 
-  posts(issues) {
+  setIssues(issues) {
+    const { edges, totalCount, pageInfo } = issues
+
+    this.issues.pageInfo = pageInfo
+    if (!this.issues.posts.length) {
+      this.issues.posts = this.filterPosts(edges)
+      this.issues.totalCount = totalCount
+    } else {
+      this.issues.posts = this.issues.posts.concat(this.filterPosts(edges))
+    }
+
+    this._render()
+  }
+
+  filterPosts(issues) {
     return issues.filter((issue) => {
       const author = stringFormat(issue.node.author.login)
       return this.authors.indexOf(author) > -1
@@ -48,19 +63,26 @@ class Posts {
     `
   }
 
-  pagination(issues) {
+  pagination() {
     const {
+      posts,
       pageInfo: { endCursor, hasNextPage },
       totalCount
-    } = issues
+    } = this.issues
+
+    if (hasNextPage) {
+      return `<button>${posts.length} / ${totalCount}</button>`
+    }
+
+    return ''
   }
 
-  render(issues) {
-    const { repository: { issues: { edges } } } = issues
+  _render() {
+    const { posts } = this.issues
 
-    this.container.innerHTML = this.posts(edges)
+    this.container.innerHTML = posts
     .map(issue => this.post(issue.node))
-    .join('')
+    .join('') + this.pagination()
   }
 }
 
