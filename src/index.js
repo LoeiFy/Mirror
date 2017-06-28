@@ -9,7 +9,6 @@ import './style/'
 
 smoothscroll.polyfill()
 
-// api.issues._("Y3Vyc29yOnYyOpK5MjAxNy0wMi0wNFQxMTozNDoxNiswODowMM4MPO5b").then(res => console.log(res))
 
 document.querySelector('#main').innerHTML = `<a href="#/posts/90" id="to">${icon_back}</a>`
 
@@ -22,10 +21,13 @@ t.notFound = function(params) {
 t.start()
 
 function onPosts() {
-  console.log('posts')
+  // api.issues._("Y3Vyc29yOnYyOpK5MjAxNy0wMi0wNFQxMTozNDoxNiswODowMM4MPO5").then(res => console.log(res))
 }
 
 function onPost(params) {
+  api.issues._("Y3Vyc29yOnYyOpK5MjAxNy0wMi0wNFQxMTozNDoxNiswODowMM4MPO5")
+  .then(res => console.log(res))
+  .catch(err => console.log(err))
   console.log(params)
 }
 
