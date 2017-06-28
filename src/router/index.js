@@ -3,6 +3,7 @@ import getParams from './params'
 class Router {
   constructor(routes) {
     this.routes = routes
+    this._404 = null
     this._listen()
   }
 
@@ -20,7 +21,13 @@ class Router {
 
     if (match) {
       this.routes[match](params)
+    } else {
+      this._404 && this._404(route)
     }
+  }
+
+  set notFound(fn) {
+    this._404 = fn
   }
 
   start() {

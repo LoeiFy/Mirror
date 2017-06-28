@@ -13,22 +13,21 @@ smoothscroll.polyfill()
 
 document.querySelector('#main').innerHTML = `<a href="#/posts/90" id="to">${icon_back}</a>`
 
-var t = new Router({
-  '/': function() {
-    console.log('home')
-  },
-  '/posts': function() {
-    console.log('posts')
-  },
-  '/posts/:id': onPost
-})
+var t = new Router({ '/posts': onPosts, '/posts/:id': onPost })
 
-function onPost(params) {
-  console.log(params)
+t.notFound = function(params) {
+  t.go('/posts')
 }
 
 t.start()
 
+function onPosts() {
+  console.log('posts')
+}
+
+function onPost(params) {
+  console.log(params)
+}
 
 /*
 import * as api from './api'
