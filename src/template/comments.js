@@ -31,7 +31,6 @@ class Comments {
   }
 
   get next() {
-    if (this) 
   }
 
   render() {

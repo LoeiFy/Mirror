@@ -12,6 +12,58 @@ smoothscroll.polyfill()
 
 document.querySelector('#main').innerHTML = `<a>${icon_back}</a>`
 
+function clean(s) {
+  if (s instanceof RegExp) return s;
+  return s.replace(/\/+$/, '').replace(/^\/+/, '^/');
+}
+
+function replaceDynamicURLParts(route) {
+  var paramNames = [],
+    regexp;
+
+  regexp = new RegExp(
+    route.replace(/([:*])(\w+)/g, function(full, dots, name) {
+      paramNames.push(name);
+      return '([^\/]+)';
+    })
+    .replace(/\*/g, '(?:.*)') + '(?:\/$|$)', '');
+  return {
+    regexp,
+    paramNames
+  };
+}
+
+function findMatchedRoutes(url, routes = []) {
+  return routes
+    .map(route => {
+      var { regexp, paramNames } = replaceDynamicURLParts(clean(route.route));
+      var match = url.replace(/^\/+/, '/').match(regexp);
+      var params = regExpResultToParams(match, paramNames);
+
+      return match ? { match, route, params } : false;
+    })
+    .filter(m => m);
+}
+
+function regExpResultToParams(match, names) {
+  if (names.length === 0) return null;
+  if (!match) return null;
+  return match
+    .slice(1, match.length)
+    .reduce((params, value, index) => {
+      if (params === null) params = {};
+      params[names[index]] = decodeURIComponent(value);
+      return params;
+    }, null);
+}
+
+var routes = [
+{ route: '/about/:id' },
+{ route: '/usage' }
+]
+
+console.log(findMatchedRoutes('/about/7', routes))
+
 /*
 import * as api from './api'
 import template from './template'
