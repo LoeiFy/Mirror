@@ -2,6 +2,7 @@ import 'es6-promise/auto'
 import smoothscroll from 'smoothscroll-polyfill'
 
 import api from './api/'
+import Router from './router'
 
 import icon_back from './svg/back.svg'
 import './style/'
@@ -10,59 +11,24 @@ smoothscroll.polyfill()
 
 // api.issues._("Y3Vyc29yOnYyOpK5MjAxNy0wMi0wNFQxMTozNDoxNiswODowMM4MPO5b").then(res => console.log(res))
 
-document.querySelector('#main').innerHTML = `<a>${icon_back}</a>`
+document.querySelector('#main').innerHTML = `<a href="#/posts/90" id="to">${icon_back}</a>`
 
-function clean(s) {
-  if (s instanceof RegExp) return s;
-  return s.replace(/\/+$/, '').replace(/^\/+/, '^/');
+var t = new Router({
+  '/': function() {
+    console.log('home')
+  },
+  '/posts': function() {
+    console.log('posts')
+  },
+  '/posts/:id': onPost
+})
+
+function onPost(params) {
+  console.log(params)
 }
 
-function replaceDynamicURLParts(route) {
-  var paramNames = [],
-    regexp;
+t.start()
 
-  regexp = new RegExp(
-    route.replace(/([:*])(\w+)/g, function(full, dots, name) {
-      paramNames.push(name);
-      return '([^\/]+)';
-    })
-    .replace(/\*/g, '(?:.*)') + '(?:\/$|$)', '');
-  return {
-    regexp,
-    paramNames
-  };
-}
-
-function findMatchedRoutes(url, routes = []) {
-  return routes
-    .map(route => {
-      var { regexp, paramNames } = replaceDynamicURLParts(clean(route.route));
-      var match = url.replace(/^\/+/, '/').match(regexp);
-      var params = regExpResultToParams(match, paramNames);
-
-      return match ? { match, route, params } : false;
-    })
-    .filter(m => m);
-}
-
-function regExpResultToParams(match, names) {
-  if (names.length === 0) return null;
-  if (!match) return null;
-  return match
-    .slice(1, match.length)
-    .reduce((params, value, index) => {
-      if (params === null) params = {};
-      params[names[index]] = decodeURIComponent(value);
-      return params;
-    }, null);
-}
-
-var routes = [
-{ route: '/about/:id' },
-{ route: '/usage' }
-]
-
-console.log(findMatchedRoutes('/about/7', routes))
 
 /*
 import * as api from './api'

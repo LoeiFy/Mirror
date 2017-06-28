@@ -1,14 +1,30 @@
-function getMode(mode) {
-  return mode === 'history' && !!history.pushState ?
-    'history' : 'hash'
-}
+import getParams from './params'
 
 class Router {
-  constructor(config) {
-    const { mode, routes, root } = config
+  constructor(routes) {
     this.routes = routes
-    this.mode = getMode(mode)
-    this.root = root
+    this._listen()
+  }
+
+  go(path) {
+    location.hash = path
+  }
+
+  _listen() {
+    window.addEventListener('hashchange', () => { this._resolve() })
+  }
+
+  _resolve() {
+    const route = location.hash.split('#')[1] || '/'
+    const { match, params } = getParams(Object.keys(this.routes), route)
+
+    if (match) {
+      this.routes[match](params)
+    }
+  }
+
+  start() {
+    this._resolve()
   }
 }
 
