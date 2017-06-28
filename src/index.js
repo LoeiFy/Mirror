@@ -3,12 +3,14 @@ import smoothscroll from 'smoothscroll-polyfill'
 
 import api from './api/'
 import Router from './router'
+import Issues from './template/issues'
 
 import icon_back from './svg/back.svg'
 import './style/'
 
 smoothscroll.polyfill()
 
+const issues = new Issues('#posts')
 
 document.querySelector('#main').innerHTML = `<a href="#/posts/90" id="to">${icon_back}</a>`
 
@@ -21,13 +23,15 @@ t.notFound = function(params) {
 t.start()
 
 function onPosts() {
+  api.issues._("Y3Vyc29yOnYyOpK5MjAxNy0wMi0wNFQxMTozNDoxNiswODowMM4MPO5b")
+  .then(res => {
+    issues.render(res)
+  })
+  .catch(err => console.log(err))
   // api.issues._("Y3Vyc29yOnYyOpK5MjAxNy0wMi0wNFQxMTozNDoxNiswODowMM4MPO5").then(res => console.log(res))
 }
 
 function onPost(params) {
-  api.issues._("Y3Vyc29yOnYyOpK5MjAxNy0wMi0wNFQxMTozNDoxNiswODowMM4MPO5")
-  .then(res => console.log(res))
-  .catch(err => console.log(err))
   console.log(params)
 }
 

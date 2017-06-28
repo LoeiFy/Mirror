@@ -1,8 +1,8 @@
-export dafault function(time) {
+export default function(time) {
   const months = 'Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec'.split(',')
-  const data = new Date(time)
-  const day = data.getDate()
-  const index = data.getMonth()
-  const year = data.getFullYear()
+  const date = new Date(time)
+  const day = date.getDate()
+  const index = date.getMonth()
+  const year = date.getFullYear()
   return `${months[index]} ${day}, ${year}`
 }

@@ -1,44 +1,65 @@
-import timeFormat from '../utils/time'
+import timeFormat from '../util/time'
 
 function titleFormat(title) {
   return title.split(/\[.*?\]/g).join('')
 }
 
+function stringFormat(s) {
+  return s.toString().toLowerCase().trim()
+}
+
+const { authors, user } = window.config
+
 class Posts {
-  constructor(config, issues) {
-    this.config = config
-    this.issues = issues
+  constructor(selector) {
+    this.container = document.querySelector(selector)
   }
 
   get authors() {
-    return (this.config.authors || [])
-    .map(author => author.toString().toLowerCase().trim())
-    .push(this.config.user.toString().toLowerCase().trim())
+    const trimAuthors = (authors || []).map(author => stringFormat(author))
+    const trimUser = stringFormat(user)
+
+    if (trimAuthors.indexOf(trimUser) === -1) {
+      trimAuthors.push(trimUser)
+    }
+
+    return trimAuthors
   }
 
-  get posts() {
-    return this.issues
-    .filter(issue => this.authors.indexOf(issue.user.login) > -1)
+  posts(issues) {
+    return issues.filter((issue) => {
+      const author = stringFormat(issue.node.author.login)
+      return this.authors.indexOf(author) > -1
+    })
   }
 
   post(issue) {
-    const { number, title, upadteAt } = issue
-    const labels = issue.labels
-    .map(label => `<span>#${label.name}</span>`)
+    const { number, title, updatedAt } = issue
+    const labels = issue.labels.edges
+    .map(label => `<span>#${label.node.name}</span>`)
     .join('')
 
     return `
       <a href="#${number}">
         <h2>${titleFormat(title)}</h2>
-        <section>${labels}</section>
-        <p>${timeFormat(upadteAt)}</p>
+        <div>${labels}</div>
+        <p>${timeFormat(updatedAt)}</p>
       </a>
     `
   }
 
-  render() {
-    return this.posts
-    .map(issue => this.post(issue))
+  pagination(issues) {
+    const {
+      pageInfo: { endCursor, hasNextPage },
+      totalCount
+    } = issues
+  }
+
+  render(issues) {
+    const { repository: { issues: { edges } } } = issues
+
+    this.container.innerHTML = this.posts(edges)
+    .map(issue => this.post(issue.node))
     .join('')
   }
 }

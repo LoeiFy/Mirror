@@ -23,6 +23,7 @@ class Issues extends Fetcher {
         issues(${variables}) {
           pageInfo {
             hasNextPage
+            hasPreviousPage
             endCursor
           }
           totalCount
