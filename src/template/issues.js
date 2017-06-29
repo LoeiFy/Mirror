@@ -24,8 +24,8 @@ class Issues {
     return trimAuthors
   }
 
-  get posts() {
-    return this.issues.edges
+  get exist() {
+    return this.issues.edges.length > 0
   }
 
   _(issues) {
@@ -39,7 +39,7 @@ class Issues {
       this.issues.edges = this.issues.edges.concat(this.filterPosts(edges))
     }
 
-    this._render()
+    this.render()
   }
 
   filterPosts(issues) {
@@ -82,7 +82,7 @@ class Issues {
     return ''
   }
 
-  _render() {
+  render() {
     const { edges } = this.issues
 
     this.container.innerHTML = edges

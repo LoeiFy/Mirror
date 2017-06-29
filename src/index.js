@@ -10,7 +10,7 @@ import Issue from './template/issue'
 import User from './template/user'
 import Comments from './template/comments'
 
-window.Mirror = {}
+window.Mirror = { posts: {} }
 
 const issues = new Issues('#posts')
 const issue = new Issue('#post')
@@ -19,7 +19,12 @@ const comments = new Comments('#comments')
 const router = new Router({ '/posts': onPosts, '/posts/:id': onPost })
 
 function onPosts() {
-  API.user._()
+  if (user.exist) {
+    user.render()
+    return Mirror.getPosts()
+  }
+
+  return API.user._()
   .then((res) => {
     user._(res.user)
     Mirror.getPosts()
@@ -32,14 +37,25 @@ function onPost(params) {
 }
 
 Mirror.getPosts = function(after = '') {
-  API.issues._(after)
+  if (issues.exist && !after) {
+    return issues.render()
+  }
+
+  return API.issues._(after)
   .then(res => issues._(res.repository.issues))
   .catch(err => console.log(err))
 }
 
 Mirror.getPost = function(id) {
-  API.issue._(id)
-  .then(res => issue.setIssue(res.repository.issue))
+  if (this.posts[id]) {
+    return issue._(this.posts[id])
+  }
+
+  return API.issue._(id)
+  .then((res) => {
+    this.posts[id] = res.repository.issue
+    issue._(res.repository.issue)
+  })
   .catch(err => console.log(err))
 }
 

@@ -10,7 +10,11 @@ class User {
 
   _(user) {
     this.user = user
-    this._render()
+    this.render()
+  }
+
+  get exist() {
+    return !!this.user.email
   }
 
   get email() {
@@ -27,7 +31,7 @@ class User {
     return this.user.bio ? `<p>${this.user.bio}</p>` : ''
   }
 
-  _render() {
+  render() {
     const { user, email, website, bio, container } = this
 
     container.innerHTML = `

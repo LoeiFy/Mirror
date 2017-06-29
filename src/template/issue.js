@@ -9,7 +9,7 @@ class Issue {
     this.issue = {}
   }
 
-  setIssue(issue) {
+  _(issue) {
     this.issue = issue
     this._render()
   }
