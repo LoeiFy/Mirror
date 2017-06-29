@@ -1,20 +1,19 @@
-import timeFormat from '../utils/time'
+import timeFormat from '../util/time'
 
 class Comments {
-  constructor(props) {
-    this.state = {
-      comments: props.edges,
-      page: props.pageInfo,
-      total: props.totalCount
-    }
+  constructor(selector) {
+    this.container = document.querySelector(selector)
+    this.comments = { edges: [], totalCount: 0, pageInfo: {} }
+    this.number = null
   }
 
   comment(data) {
-    const {
-      bodyHTML,
-      updatedAt,
-      user: { url, login, avatarUrl }
-    } = data.node
+    const { bodyHTML, updatedAt } = data.node
+    const { url, login, avatarUrl } = data.node.author || {
+      url: 'https://github.com/ghost',
+      login: 'ghost',
+      avatarUrl: 'https://avatars0.githubusercontent.com/u/10137?v=3'
+    }
 
     return `
       <li>
@@ -30,14 +29,57 @@ class Comments {
     `
   }
 
+  _(issue) {
+    const {
+      comments: { edges, totalCount, pageInfo },
+      number
+    } = issue
+
+    this.comments.pageInfo = pageInfo
+    if (!this.comments.edges.length) {
+      this.comments.edges = edges
+      this.comments.totalCount = totalCount
+      this.number = number
+    } else {
+      this.comments.edges = this.comments.edges.concat(edges)
+    }
+
+    this.render()
+  }
+
   get next() {
+    const {
+      comments: {
+        edges,
+        pageInfo: { endCursor, hasNextPage },
+        totalCount
+      },
+      number
+    } = this
+
+    if (!hasNextPage) {
+      return ''
+    }
+
+    return `
+      <button
+        value="${number}#${endCursor}"
+        onclick="window.trigger.getComments(this.value)"
+      >${edges.length} / ${totalCount}
+      </button>
+    `
   }
 
   render() {
-    return `
+    const { edges } = this.comments
+
+    this.container.innerHTML = `
       <ul class="comment-list">
-        ${this.state.comments.map(comment => this.comment(comment)).join('')}
+        ${edges.map(comment => this.comment(comment)).join('')}
       </ul>
+      ${this.next}
     `
   }
 }
+
+export default Comments

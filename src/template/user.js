@@ -8,7 +8,7 @@ class User {
     this.user = {}
   }
 
-  setUser(user) {
+  _(user) {
     this.user = user
     this.render()
   }

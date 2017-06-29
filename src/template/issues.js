@@ -1,8 +1,5 @@
 import timeFormat from '../util/time'
-
-function titleFormat(title) {
-  return title.split(/\[.*?\]/g).join('')
-}
+import titleFormat from '../util/title'
 
 function stringFormat(s) {
   return s.toString().toLowerCase().trim()
@@ -13,7 +10,7 @@ const { authors, user } = window.config
 class Issues {
   constructor(selector) {
     this.container = document.querySelector(selector)
-    this.issues = { posts: [], pageInfo: {}, totalCount: 0 }
+    this.issues = { edges: [], pageInfo: {}, totalCount: 0 }
   }
 
   get authors() {
@@ -27,15 +24,19 @@ class Issues {
     return trimAuthors
   }
 
-  setIssues(issues) {
+  get posts() {
+    return this.issues.edges
+  }
+
+  _(issues) {
     const { edges, totalCount, pageInfo } = issues
 
     this.issues.pageInfo = pageInfo
-    if (!this.issues.posts.length) {
-      this.issues.posts = this.filterPosts(edges)
+    if (!this.issues.edges.length) {
+      this.issues.edges = this.filterPosts(edges)
       this.issues.totalCount = totalCount
     } else {
-      this.issues.posts = this.issues.posts.concat(this.filterPosts(edges))
+      this.issues.edges = this.issues.edges.concat(this.filterPosts(edges))
     }
 
     this.render()
@@ -63,18 +64,18 @@ class Issues {
     `
   }
 
-  pagination() {
+  get pagination() {
     const {
-      posts,
+      edges,
       pageInfo: { endCursor, hasNextPage },
       totalCount
     } = this.issues
 
     if (hasNextPage) {
       return `
-      <button value="${endCursor}" onclick="window.trigger.getPosts(this.value)">
-        ${posts.length} / ${totalCount}
-      </button>
+        <button value="${endCursor}" onclick="window.trigger.getPosts(this.value)">
+          ${edges.length} / ${totalCount}
+        </button>
       `
     }
 
@@ -82,11 +83,11 @@ class Issues {
   }
 
   render() {
-    const { posts } = this.issues
+    const { edges } = this.issues
 
-    this.container.innerHTML = posts
+    this.container.innerHTML = edges
     .map(issue => this.post(issue.node))
-    .join('') + this.pagination()
+    .join('') + this.pagination
   }
 }
 
