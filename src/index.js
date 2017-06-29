@@ -1,23 +1,37 @@
 import 'es6-promise/auto'
-import smoothscroll from 'smoothscroll-polyfill'
+import { polyfill } from 'smoothscroll-polyfill'
 
 import api from './api/'
 import Router from './router'
 import Issues from './template/issues'
+import User from './template/user'
 
 import icon_back from './svg/back.svg'
 import './style/'
 
-smoothscroll.polyfill()
+polyfill()
 
 window.trigger = {}
 
 const issues = new Issues('#posts')
+const user = new User('#user')
 
 trigger.getPosts = function(after = '') {
-  api.issues._(after)
+  if (issues.issues.posts.length && !after) {
+    return issues.render()
+  }
+
+  return api.issues._(after)
   .then(res => {
     issues.setIssues(res.repository.issues)
+  })
+  .catch(err => console.log(err))
+}
+
+trigger.getUser = function() {
+  return api.user._()
+  .then(res => {
+    user.setUser(res.user)
   })
   .catch(err => console.log(err))
 }
@@ -31,13 +45,8 @@ t.notFound = function(params) {
 t.start()
 
 function onPosts() {
-  trigger.getPosts()
-  // api.issues._("Y3Vyc29yOnYyOpK5MjAxNy0wMi0wNFQxMTozNDoxNiswODowMM4MPO5b")
-  // api.issues._()
-  // .then(res => {
-  //   issues.setIssues(res.repository.issues)
-  // })
-  // .catch(err => console.log(err))
+  // trigger.getPosts()
+  trigger.getUser()
 }
 
 function onPost(params) {

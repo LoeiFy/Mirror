@@ -10,7 +10,7 @@ function stringFormat(s) {
 
 const { authors, user } = window.config
 
-class Posts {
+class Issues {
   constructor(selector) {
     this.container = document.querySelector(selector)
     this.issues = { posts: [], pageInfo: {}, totalCount: 0 }
@@ -38,7 +38,7 @@ class Posts {
       this.issues.posts = this.issues.posts.concat(this.filterPosts(edges))
     }
 
-    this._render()
+    this.render()
   }
 
   filterPosts(issues) {
@@ -55,7 +55,7 @@ class Posts {
     .join('')
 
     return `
-      <a href="#${number}">
+      <a href="#/posts/${number}">
         <h2>${titleFormat(title)}</h2>
         <div>${labels}</div>
         <p>${timeFormat(updatedAt)}</p>
@@ -81,7 +81,7 @@ class Posts {
     return ''
   }
 
-  _render() {
+  render() {
     const { posts } = this.issues
 
     this.container.innerHTML = posts
@@ -90,4 +90,4 @@ class Posts {
   }
 }
 
-export default Posts
+export default Issues

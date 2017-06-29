@@ -3,8 +3,14 @@ import icon_link from '../svg/link.svg'
 import icon_github from '../svg/github.svg'
 
 class User {
-  constructor(props) {
-    this.user = props
+  constructor(selector) {
+    this.container = document.querySelector(selector)
+    this.user = {}
+  }
+
+  setUser(user) {
+    this.user = user
+    this.render()
   }
 
   get email() {
@@ -22,14 +28,16 @@ class User {
   }
 
   render() {
-    return `
-      <img src="${this.user.avatarUrl}" />
-      <h1>${this.user.name || this.user.login}</h1>
-      ${this.bio}
+    const { user, email, website, bio, container } = this
+
+    container.innerHTML = `
+      <img src="${user.avatarUrl}" />
+      <h1>${user.name || user.login}</h1>
+      ${bio}
       <div class="social">
-        <a target="_blank" href="${this.user.url}">${icon_github}</a>
-        ${this.website}
-        ${this.email}
+        <a target="_blank" href="${user.url}">${icon_github}</a>
+        ${website}
+        ${email}
       </div>
     `
   }
