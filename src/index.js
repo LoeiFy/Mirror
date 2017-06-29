@@ -10,9 +10,17 @@ import './style/'
 
 smoothscroll.polyfill()
 
+window.trigger = {}
+
 const issues = new Issues('#posts')
 
-document.querySelector('#main').innerHTML = `<a href="#/posts/90" id="to">${icon_back}</a>`
+trigger.getPosts = function(after = '') {
+  api.issues._(after)
+  .then(res => {
+    issues.setIssues(res.repository.issues)
+  })
+  .catch(err => console.log(err))
+}
 
 var t = new Router({ '/posts': onPosts, '/posts/:id': onPost })
 
@@ -23,12 +31,13 @@ t.notFound = function(params) {
 t.start()
 
 function onPosts() {
+  trigger.getPosts()
   // api.issues._("Y3Vyc29yOnYyOpK5MjAxNy0wMi0wNFQxMTozNDoxNiswODowMM4MPO5b")
-  api.issues._()
-  .then(res => {
-    issues.setIssues(res.repository.issues)
-  })
-  .catch(err => console.log(err))
+  // api.issues._()
+  // .then(res => {
+  //   issues.setIssues(res.repository.issues)
+  // })
+  // .catch(err => console.log(err))
 }
 
 function onPost(params) {

@@ -71,7 +71,11 @@ class Posts {
     } = this.issues
 
     if (hasNextPage) {
-      return `<button>${posts.length} / ${totalCount}</button>`
+      return `
+      <button value="${endCursor}" onclick="window.trigger.getPosts(this.value)">
+        ${posts.length} / ${totalCount}
+      </button>
+      `
     }
 
     return ''
