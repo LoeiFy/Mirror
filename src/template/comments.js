@@ -44,7 +44,7 @@ class Comments {
       this.comments.edges = this.comments.edges.concat(edges)
     }
 
-    this.render()
+    this._render()
   }
 
   get next() {
@@ -64,13 +64,13 @@ class Comments {
     return `
       <button
         value="${number}#${endCursor}"
-        onclick="window.trigger.getComments(this.value)"
+        onclick="window.Mirror.getComments(this.value)"
       >${edges.length} / ${totalCount}
       </button>
     `
   }
 
-  render() {
+  _render() {
     const { edges } = this.comments
 
     this.container.innerHTML = `

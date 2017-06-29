@@ -39,7 +39,7 @@ class Issues {
       this.issues.edges = this.issues.edges.concat(this.filterPosts(edges))
     }
 
-    this.render()
+    this._render()
   }
 
   filterPosts(issues) {
@@ -73,7 +73,7 @@ class Issues {
 
     if (hasNextPage) {
       return `
-        <button value="${endCursor}" onclick="window.trigger.getPosts(this.value)">
+        <button value="${endCursor}" onclick="window.Mirror.getPosts(this.value)">
           ${edges.length} / ${totalCount}
         </button>
       `
@@ -82,7 +82,7 @@ class Issues {
     return ''
   }
 
-  render() {
+  _render() {
     const { edges } = this.issues
 
     this.container.innerHTML = edges

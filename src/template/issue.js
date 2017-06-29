@@ -11,7 +11,7 @@ class Issue {
 
   setIssue(issue) {
     this.issue = issue
-    this.render()
+    this._render()
   }
 
   get comments() {
@@ -24,13 +24,13 @@ class Issue {
     return `
       <button
         value="${number}"
-        onclick="window.trigger.getComments(this.value)"
+        onclick="window.Mirror.getComments(this.value)"
       >view ${totalCount} comments
       </button>
     `
   }
 
-  render() {
+  _render() {
     const { title, bodyHTML, updatedAt } = this.issue
     const labels = this.issue.labels.edges
     .map(label => `
