@@ -1,11 +1,20 @@
 import icon_email from '../svg/email.svg'
 import icon_link from '../svg/link.svg'
 import icon_github from '../svg/github.svg'
+import Observer from '../observer/'
+
+console.log(window.Mirror)
+const observer = new Observer(window.Mirror)
 
 class User {
   constructor(selector) {
     this.container = document.querySelector(selector)
-    this.user = {}
+    observer.add({
+      user: data => {
+        this.render()
+      }
+    })
+    this.user = window.Mirror.user
   }
 
   _(user) {

@@ -1,16 +1,18 @@
+window.Mirror = { posts: {}, user: {} }
+
 import 'es6-promise/auto'
 import { polyfill } from 'smoothscroll-polyfill'
 
 import './style/'
 
 import API from './api/'
-import Router from './router'
+import Router from './router/'
 import Issues from './template/issues'
 import Issue from './template/issue'
 import User from './template/user'
 import Comments from './template/comments'
 
-window.Mirror = { posts: {} }
+import Observer from './observer/'
 
 const issues = new Issues('#posts')
 const issue = new Issue('#post')
@@ -19,17 +21,17 @@ const comments = new Comments('#comments')
 const router = new Router({ '/posts': onPosts, '/posts/:id': onPost })
 
 function onPosts() {
-  if (user.exist) {
-    user.render()
-    return Mirror.getPosts()
-  }
+  // if (user.exist) {
+  //   user.render()
+  //   return Mirror.getPosts()
+  // }
 
-  return API.user._()
-  .then((res) => {
-    user._(res.user)
-    Mirror.getPosts()
-  })
-  .catch(err => console.log(err))
+  // return API.user._()
+  // .then((res) => {
+  //   user._(res.user)
+  //   Mirror.getPosts()
+  // })
+  // .catch(err => console.log(err))
 }
 
 function onPost(params) {
