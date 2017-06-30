@@ -20,12 +20,12 @@ const user = new User('#user')
 const comments = new Comments('#comments')
 const router = new Router({ '/posts': onPosts, '/posts/:id': onPost })
 
-window.Mirror = { __: {}, issue: {} }
+window.Mirror = { __: {}, issue: {}, comments: {} }
 
 observer(Mirror, 'user', function(v) { user._(v) })
 observer(Mirror, 'issues', function(v) { issues._(v) })
 observer(Mirror, 'issue', function(n, o) { issue._(diff(n, o)) })
-observer(Mirror, 'comments', function(v) { comments._(v) })
+observer(Mirror, 'comments', function(n, o) { comments._(diff(n, o)) })
 
 function onPosts() {
   if (Mirror.user) {
@@ -77,15 +77,21 @@ Mirror.getPost = function(number) {
 }
 
 Mirror.getComments = function(params) {
-  API.comments._(...params.split('#'))
+  const [id, after] = params.split('#')
+
+  if (this.comments[id] && !after) {
+    return comments._(this.comments[id])
+  }
+
+  return API.comments._(id, after)
   .then((res) => {
     const {
       number,
       comments: { totalCount, pageInfo, edges }
     } = res.repository.issue
 
-    const newEdges = this.comments && number === this.comments.number ?
-    this.comments.comments.edges.concat(edges) : edges
+    const newEdges = this.comments[id] && number === parseInt(id) ?
+    this.comments[id].comments.edges.concat(edges) : edges
 
     const issue = {
       number,
@@ -96,7 +102,14 @@ Mirror.getComments = function(params) {
       }
     }
 
-    this.comments = issue
+    const comments = Object.assign({}, this.comments)
+
+    if (number === parseInt(id)) {
+      comments[id] = issue
+      this.comments = comments
+    } else {
+      this.comments = Object.assign({ [number]: issue }, this.comments)
+    }
   })
   .catch(err => console.log(err))
 }
