@@ -22,9 +22,10 @@ const router = new Router({ '/posts': onPosts, '/posts/:id': onPost })
 
 window.Mirror = { __: {}, issue: {} }
 
-observer(Mirror, 'user', function(value) { user._(value) })
-observer(Mirror, 'issues', function(value) { issues._(value) })
+observer(Mirror, 'user', function(v) { user._(v) })
+observer(Mirror, 'issues', function(v) { issues._(v) })
 observer(Mirror, 'issue', function(n, o) { issue._(diff(n, o)) })
+observer(Mirror, 'comments', function(v) { comments._(v) })
 
 function onPosts() {
   if (Mirror.user) {
@@ -75,11 +76,30 @@ Mirror.getPost = function(number) {
   .catch(err => console.log(err))
 }
 
-// Mirror.getComments = function(params) {
-//   API.comments._(...params.split('#'))
-//   .then(res => comments._(res.repository.issue))
-//   .catch(err => console.log(err))
-// }
+Mirror.getComments = function(params) {
+  API.comments._(...params.split('#'))
+  .then((res) => {
+    const {
+      number,
+      comments: { totalCount, pageInfo, edges }
+    } = res.repository.issue
+
+    const newEdges = Mirror.comments && number === Mirror.comments.number ?
+    Mirror.comments.comments.edges.concat(edges) : edges
+
+    const issue = {
+      number,
+      comments: {
+        totalCount,
+        pageInfo,
+        edges: newEdges
+      }
+    }
+
+    Mirror.comments = issue
+  })
+  .catch(err => console.log(err))
+}
 
 router.notFound = function(params) {
   router.go('/posts')

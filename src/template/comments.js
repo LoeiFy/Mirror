@@ -3,7 +3,7 @@ import timeFormat from '../util/time'
 class Comments {
   constructor(selector) {
     this.container = document.querySelector(selector)
-    this.comments = { edges: [], totalCount: 0, pageInfo: {} }
+    this.comments = {}
     this.number = null
   }
 
@@ -30,20 +30,9 @@ class Comments {
   }
 
   _(issue) {
-    const {
-      comments: { edges, totalCount, pageInfo },
-      number
-    } = issue
-
-    this.comments.pageInfo = pageInfo
-    if (!this.comments.edges.length) {
-      this.comments.edges = edges
-      this.comments.totalCount = totalCount
-      this.number = number
-    } else {
-      this.comments.edges = this.comments.edges.concat(edges)
-    }
-
+    const { comments, number } = issue
+    this.comments = comments
+    this.number = number
     this._render()
   }
 
