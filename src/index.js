@@ -46,8 +46,8 @@ function onPost(params) {
 }
 
 Mirror.getPosts = function(after = '') {
-  if (Mirror.issues && !after) {
-    return issues._(Mirror.issues)
+  if (this.issues && !after) {
+    return issues._(this.issues)
   }
 
   return API.issues._(after)
@@ -56,22 +56,22 @@ Mirror.getPosts = function(after = '') {
     const issues = {
       pageInfo,
       totalCount,
-      edges: Mirror.issues ? Mirror.issues.edges.concat(edges) : edges
+      edges: this.issues ? this.issues.edges.concat(edges) : edges
     }
 
-    Mirror.issues = issues
+    this.issues = issues
   })
   .catch(err => console.log(err))
 }
 
 Mirror.getPost = function(number) {
-  if (Mirror.issue[number]) {
-    return issue._(Mirror.issue[number])
+  if (this.issue[number]) {
+    return issue._(this.issue[number])
   }
 
   return API.issue._(number)
   .then((res) => {
-    Mirror.issue = Object.assign({ [number]: res.repository.issue }, Mirror.issue)
+    this.issue = Object.assign({ [number]: res.repository.issue }, this.issue)
   })
   .catch(err => console.log(err))
 }
@@ -84,8 +84,8 @@ Mirror.getComments = function(params) {
       comments: { totalCount, pageInfo, edges }
     } = res.repository.issue
 
-    const newEdges = Mirror.comments && number === Mirror.comments.number ?
-    Mirror.comments.comments.edges.concat(edges) : edges
+    const newEdges = this.comments && number === this.comments.number ?
+    this.comments.comments.edges.concat(edges) : edges
 
     const issue = {
       number,
@@ -96,7 +96,7 @@ Mirror.getComments = function(params) {
       }
     }
 
-    Mirror.comments = issue
+    this.comments = issue
   })
   .catch(err => console.log(err))
 }
@@ -107,4 +107,4 @@ router.notFound = function(params) {
 
 router.start()
 
-// console.log("%c Github %c","background:#24272A; color:#ffffff","","https://github.com/LoeiFy/Mirror")
+console.log("%c Github %c","background:#24272A; color:#ffffff","","https://github.com/LoeiFy/Mirror")
