@@ -1,52 +1,17 @@
 import timeFormat from '../util/time'
 import titleFormat from '../util/title'
-
-function stringFormat(s) {
-  return s.toString().toLowerCase().trim()
-}
-
-const { authors, user } = window.config
+import filterPosts from '../util/posts'
 
 class Issues {
   constructor(selector) {
     this.container = document.querySelector(selector)
-    this.issues = { edges: [], pageInfo: {}, totalCount: 0 }
-  }
-
-  get authors() {
-    const trimAuthors = (authors || []).map(author => stringFormat(author))
-    const trimUser = stringFormat(user)
-
-    if (trimAuthors.indexOf(trimUser) === -1) {
-      trimAuthors.push(trimUser)
-    }
-
-    return trimAuthors
-  }
-
-  get exist() {
-    return this.issues.edges.length > 0
+    this.issues = {}
   }
 
   _(issues) {
-    const { edges, totalCount, pageInfo } = issues
-
-    this.issues.pageInfo = pageInfo
-    if (!this.issues.edges.length) {
-      this.issues.edges = this.filterPosts(edges)
-      this.issues.totalCount = totalCount
-    } else {
-      this.issues.edges = this.issues.edges.concat(this.filterPosts(edges))
-    }
-
-    this.render()
-  }
-
-  filterPosts(issues) {
-    return issues.filter((issue) => {
-      const author = stringFormat(issue.node.author.login)
-      return this.authors.indexOf(author) > -1
-    })
+    issues.edges = filterPosts(issues.edges)
+    this.issues = issues
+    this._render()
   }
 
   post(issue) {
@@ -82,7 +47,7 @@ class Issues {
     return ''
   }
 
-  render() {
+  _render() {
     const { edges } = this.issues
 
     this.container.innerHTML = edges

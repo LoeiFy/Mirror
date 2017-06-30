@@ -1,29 +1,16 @@
 import icon_email from '../svg/email.svg'
 import icon_link from '../svg/link.svg'
 import icon_github from '../svg/github.svg'
-import Observer from '../observer/'
-
-console.log(window.Mirror)
-const observer = new Observer(window.Mirror)
 
 class User {
-  constructor(selector) {
+  constructor(selector, user) {
     this.container = document.querySelector(selector)
-    observer.add({
-      user: data => {
-        this.render()
-      }
-    })
-    this.user = window.Mirror.user
+    this.user = {}
   }
 
   _(user) {
     this.user = user
-    this.render()
-  }
-
-  get exist() {
-    return !!this.user.email
+    this._render()
   }
 
   get email() {
@@ -40,7 +27,7 @@ class User {
     return this.user.bio ? `<p>${this.user.bio}</p>` : ''
   }
 
-  render() {
+  _render() {
     const { user, email, website, bio, container } = this
 
     container.innerHTML = `
