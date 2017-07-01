@@ -1,22 +1,24 @@
-.page {
+.transition .page {
   height: 100%;
-  overflow: hidden;
-  background: #fff;
-  width: 100%;
   position: absolute;
+  width: 100%;
   top: 0;
   backface-visibility: hidden;
   transform: translate3d(0, 0, 0);
   transform-style: preserve-3d;
+  overflow: hidden;
+}
+.page {
+  background: #fff;
 }
 .page-current {
   z-index: 1;
 }
 .page-movefrom {
-  animation: movefrom .6s ease-in-out both;
+  animation: movefrom .7s ease-in-out both;
 }
 .page-moveto {
-  animation: moveto .7s ease both;
+  animation: moveto .8s ease both;
 }
 
 @keyframes movefrom {

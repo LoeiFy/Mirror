@@ -11,6 +11,7 @@ import User from './template/user'
 import Comments from './template/comments'
 import observer from './util/observer'
 import diff from './util/diff'
+import Transition from './util/transition'
 
 polyfill()
 
@@ -19,6 +20,7 @@ const issue = new Issue('#post')
 const user = new User('#user')
 const comments = new Comments('#comments')
 const router = new Router({ '/posts': onPosts, '/posts/:id': onPost })
+const transition = new Transition()
 
 window.Mirror = { __: {}, issue: {}, comments: {} }
 
@@ -44,19 +46,12 @@ function onPost(params) {
   Mirror.getPost(params.id)
 }
 
-const home = document.querySelector('.home')
-const post = document.querySelector('.post')
-
 Mirror.getPosts = function(after = '') {
-  post.classList.add('page-moveto')
-  home.classList.add('page-movefrom')
-  setTimeout(() => { post.classList.remove('page-moveto', 'page-current') }, 700)
-  setTimeout(() => { home.classList.remove('page-movefrom'); home.classList.add('page-current') }, 600)
-
   document.title = window.config.title
 
   if (this.issues && !after) {
-    return issues._(this.issues)
+    issues._(this.issues)
+    return transition.toHome()
   }
 
   return API.issues._(after)
@@ -73,14 +68,10 @@ Mirror.getPosts = function(after = '') {
 }
 
 Mirror.getPost = function(number) {
-  home.classList.add('page-moveto')
-  post.classList.add('page-movefrom')
-  setTimeout(() => { home.classList.remove('page-moveto', 'page-current') }, 700)
-  setTimeout(() => { post.classList.remove('page-movefrom'); post.classList.add('page-current') }, 600)
-
   if (this.issue[number]) {
     document.title = `${this.issue[number].title} - ${window.config.title}`
-    return issue._(this.issue[number])
+    issue._(this.issue[number])
+    return transition.toPost()
   }
 
   document.title = 'loading'
@@ -89,6 +80,7 @@ Mirror.getPost = function(number) {
   .then((res) => {
     document.title = `${res.repository.issue.title} - ${window.config.title}`
     this.issue = Object.assign({ [number]: res.repository.issue }, this.issue)
+    transition.toPost()
   })
 }
 
