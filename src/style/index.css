@@ -1,6 +1,11 @@
 @import "../../node_modules/github-markdown-css/github-markdown.css";
 @import "./reset";
 @import "./error";
+@import "./transition";
+
+html, body {
+  height: 100%;
+}
 
 svg {
   width: 100px;

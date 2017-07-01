@@ -1,5 +1,7 @@
 import timeFormat from '../util/time'
 
+const { user, repository } = window.config
+
 class Comments {
   constructor(selector) {
     this.container = document.querySelector(selector)
@@ -47,7 +49,9 @@ class Comments {
     } = this
 
     if (!hasNextPage) {
-      return ''
+      return `
+        <a href="https://github.com/${user}/${repository}/issues/${number}#new_comment_field" target="_blank">add comments</a>
+      `
     }
 
     return `

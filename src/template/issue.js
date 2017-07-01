@@ -19,7 +19,9 @@ class Issue {
     const { number, comments: { totalCount } } = this.issue
 
     if (totalCount === 0) {
-      return ''
+      return `
+        <a href="https://github.com/${user}/${repository}/issues/${number}#new_comment_field" target="_blank">add comments</a>
+      `
     }
 
     return `

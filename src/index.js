@@ -44,7 +44,15 @@ function onPost(params) {
   Mirror.getPost(params.id)
 }
 
+const home = document.querySelector('.home')
+const post = document.querySelector('.post')
+
 Mirror.getPosts = function(after = '') {
+  post.classList.add('page-moveto')
+  home.classList.add('page-movefrom')
+  setTimeout(() => { post.classList.remove('page-moveto', 'page-current') }, 700)
+  setTimeout(() => { home.classList.remove('page-movefrom'); home.classList.add('page-current') }, 600)
+
   document.title = window.config.title
 
   if (this.issues && !after) {
@@ -65,6 +73,11 @@ Mirror.getPosts = function(after = '') {
 }
 
 Mirror.getPost = function(number) {
+  home.classList.add('page-moveto')
+  post.classList.add('page-movefrom')
+  setTimeout(() => { home.classList.remove('page-moveto', 'page-current') }, 700)
+  setTimeout(() => { post.classList.remove('page-movefrom'); post.classList.add('page-current') }, 600)
+
   if (this.issue[number]) {
     document.title = `${this.issue[number].title} - ${window.config.title}`
     return issue._(this.issue[number])

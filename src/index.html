@@ -18,16 +18,21 @@ window.config = <%= htmlWebpackPlugin.options.config %>
 </script>
 
 <style>
-  .loading, .error {
+  .loading,
+  .error,
+  .switch {
     height: 100%;
   }
-  .loading body, .error body {
+  .loading body,
+  .error body,
+  .switch body {
     height: 100%;
     overflow: hidden;
   }
   .loading #loader {
     text-align: center;
     position: fixed;
+    z-index: 3;
     left: 0;
     top: 0;
     height: 100%;
@@ -71,11 +76,11 @@ window.config = <%= htmlWebpackPlugin.options.config %>
 </style>
 </head>
 <body>
-  <div class="home">
+  <div class="page home page-current">
     <div id="user"></div>
     <div id="posts"></div>
   </div>
-  <div class="page">
+  <div class="page post">
     <div id="post"></div>
     <div id="comments"></div>
   </div>

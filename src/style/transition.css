@@ -1,0 +1,27 @@
+.page {
+  height: 100%;
+  overflow: hidden;
+  background: #fff;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+  transform-style: preserve-3d;
+}
+.page-current {
+  z-index: 1;
+}
+.page-movefrom {
+  animation: movefrom .6s ease-in-out both;
+}
+.page-moveto {
+  animation: moveto .7s ease both;
+}
+
+@keyframes movefrom {
+  from { transform: translate3d(0, 100%, 0); }
+}
+@keyframes moveto {
+  to { transform: translate3d(0, -100%, 0); }
+}
