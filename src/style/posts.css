@@ -1,0 +1,48 @@
+#posts {
+  & a {
+    position: relative;
+    padding: 20px 10px;
+    display: block;
+
+    &:first-child {
+      margin-top: 50px;
+    }
+
+    &:hover {
+      background: #f6f7f7;
+    }
+
+    & div {
+      position: absolute;
+      right: 10px;
+      top: 23px;
+    }
+
+    & span {
+      margin: 0 3px;
+      font-size: 13px;
+      color: #565b65;
+      border: 1px solid #e1e1e1;
+      background: #e8e8e8;
+      border-radius: 3px;
+      padding: 1px 3px 2px;
+    }
+  }
+
+  & p {
+    font-size: 14px;
+    color: #788590;
+    margin: 14px 0 0 1px;
+  }
+
+  & h2 {
+    color: #485763;
+    font-size: 16px;
+    line-height: 1.4;
+    font-weight: 500;
+    width: 60%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

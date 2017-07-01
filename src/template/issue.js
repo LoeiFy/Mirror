@@ -45,7 +45,7 @@ class Issue {
     .join('')
 
     this.container.innerHTML = `
-      <a href="#/">${icon_back}</a>
+      <a class="back" href="#/">${icon_back}</a>
       <h1>${titleFormat(title)}</h1>
       <p>Updated at<span>${timeFormat(updatedAt)}</span></p>
       <div class="labels">${labels}</div>

@@ -1,0 +1,49 @@
+#post {
+  & > p {
+    font-size: 14px;
+    color: #788590;
+    margin-top: 10px;
+
+    & span {
+      margin-left: 10px;
+      color: #565f67;
+    }
+  }
+
+  & .labels {
+    margin-top: 20px;
+
+    & a {
+      font-size: 13px;
+      padding: 3px 8px 4px;
+      border-radius: 3px;
+      display: inline-block;
+      margin-right: 10px;
+    }
+  }
+
+  & .back {
+    position: absolute;
+    right: 50%;
+    margin-right: 340px;
+    top: 2px;
+    width: 30px;
+    height: 30px;
+
+    &:hover path {
+      fill: #5c646b;
+    }
+
+    & path {
+      fill: #949fa9;
+    }
+  }
+
+  & > h1 {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.4;
+    color: #3d4348;
+    margin-top: 70px;
+  }
+}

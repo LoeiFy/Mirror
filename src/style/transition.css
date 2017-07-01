@@ -10,6 +10,7 @@
 }
 .page {
   background: #fff;
+  position: relative;
 }
 .page-current {
   z-index: 1;

@@ -1,0 +1,55 @@
+#user {
+  text-align: center;
+
+  & img {
+    padding: 4px;
+    border: 1px solid #eaeaea;
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    margin: 70px auto 0;
+    border-radius: 50%;
+  }
+
+  & h1 {
+    font-size: 26px;
+    margin-top: 20px;
+    color: #42505a;
+    font-weight: 600;
+  }
+
+  & p {
+    color: #5e656b;
+    font-size: 16px;
+    line-height: 1.4;
+    margin: 14px 20px 0;
+  }
+
+  & a {
+    display: inline-block;
+    margin: 20px 8px 30px;
+  }
+
+  & a:hover path {
+    fill: #363a42;
+  }
+
+  & svg {
+    display: block;
+    width: 22px!important;
+    height: 22px!important;
+  }
+
+  & path {
+    fill: #565b65;
+  }
+
+  & .social:after {
+    display: block;
+    margin: 0 auto;
+    width: 50%;
+    content: '';
+    height: 1px;
+    background: #f1f1f1;
+  }
+}
