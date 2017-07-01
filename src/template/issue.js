@@ -1,5 +1,6 @@
 import titleFormat from '../util/title'
 import timeFormat from '../util/time'
+import icon_back from '../svg/back.svg'
 
 const { user, repository } = window.config
 
@@ -42,6 +43,7 @@ class Issue {
     .join('')
 
     this.container.innerHTML = `
+      <a href="#/">${icon_back}</a>
       <h1>${titleFormat(title)}</h1>
       <p>Updated at<span>${timeFormat(updatedAt)}</span></p>
       <div class="labels">${labels}</div>
