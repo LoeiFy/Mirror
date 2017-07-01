@@ -46,6 +46,8 @@ function onPost(params) {
 }
 
 Mirror.getPosts = function(after = '') {
+  document.title = window.config.title
+
   if (this.issues && !after) {
     return issues._(this.issues)
   }
@@ -66,14 +68,23 @@ Mirror.getPosts = function(after = '') {
 
 Mirror.getPost = function(number) {
   if (this.issue[number]) {
+    document.title = `${this.issue[number].title} - ${window.config.title}`
     return issue._(this.issue[number])
   }
 
+  document.title = 'loading'
+
   return API.issue._(number)
   .then((res) => {
+    document.title = `${res.repository.issue.title} - ${window.config.title}`
     this.issue = Object.assign({ [number]: res.repository.issue }, this.issue)
   })
   .catch(err => console.log(err))
+}
+
+Mirror.openComments = function(params) {
+  document.querySelector('#comments').innerHTML = ''
+  this.getComments(params)
 }
 
 Mirror.getComments = function(params) {

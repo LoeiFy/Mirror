@@ -12,7 +12,7 @@ class Issues extends Fetcher {
   }
 
   query(after) {
-    let variables = `first: ${this.perpage}, states: OPEN, orderBy: {field: CREATED_AT, direction: ASC}`
+    let variables = `first: ${this.perpage}, states: OPEN, orderBy: {field: UPDATED_AT, direction: DESC}`
 
     if (after) {
       variables += `, after: "${after}"`

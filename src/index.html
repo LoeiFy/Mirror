@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" class="">
+<html lang="en" class="loading">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title> Loading... </title>
 <script>
-
 /*
 **
 ** blog config here
@@ -16,43 +15,66 @@
 */
 
 window.config = <%= htmlWebpackPlugin.options.config %>
-
 </script>
 
 <style>
-html.loading { height: 100%; text-align: center; }
-html.loading body { height: 100%; }
-html.loading body:before {
+  .loading {
+    height: 100%;
+  }
+  .loading body {
+    height: 100%;
+    overflow: hidden;
+  }
+  .loading #loader {
+    text-align: center;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(255, 255, 255, .9);
+  }
+  .loading #loader div {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    vertical-align: middle;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    background-color: #fff;
+    -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, .15);
+    box-shadow: 0 0 3px rgba(0, 0, 0, .15);
+  }
+  .loading #loader div:before {
     content: '';
-    width: 30px;
-    height: 30px;
-    -webkit-border-radius: 30px;
-    border-radius: 30px;
+    width: 26px;
+    height: 26px;
+    display: block;
+    margin: 8px auto 0;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
     -webkit-animation: loading 1.5s linear forwards infinite;
     animation: loading 1.5s linear forwards infinite;
-    display: inline-block;
     border-top: 4px solid #0089fa;
     border-right: 4px solid #ff002b;
     border-bottom: 4px solid #ffa900;
     border-left: 4px solid #00a753;
-    vertical-align: middle;
-}
-html.loading body:after {
+  }
+  .loading #loader:after {
     content: '';
     display: inline-block;
     height: 100%;
     vertical-align: middle;
-}
-html.loading .container { display: none; }
-@keyframes loading { 100% { transform: rotate(360deg) } }
-@-webkit-keyframes loading { 100% { -webkit-transform: rotate(360deg) } }
+  }
+  @keyframes loading { 100% { transform: rotate(360deg) } }
+  @-webkit-keyframes loading { 100% { -webkit-transform: rotate(360deg) } }
 </style>
 </head>
 <body>
-<div id="main"></div>
-<div id="posts"></div>
-<div id="post"></div>
-<div id="user"></div>
-<div id="comments"></div>
+  <div id="posts"></div>
+  <div id="post"></div>
+  <div id="user"></div>
+  <div id="comments"></div>
+  <div id="loader"><div></div></div>
 </body>
 </html>

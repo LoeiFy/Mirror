@@ -53,7 +53,7 @@ class Comments {
     return `
       <button
         value="${number}#${endCursor}"
-        onclick="window.Mirror.getComments(this.value)"
+        onclick="window.Mirror.openComments(this.value)"
       >${edges.length} / ${totalCount}
       </button>
     `
