@@ -1,5 +1,6 @@
 @import "../../node_modules/github-markdown-css/github-markdown.css";
 @import "./reset";
+@import "./error";
 
 svg {
   width: 100px;

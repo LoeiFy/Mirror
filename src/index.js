@@ -38,7 +38,6 @@ function onPosts() {
     Mirror.user = res.user
     return Mirror.getPosts()
   })
-  .catch(err => console.log(err))
 }
 
 function onPost(params) {
@@ -63,7 +62,6 @@ Mirror.getPosts = function(after = '') {
 
     this.issues = issues
   })
-  .catch(err => console.log(err))
 }
 
 Mirror.getPost = function(number) {
@@ -79,7 +77,6 @@ Mirror.getPost = function(number) {
     document.title = `${res.repository.issue.title} - ${window.config.title}`
     this.issue = Object.assign({ [number]: res.repository.issue }, this.issue)
   })
-  .catch(err => console.log(err))
 }
 
 Mirror.openComments = function(params) {
@@ -122,11 +119,15 @@ Mirror.getComments = function(params) {
       this.comments = Object.assign({ [number]: issue }, this.comments)
     }
   })
-  .catch(err => console.log(err))
 }
 
 router.notFound = function(params) {
   router.go('/posts')
+}
+
+router.changed = function() {
+  const error = document.querySelector('#error')
+  error && error.click()
 }
 
 router.start()

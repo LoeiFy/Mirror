@@ -1,5 +1,6 @@
 import axios from 'axios'
-import Loader from '../loader/'
+import Loader from './loader'
+import loadError from './error'
 
 const { token } = window.config
 
@@ -22,15 +23,19 @@ class Request {
 
     this.loader.loading()
 
-    return axios(config)
-    .then(({ data }) => {
-      this.loader.loaded()
-
-      if (data.errors) {
-        throw new Error(data.errors.map(e => `[${e.type}]${e.message}`).join('\n'))
-      }
-
-      return data.data
+    return new Promise((resolve, reject) => {
+      axios(config)
+      .then(({ data }) => {
+        this.loader.loaded()
+        if (data.errors) {
+          throw new Error(data.errors.map(e => `[${e.type}]${e.message}`).join('\n'))
+        }
+        resolve(data.data)
+      })
+      .catch((err) => {
+        this.loader.loaded()
+        loadError(err)
+      }) 
     })
   }
 }

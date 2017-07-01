@@ -18,10 +18,10 @@ window.config = <%= htmlWebpackPlugin.options.config %>
 </script>
 
 <style>
-  .loading {
+  .loading, .error {
     height: 100%;
   }
-  .loading body {
+  .loading body, .error body {
     height: 100%;
     overflow: hidden;
   }
@@ -71,10 +71,14 @@ window.config = <%= htmlWebpackPlugin.options.config %>
 </style>
 </head>
 <body>
-  <div id="posts"></div>
-  <div id="post"></div>
-  <div id="user"></div>
-  <div id="comments"></div>
+  <div class="home">
+    <div id="user"></div>
+    <div id="posts"></div>
+  </div>
+  <div class="page">
+    <div id="post"></div>
+    <div id="comments"></div>
+  </div>
   <div id="loader"><div></div></div>
 </body>
 </html>
