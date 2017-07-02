@@ -50,15 +50,16 @@ class Comments {
 
     if (!hasNextPage) {
       return `
-        <a href="https://github.com/${user}/${repository}/issues/${number}#new_comment_field" target="_blank">add comments</a>
+        <a class="button" href="https://github.com/${user}/${repository}/issues/${number}#new_comment_field" target="_blank">Add Comments</a>
       `
     }
 
     return `
       <button
+        class="button"
         value="${number}#${endCursor}"
-        onclick="window.Mirror.openComments(this.value)"
-      >${edges.length} / ${totalCount}
+        onclick="window.Mirror.getComments(this.value)"
+      >Load More (${totalCount - edges.length} / ${totalCount})
       </button>
     `
   }

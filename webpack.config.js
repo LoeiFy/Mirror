@@ -27,6 +27,7 @@ const base = {
 
   devServer: {
     historyApiFallback: true,
+    disableHostCheck: true,
     noInfo: true,
     host: '0.0.0.0',
     port: 1234

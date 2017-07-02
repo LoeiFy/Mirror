@@ -64,6 +64,10 @@ Mirror.getPosts = function(after = '') {
     }
 
     this.issues = issues
+
+    if (!after) {
+      transition.toHome()
+    }
   })
 }
 
@@ -84,8 +88,9 @@ Mirror.getPost = function(number) {
   })
 }
 
-Mirror.openComments = function(params) {
+Mirror.openComments = function(params, ele) {
   document.querySelector('#comments').innerHTML = ''
+  ele.style.display = 'none'
   this.getComments(params)
 }
 

@@ -20,15 +20,16 @@ class Issue {
 
     if (totalCount === 0) {
       return `
-        <a href="https://github.com/${user}/${repository}/issues/${number}#new_comment_field" target="_blank">add comments</a>
+        <a class="button" href="https://github.com/${user}/${repository}/issues/${number}#new_comment_field" target="_blank">Add Comments</a>
       `
     }
 
     return `
       <button
+        class="button"
         value="${number}"
-        onclick="window.Mirror.getComments(this.value)"
-      >view ${totalCount} comments
+        onclick="window.Mirror.openComments(this.value, this)"
+      >View Comments (${totalCount})
       </button>
     `
   }
@@ -45,11 +46,11 @@ class Issue {
     .join('')
 
     this.container.innerHTML = `
-      <a class="back" href="#/">${icon_back}</a>
+      <a class="back" href="#/posts">${icon_back}</a>
       <h1>${titleFormat(title)}</h1>
       <p>Updated at<span>${timeFormat(updatedAt)}</span></p>
-      <div class="labels">${labels}</div>
       <div class="markdown-body">${bodyHTML}</div>
+      <div class="labels">${labels}</div>
       ${this.comments}
     `
   }

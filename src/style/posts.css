@@ -16,6 +16,10 @@
       position: absolute;
       right: 10px;
       top: 23px;
+
+      @media (max-width: 800px) {
+        display: none;
+      }
     }
 
     & span {
@@ -44,5 +48,9 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+
+    @media (max-width: 800px) {
+      width: 100%;
+    }
   }
 }

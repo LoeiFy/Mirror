@@ -5,28 +5,44 @@
     margin-top: 10px;
 
     & span {
-      margin-left: 10px;
+      margin: 0 10px;
       color: #565f67;
     }
   }
 
   & .labels {
-    margin-top: 20px;
+    margin-top: 30px;
 
     & a {
-      font-size: 13px;
-      padding: 3px 8px 4px;
-      border-radius: 3px;
-      display: inline-block;
       margin-right: 10px;
+      text-decoration: underline;;
+      color: #666;
+    }
+  }
+
+  & > .markdown-body {
+    margin-top: 40px;
+
+    &:before {
+      content: '';
+      width: 30px;
+      display: block;
+      margin-bottom: 20px;
+      height: 1px;
+      background: #eee;
     }
   }
 
   & .back {
+    @media (max-width: 800px) {
+      top: 20px;
+      left: 20px;
+    }
+
     position: absolute;
     right: 50%;
     margin-right: 340px;
-    top: 2px;
+    top: 72px;
     width: 30px;
     height: 30px;
 
@@ -44,6 +60,6 @@
     font-weight: 500;
     line-height: 1.4;
     color: #3d4348;
-    margin-top: 70px;
+    padding-top: 70px;
   }
 }

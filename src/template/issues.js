@@ -39,7 +39,7 @@ class Issues {
     if (hasNextPage) {
       return `
         <button class="button" value="${endCursor}" onclick="window.Mirror.getPosts(this.value)">
-          More Posts [${totalCount - edges.length} / ${totalCount}]
+          More Posts (${totalCount - edges.length} / ${totalCount})
         </button>
       `
     }

@@ -6,20 +6,22 @@
 @import "./button";
 @import "./posts";
 @import "./post";
+@import "./comments";
 @import "./footer";
 
-.page > div {
-  margin: 0 auto;
-  max-width: 640px;
-  padding: 0 20px;
+.page {
+  & > div {
+    margin: 0 auto;
+    max-width: 640px;
+    padding: 0 20px;
+  }
 }
-.home {
-  &:before {
-    border-top: 3px solid #3f4d56;
-    content: '';
-    width: 96%;
-    position: absolute;
-    top: 0;
-    left: 2%;
+
+.markdown-body {
+  font-family: apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,PingFang SC,Microsoft YaHei,sans-serif;
+  font-size: 14px;
+
+  & .highlight {
+    font-size: 15px;
   }
 }

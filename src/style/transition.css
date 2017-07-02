@@ -16,15 +16,15 @@
   z-index: 1;
 }
 .page-movefrom {
-  animation: movefrom .7s ease-in-out both;
+  animation: movefrom .6s ease-in-out both;
 }
 .page-moveto {
-  animation: moveto .8s ease both;
+  animation: moveto .7s ease both;
 }
 
 @keyframes movefrom {
-  from { transform: translate3d(0, 100%, 0); }
+  from { transform: translate3d(0, 0, 0); }
 }
 @keyframes moveto {
-  to { transform: translate3d(0, -100%, 0); }
+  to { transform: translate3d(-100%, 0, 0); }
 }
