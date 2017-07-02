@@ -1,6 +1,7 @@
 import timeFormat from '../util/time'
 import titleFormat from '../util/title'
 import filterPosts from '../util/posts'
+import footer from '../util/footer'
 
 class Issues {
   constructor(selector) {
@@ -52,7 +53,7 @@ class Issues {
 
     this.container.innerHTML = edges
     .map(issue => this.post(issue.node))
-    .join('') + this.pagination
+    .join('') + this.pagination + footer
   }
 }
 

@@ -1,4 +1,5 @@
 import timeFormat from '../util/time'
+import footer from '../util/footer'
 
 const { user, repository } = window.config
 
@@ -72,6 +73,7 @@ class Comments {
         ${edges.map(comment => this.comment(comment)).join('')}
       </ul>
       ${this.next}
+      ${footer}
     `
   }
 }

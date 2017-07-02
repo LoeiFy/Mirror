@@ -29,11 +29,6 @@ window.config = <%= htmlWebpackPlugin.options.config %>
     height: 100%;
     overflow: hidden;
   }
-  .loading #footer,
-  .error #footer,
-  .transition #footer {
-    display: none;
-  }
   #loader {
     text-align: center;
     position: fixed;
@@ -46,7 +41,7 @@ window.config = <%= htmlWebpackPlugin.options.config %>
     visibility: hidden;
     -webkit-transition: all .3s ease;
     transition: all .3s ease;
-    background-color: rgba(255, 255, 255, .9);
+    background-color: rgba(255, 255, 255, .98);
   }
   .loading #loader {
     opacity: 1;
@@ -97,7 +92,6 @@ window.config = <%= htmlWebpackPlugin.options.config %>
     <div id="post"></div>
     <div id="comments"></div>
   </div>
-  <div id="footer">Powered by <a href="https://github.com/LoeiFy/Mirror" target="_blank">Mirror</a> & GitHub</div>
   <div id="loader"><div></div></div>
 </body>
 </html>

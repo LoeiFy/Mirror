@@ -2,7 +2,6 @@ import 'es6-promise/auto'
 import { polyfill } from 'smoothscroll-polyfill'
 
 import './style/'
-
 import API from './api/'
 import Router from './router/'
 import Issues from './template/issues'
@@ -13,8 +12,6 @@ import observer from './util/observer'
 import diff from './util/diff'
 import Transition from './util/transition'
 
-polyfill()
-
 const issues = new Issues('#posts')
 const issue = new Issue('#post')
 const user = new User('#user')
@@ -22,6 +19,7 @@ const comments = new Comments('#comments')
 const router = new Router({ '/posts': onPosts, '/posts/:id': onPost })
 const transition = new Transition()
 
+polyfill()
 window.Mirror = { __: {}, issue: {}, comments: {} }
 
 observer(Mirror, 'user', function(v) { user._(v) })
@@ -90,11 +88,10 @@ Mirror.getPost = function(number) {
 
 Mirror.openComments = function(params, ele) {
   document.querySelector('#comments').innerHTML = ''
-  ele.style.display = 'none'
-  this.getComments(params)
+  this.getComments(params, ele)
 }
 
-Mirror.getComments = function(params) {
+Mirror.getComments = function(params, ele) {
   const [id, after] = params.split('#')
 
   if (this.comments[id] && !after) {
@@ -127,6 +124,10 @@ Mirror.getComments = function(params) {
       this.comments = comments
     } else {
       this.comments = Object.assign({ [number]: issue }, this.comments)
+    }
+
+    if (ele) {
+      ele.parentNode.style.display = 'none'
     }
   })
 }

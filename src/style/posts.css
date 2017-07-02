@@ -1,5 +1,5 @@
 #posts {
-  & a {
+  & > a {
     position: relative;
     padding: 20px 10px;
     display: block;
