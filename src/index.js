@@ -18,6 +18,7 @@ const user = new User('#user')
 const comments = new Comments('#comments')
 const router = new Router({ '/posts': onPosts, '/posts/:id': onPost })
 const transition = new Transition()
+let scrollY = 0
 
 polyfill()
 window.Mirror = { __: {}, issue: {}, comments: {} }
@@ -38,6 +39,7 @@ function onPosts() {
 }
 
 function onPost(params) {
+  scrollY = window.scrollY
   Mirror.getPost(params.id)
 }
 
@@ -46,7 +48,9 @@ Mirror.getPosts = function(after = '', userData) {
 
   if (this.issues && !after) {
     issues._(this.issues)
-    return transition.toHome()
+    return transition.toHome(function() {
+      window.scroll({ top: scrollY, left: 0, behavior: 'smooth' })
+    })
   }
 
   return API.issues._(after)
@@ -65,7 +69,9 @@ Mirror.getPosts = function(after = '', userData) {
     }
 
     if (!after) {
-      transition.toHome()
+      transition.toHome(function() {
+        window.scroll({ top: scrollY, left: 0, behavior: 'smooth' })
+      })
     }
   })
 }

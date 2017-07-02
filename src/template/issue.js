@@ -51,7 +51,7 @@ class Issue {
     .join('')
 
     this.container.innerHTML = `
-      <div onclick="location.hash='#/posts'" class="back" href="#/posts">${icon_back}</div>
+      <div onclick="location.hash='#/posts'" class="back">${icon_back}</div>
       <h1>${titleFormat(title)}</h1>
       <p>Updated at<span>${timeFormat(updatedAt)}</span></p>
       <div class="markdown-body">${bodyHTML}</div>

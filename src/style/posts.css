@@ -1,5 +1,6 @@
 #posts {
-  & > a {
+  & > .post {
+    cursor: pointer;
     position: relative;
     padding: 20px 10px;
     display: block;

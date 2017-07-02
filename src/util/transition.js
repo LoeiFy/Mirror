@@ -9,7 +9,7 @@ class Transition {
     this.html = document.documentElement
   }
 
-  toHome() {
+  toHome(fn) {
     setTimeout(() => {
       this.page.classList.add('page-moveto')
       this.home.classList.add('page-movefrom')
@@ -20,6 +20,8 @@ class Transition {
         this.html.classList.remove('transition')
         this.post.innerHTML = ''
         this.comments.innerHTML = ''
+
+        fn && fn()
       }, 700)
       setTimeout(() => {
         this.home.classList.remove('page-movefrom');

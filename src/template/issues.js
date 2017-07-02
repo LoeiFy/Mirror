@@ -22,11 +22,11 @@ class Issues {
     .join('')
 
     return `
-      <a href="#/posts/${number}">
+      <div class="post" onclick="location.hash='#/posts/${number}'">
         <h2>${titleFormat(title)}</h2>
         <div>${labels}</div>
         <p>${timeFormat(updatedAt)}</p>
-      </a>
+      </div>
     `
   }
 
