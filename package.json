@@ -8,9 +8,8 @@
   },
   "scripts": {
     "start": "webpack-dev-server --inline --hot",
-    "build": "npm run clean && cross-env NODE_ENV=production webpack --progress && cp favicon.png dist && node zip.js && npm run release",
-    "release": "npm run clean && cross-env NODE_ENV=npm webpack --progress && cp favicon.png dist",
-    "clean": "rm -f -R dist build.js index.html"
+    "build": "npm run clean && cross-env NODE_ENV=production webpack --hide-modules --progress --colors && cp favicon.ico dist && node zip.js && cd dist && mv index.npm.html index.html",
+    "clean": "rm -f -R dist"
   },
   "files": [
     "dist",
@@ -33,6 +32,7 @@
   },
   "homepage": "https://github.com/LoeiFy/Mirror",
   "devDependencies": {
+    "archiver": "^1.3.0",
     "axios": "^0.16.2",
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.0",

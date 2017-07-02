@@ -4,7 +4,7 @@ function stringFormat(s) {
 
 let { authors, user } = window.config
 
-authors = (authors || []).map(author => stringFormat(author))
+authors = (authors || '').split(',').map(author => stringFormat(author))
 user = stringFormat(user)
 
 if (authors.indexOf(user) === -1) {
