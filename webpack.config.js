@@ -1,7 +1,7 @@
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const config = require('./src/config.js')
-// const isProd = process.env.NODE_ENV === 'production'
+const isProd = process.env.NODE_ENV === 'production'
 
 const base = {
   entry: {
@@ -99,13 +99,13 @@ if (production || fornpm) {
 }
 
 plugins = plugins.concat(
-     new HtmlWebpackPlugin({                        
+     new HtmlWebpackPlugin({
          filename: 'index.html',
          template: './src/index.html',
          config: config,
          inject: 'body',
          hash: false,
-         minify: minify 
+         minify: minify
      })
 )
 
@@ -147,7 +147,7 @@ module.exports = {
     postcss: [
         require('autoprefixer')
     ],
-    
+
     plugins: plugins
 }
 */
