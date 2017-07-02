@@ -9,12 +9,10 @@
 @import "./comments";
 @import "./footer";
 
-.page {
-  & > div {
-    margin: 0 auto;
-    max-width: 640px;
-    padding: 0 20px;
-  }
+.page > div {
+  margin: 0 auto;
+  max-width: 640px;
+  padding: 0 20px;
 }
 
 .markdown-body {

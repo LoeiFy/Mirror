@@ -2,7 +2,7 @@
   margin: 50px auto 0;
   display: block;
   text-align: center;
-  width: 160px;
+  max-width: 170px;
   border: 2px solid #c3c2c9;
   color: #686868;
   border-radius: 5px;

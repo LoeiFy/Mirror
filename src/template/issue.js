@@ -22,6 +22,7 @@ class Issue {
     if (totalCount === 0) {
       return `
         <a class="button" href="https://github.com/${user}/${repository}/issues/${number}#new_comment_field" target="_blank">Add Comments</a>
+        ${footer}
       `
     }
 
@@ -50,7 +51,7 @@ class Issue {
     .join('')
 
     this.container.innerHTML = `
-      <a class="back" href="#/posts">${icon_back}</a>
+      <div onclick="location.hash='#/posts'" class="back" href="#/posts">${icon_back}</div>
       <h1>${titleFormat(title)}</h1>
       <p>Updated at<span>${timeFormat(updatedAt)}</span></p>
       <div class="markdown-body">${bodyHTML}</div>

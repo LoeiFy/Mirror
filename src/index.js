@@ -34,17 +34,14 @@ function onPosts() {
   }
 
   return API.user._()
-  .then((res) => {
-    Mirror.user = res.user
-    return Mirror.getPosts()
-  })
+  .then(res => Mirror.getPosts('', res.user))
 }
 
 function onPost(params) {
   Mirror.getPost(params.id)
 }
 
-Mirror.getPosts = function(after = '') {
+Mirror.getPosts = function(after = '', userData) {
   document.title = window.config.title
 
   if (this.issues && !after) {
@@ -62,6 +59,10 @@ Mirror.getPosts = function(after = '') {
     }
 
     this.issues = issues
+
+    if (userData) {
+      this.user = userData
+    }
 
     if (!after) {
       transition.toHome()
@@ -95,6 +96,9 @@ Mirror.getComments = function(params, ele) {
   const [id, after] = params.split('#')
 
   if (this.comments[id] && !after) {
+    if (ele) {
+      ele.parentNode.style.display = 'none'
+    }
     return comments._(this.comments[id])
   }
 
