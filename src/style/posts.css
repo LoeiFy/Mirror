@@ -6,6 +6,10 @@
     display: block;
 
     &:first-child {
+      @media (max-width: 800px) {
+        margin-top: 30px;
+      }
+
       margin-top: 50px;
     }
 
@@ -35,12 +39,20 @@
   }
 
   & p {
+    @media (max-width: 800px) {
+      font-size: 13px;
+    }
+
     font-size: 14px;
     color: #788590;
     margin: 14px 0 0 1px;
   }
 
   & h2 {
+    @media (max-width: 800px) {
+      font-size: 15px;
+    }
+
     color: #485763;
     font-size: 16px;
     line-height: 1.4;

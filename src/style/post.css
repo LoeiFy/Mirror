@@ -57,6 +57,10 @@
   }
 
   & > h1 {
+    @media (max-width: 800px) {
+      font-size: 20px;
+    }
+
     font-size: 24px;
     font-weight: 500;
     line-height: 1.4;

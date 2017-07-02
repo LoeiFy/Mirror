@@ -2,6 +2,12 @@
   text-align: center;
 
   & img {
+    @media (max-width: 800px) {
+      width: 75px;
+      height: 75px;
+      margin-top: 40px;
+    }
+
     padding: 4px;
     border: 1px solid #eaeaea;
     display: inline-block;
@@ -12,6 +18,10 @@
   }
 
   & h1 {
+    @media (max-width: 800px) {
+      font-size: 20px;
+    }
+
     font-size: 26px;
     margin-top: 20px;
     color: #42505a;
@@ -19,6 +29,10 @@
   }
 
   & p {
+    @media (max-width: 800px) {
+      font-size: 14px;
+    }
+
     color: #5e656b;
     font-size: 16px;
     line-height: 1.4;
@@ -26,6 +40,10 @@
   }
 
   & a {
+    @media (max-width: 800px) {
+      margin: 16px 6px 20px;
+    }
+
     display: inline-block;
     margin: 20px 8px 30px;
   }
@@ -35,9 +53,14 @@
   }
 
   & svg {
+    @media (max-width: 800px) {
+      width: 18px;
+      height: 18px;
+    }
+
     display: block;
-    width: 22px!important;
-    height: 22px!important;
+    width: 22px;
+    height: 22px;
   }
 
   & path {
