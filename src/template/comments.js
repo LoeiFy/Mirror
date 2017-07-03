@@ -1,5 +1,5 @@
 import timeFormat from '../util/time'
-import footer from '../util/footer'
+import footer from './footer'
 
 const { user, repository } = window.config
 

@@ -1,7 +1,7 @@
 import timeFormat from '../util/time'
 import titleFormat from '../util/title'
 import filterPosts from '../util/posts'
-import footer from '../util/footer'
+import footer from './footer'
 
 class Issues {
   constructor(selector) {

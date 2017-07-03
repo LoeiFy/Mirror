@@ -23,3 +23,18 @@
     font-size: 15px;
   }
 }
+
+.loading body:before {
+  display: none;
+}
+
+body:before {
+  z-index: 5;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 2%;
+  width: 96%;
+  height: 3px;
+  background: #3f4d56;
+}

@@ -52,18 +52,18 @@ program
 .command('build')
 .description('Build the blog')
 .action(function() {
-  const config = yaml.load(process.cwd() +'/config.yml')
-  let index = fs.readFileSync(process.cwd() +'/index.html', 'utf-8')
-  let token = fs.readFileSync(process.cwd() +'/token.txt', 'utf-8')
+  const config = yaml.load(`${process.cwd()}/config.yml`)
+  let index = fs.readFileSync(`${process.cwd()}/index.html`, 'utf-8')
+  let token = fs.readFileSync(`${process.cwd()}/token.txt`, 'utf-8')
 
   if (!config.title || !config.user || !config.repository || !config.perpage || !token) {
     return console.log('Configure infomation error')
   }
 
   token = token.replace(/[\r\n]+/g, '')
-  config.token = token.charAt(0) +'#'+ token.substr(1)
+  config.token = `${token.charAt(0)}#${token.substr(1)}`
   index = index.replace('$config', JSON.stringify(config))
-  fs.outputFileSync(process.cwd() +'/index.html', index)
+  fs.outputFileSync(`${process.cwd()}/index.html`, index)
 
   console.log('Finished building the blog')
 })

@@ -1,11 +1,13 @@
+const fs = require('fs-extra')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const config = require('./src/config.js')
-const isProd = process.env.NODE_ENV === 'production'
-const npmConfg = '$config'
 
-let htmlConfig = {}
-Object.keys(config).forEach(key => htmlConfig[key] = '')
+const token = fs.readFileSync(`${process.cwd()}/token.txt`, 'utf-8')
+let _config = {}
+
+config.token = token.replace(/[\r\n]+/g, '')
+Object.keys(config).forEach(key => _config[key] = '')
 
 const base = {
   entry: {
@@ -58,7 +60,7 @@ const base = {
   devtool: '#source-map'
 }
 
-if (isProd) {
+if (process.env.NODE_ENV === 'production') {
   base.plugins = [
     new webpack.optimize.UglifyJsPlugin({
       mangle: true,
@@ -68,7 +70,7 @@ if (isProd) {
     new HtmlWebpackPlugin({
       filename: 'index.npm.html',
       template: './src/index.html',
-      config: npmConfg,
+      config: '$config',
       minify: {
         removeComments: true,
         minifyJS: true,
@@ -79,14 +81,14 @@ if (isProd) {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: './src/index.html',
-      config: JSON.stringify(htmlConfig),
+      config: JSON.stringify(_config),
       minify: {
         removeComments: false,
         minifyJS: false,
         minifyCSS: true,
         collapseWhitespace: false
       }
-    }) 
+    })
   ]
   base.devtool = false
   base.output = {

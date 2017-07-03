@@ -1,7 +1,7 @@
 import titleFormat from '../util/title'
 import timeFormat from '../util/time'
 import icon_back from '../svg/back.svg'
-import footer from '../util/footer'
+import footer from './footer'
 
 const { user, repository } = window.config
 
