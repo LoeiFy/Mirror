@@ -29,6 +29,15 @@ $ mirror init newblog
 
 ### configure
 
+first get your access token, this token is read-only
+
+https://github.com/settings/tokens
+
+> check the list below
+
+- read:user   Read all user profile data
+- user:email  Access user email addresses (read-only)
+
 modify `config.yml`
 
 ```yml
@@ -45,18 +54,14 @@ repo: Recordum
 # example: author0, author1
 authors:
 
+# token
+# token should be separated by '#'
+# example: 5#c31bffc137f44faf7efc4a84da827g7ca2cfeaa
+token:
+
 # posts per page
 perpage: 10
 ```
-
-Add your access token in `token.txt`, this token is read-only
-
-https://github.com/settings/tokens
-
-> check the list below
-
-- read:user   Read all user profile data
-- user:email  Access user email addresses (read-only)
 
 ### build
 

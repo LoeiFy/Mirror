@@ -16,7 +16,7 @@ const issues = new Issues('#posts')
 const issue = new Issue('#post')
 const user = new User('#user')
 const comments = new Comments('#comments')
-const router = new Router({ '/posts': onPosts, '/posts/:id': onPost })
+const router = new Router({ '/': onPosts, '/posts/:id': onPost })
 const transition = new Transition()
 let scrollY = 0
 
@@ -143,7 +143,7 @@ Mirror.getComments = function(params, ele) {
 }
 
 router.notFound = function(params) {
-  router.go('/posts')
+  router.go('/')
 }
 
 router.changed = function() {

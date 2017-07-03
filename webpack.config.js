@@ -1,12 +1,9 @@
 const fs = require('fs-extra')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const config = require('./src/config.js')
+const config = require('./config.js')
 
-const token = fs.readFileSync(`${process.cwd()}/token.txt`, 'utf-8')
 let _config = {}
-
-config.token = token.replace(/[\r\n]+/g, '')
 Object.keys(config).forEach(key => _config[key] = '')
 
 const base = {
@@ -63,7 +60,6 @@ const base = {
 if (process.env.NODE_ENV === 'production') {
   base.plugins = [
     new webpack.optimize.UglifyJsPlugin({
-      mangle: true,
       compress: { warnings: false },
       output: { comments: false }
     }),

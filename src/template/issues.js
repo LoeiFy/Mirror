@@ -22,7 +22,7 @@ class Issues {
     .join('')
 
     return `
-      <div class="post" onclick="location.hash='#/posts/${number}'">
+      <div class="post" onclick="location.hash='/posts/${number}'">
         <h2>${titleFormat(title)}</h2>
         <div>${labels}</div>
         <p>${timeFormat(updatedAt)}</p>

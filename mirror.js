@@ -8,8 +8,30 @@ const fs = require('fs-extra')
 const yaml = require('yamljs')
 
 const commands = 'version init build'
-const ignore = 'Thumbs.db\n.DS_Store\n*.swp\ntoken.txt'
-const config = '# site title\ntitle:\n\n# github user\nuser:\n\n# issue repository\nrepository:\n\n# multi-author\nauthors:\n\n# posts per page\nperpage:\n'
+const ignore = `Thumbs.db
+.DS_Store
+*.swp
+`
+const config = `# site title
+title:
+
+# github user
+user:
+
+# issue repository
+repository:
+
+# multi-author
+authors:
+
+# token
+# token should be separated by '#'
+# example: 5#c31bffc137f44faf7efc4a84da827g7ca2cfeaa
+token:
+
+# posts per page
+perpage:
+`
 
 function outputFile(folder, files) {
   files.forEach((file) => {
@@ -27,18 +49,15 @@ program
 program
 .command('version')
 .description('Display Mirror version')
-.action(function() {
-  console.log(require('./package.json').version)
-})
+.action(() => console.log(require('./package.json').version))
 
 program
 .command('init [folder]')
 .description('Create a new Mirror blog')
-.action(function(folder = '') {
+.action((folder = '') => {
   const files = [
     { path: '.gitignore', data: ignore },
     { path: 'config.yml', data: config },
-    { path: 'token.txt', data: '' },
     { path: 'CNAME', data: '' }
   ]
 
@@ -53,17 +72,14 @@ program
 .description('Build the blog')
 .action(function() {
   const config = yaml.load(`${process.cwd()}/config.yml`)
-  let index = fs.readFileSync(`${process.cwd()}/index.html`, 'utf-8')
-  let token = fs.readFileSync(`${process.cwd()}/token.txt`, 'utf-8')
+  const html = fs.readFileSync(`${process.cwd()}/index.html`, 'utf-8')
 
-  if (!config.title || !config.user || !config.repository || !config.perpage || !token) {
+  if (!config.title || !config.user || !config.repository || !config.perpage || !config.token) {
     return console.log('Configure infomation error')
   }
 
-  token = token.replace(/[\r\n]+/g, '')
-  config.token = `${token.charAt(0)}#${token.substr(1)}`
-  index = index.replace('$config', JSON.stringify(config))
-  fs.outputFileSync(`${process.cwd()}/index.html`, index)
+  const content = html.replace('$config', JSON.stringify(config))
+  fs.outputFileSync(`${process.cwd()}/index.html`, content)
 
   console.log('Finished building the blog')
 })
