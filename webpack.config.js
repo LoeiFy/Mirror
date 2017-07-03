@@ -1,99 +1,97 @@
-var webpack = require('webpack')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
-var production = process.env.NODE_ENV === 'production'
-var forhtml = process.env.NODE_ENV === 'html'
-var fornpm = process.env.NODE_ENV === 'npm'
-var config = require('./src/config.js')
-var _config = {}
+const fs = require('fs-extra')
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const config = require('./config.js')
 
-Object.keys(config).forEach(function(key) {
-    _config[key] = ''
-})
+let _config = {}
+Object.keys(config).forEach(key => _config[key] = '')
 
-var plugins = []
+const base = {
+  entry: {
+    build: './src/'
+  },
 
-if (production || fornpm) {
-    plugins = plugins.concat(
-        new webpack.optimize.UglifyJsPlugin({
-            mangle: true,
-            compress: {
-                warnings: false
-            },
-            output: {
-                comments: false
-            }
-        })
-    )
+  output: {
+    publicPath: '/',
+    path: '/',
+    filename: '[name].js'
+  },
+
+  resolve: {
+    extensions: ['.js', '.css']
+  },
+
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: 'src/index.html',
+      config: JSON.stringify(config)
+    })
+  ],
+
+  devServer: {
+    historyApiFallback: true,
+    disableHostCheck: true,
+    noInfo: true,
+    host: '0.0.0.0',
+    port: 1234
+  },
+
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        loader: ['style-loader', 'css-loader', 'postcss-loader']
+      },
+      {
+        test: /\.svg$/,
+        loader: 'svg-inline-loader'
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader'
+      }
+    ]
+  },
+
+  devtool: '#source-map'
 }
 
-if (production || fornpm) {
-    if (production) {
-        config = JSON.stringify(_config)
-    }
-    if (fornpm) {
-        config = '$config'
-    }
-
-    var minify = {
-        removeComments: fornpm,
-        minifyJS: fornpm,
+if (process.env.NODE_ENV === 'production') {
+  base.plugins = [
+    new webpack.optimize.UglifyJsPlugin({
+      compress: { warnings: false },
+      output: { comments: false }
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'index.npm.html',
+      template: './src/index.html',
+      config: '$config',
+      minify: {
+        removeComments: true,
+        minifyJS: true,
         minifyCSS: true,
-        collapseWhitespace: fornpm
-    }
-} else {
-    var minify = {}
-    config = JSON.stringify(config)
+        collapseWhitespace: true
+      }
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: './src/index.html',
+      config: JSON.stringify(_config),
+      minify: {
+        removeComments: false,
+        minifyJS: false,
+        minifyCSS: true,
+        collapseWhitespace: false
+      }
+    })
+  ]
+  base.devtool = false
+  base.output = {
+    path: `${__dirname}/dist`,
+    publicPath: '/',
+    filename: '[name].[chunkhash:8].js'
+  }
 }
 
-plugins = plugins.concat(
-     new HtmlWebpackPlugin({                        
-         filename: 'index.html',
-         template: './src/index.html',
-         config: config,
-         inject: 'body',
-         hash: false,
-         minify: minify 
-     })
-)
-
-module.exports = {
-
-    entry: {
-        build: forhtml ? './src/html.js' : './src/index.js'
-    },
-
-    output: {
-        path: (production || fornpm) ? 'dist' : '',
-        filename: (production || fornpm) ? '[name].[hash].js' : '[name].js'
-    },
-
-    devtool: (production || forhtml || fornpm) ? false : 'source-map',
-
-    module: {
-        loaders: [
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                loader: 'babel'
-            },
-            {
-                test: /\.scss$/,
-                loader: (production || fornpm) ? 'style!css!postcss!sass' : 'style!css?sourceMap!postcss!sass?sourceMap'
-            },
-            {
-                test: /\.svg$/,
-                loader: 'svg-inline'
-            }
-        ]
-    },
-
-    babel: {
-        presets: ['es2015']
-    },
-
-    postcss: [
-        require('autoprefixer')
-    ],
-    
-    plugins: plugins
-}
+module.exports = base

@@ -1,0 +1,39 @@
+.transition .page {
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+  transform-style: preserve-3d;
+  overflow: hidden;
+}
+.page {
+  background: #fff;
+  position: relative;
+}
+.page-current {
+  z-index: 1;
+}
+.page-movefrom {
+  animation: movefrom .6s ease-in-out both;
+}
+.page-moveto {
+  @media (max-width: 800px) {
+    animation: moveto .7s ease both;
+  }
+
+  animation: moveto .7s ease-in both;
+}
+
+@keyframes movefrom {
+  from {
+    transform: translate3d(300px, 0, 0);
+    opacity: 0;
+  }
+}
+@keyframes moveto {
+  to {
+    transform: translate3d(-100%, 0, 0);
+  }
+}

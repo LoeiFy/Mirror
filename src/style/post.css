@@ -1,0 +1,70 @@
+#post {
+  & > p {
+    font-size: 14px;
+    color: #788590;
+    margin-top: 10px;
+
+    & span {
+      margin: 0 10px;
+      color: #565f67;
+    }
+  }
+
+  & .labels {
+    margin-top: 30px;
+
+    & a {
+      margin-right: 10px;
+      text-decoration: underline;;
+      color: #666;
+    }
+  }
+
+  & > .markdown-body {
+    margin-top: 40px;
+
+    &:before {
+      content: '';
+      width: 30px;
+      display: block;
+      margin-bottom: 20px;
+      height: 1px;
+      background: #eee;
+    }
+  }
+
+  & .back {
+    @media (max-width: 800px) {
+      top: 20px;
+      left: 20px;
+    }
+
+    position: absolute;
+    right: 50%;
+    margin-right: 340px;
+    top: 72px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+
+    &:hover path {
+      fill: #5c646b;
+    }
+
+    & path {
+      fill: #949fa9;
+    }
+  }
+
+  & > h1 {
+    @media (max-width: 800px) {
+      font-size: 20px;
+    }
+
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.4;
+    color: #3d4348;
+    padding-top: 70px;
+  }
+}

@@ -1,291 +1,156 @@
-import * as api from './api'
-import template from './template'
-import { load, $, box, clone, titleFormat } from './util'
-
-import './index.scss'
-import icon_back from './svg/back.svg'
-
-import 'core-js/fn/array/find'
 import 'es6-promise/auto'
-import smoothscroll from 'smoothscroll-polyfill'
-smoothscroll.polyfill()
+import { polyfill } from 'smoothscroll-polyfill'
 
-document.addEventListener('DOMContentLoaded', function() {
-    let { title, user, repo, per_page, sandbox } = window.config
+import './style/'
+import API from './api/'
+import Router from './router/'
+import Issues from './template/issues'
+import Issue from './template/issue'
+import User from './template/user'
+import Comments from './template/comments'
+import observer from './util/observer'
+import diff from './util/diff'
+import Transition from './util/transition'
 
-    if (!title || !user || !repo || !per_page) {
-        return alert('Missing configuration information')
-    }
+const issues = new Issues('#posts')
+const issue = new Issue('#post')
+const user = new User('#user')
+const comments = new Comments('#comments')
+const router = new Router({ '/': onPosts, '/posts/:id': onPost })
+const transition = new Transition()
+let scrollY = 0
 
-    if (sandbox) {
-        $('#sandbox').style.display = 'inline'
-    }
+polyfill()
+window.Mirror = { __: {}, issue: {}, comments: {} }
 
-    let issues_data = []
-    let page = 1
-    let current = 'list'
-    let scrollY = 0
-    let total = 0
-    let sort = 'updated'
+observer(Mirror, 'user', function(v) { user._(v) })
+observer(Mirror, 'issues', function(v) { issues._(v) })
+observer(Mirror, 'issue', function(n, o) { issue._(diff(n, o)) })
+observer(Mirror, 'comments', function(n, o) { comments._(diff(n, o)) })
 
-    function ifPager() {
-        $('#prev').style.display = page == 1 ? 'none' : 'inline-block'
-        $('#next').style.display = (total && page == total) ? 'none' : 'inline-block'
-    }
+function onPosts() {
+  if (Mirror.user) {
+    user._(Mirror.user)
+    return Mirror.getPosts()
+  }
 
-    function ready() {
-        document.body.parentNode.classList.remove('loading')
-        document.body.classList.add(current)
-        $('.right').innerHTML += get_back()
-    }
+  return API.user._()
+  .then(res => Mirror.getPosts('', res.user))
+}
 
-    function get_back() {
-        let location = window.location
-        let url = `${location.origin}${location.pathname}`
-        let link = current == 'list' ? 'javascript:history.back()' : url
-        return `<a href="${link}">${icon_back}</a>`
-    }
+function onPost(params) {
+  scrollY = window.scrollY
+  Mirror.getPost(params.id)
+}
 
-    function get_issues() {
-        const _issues = {
-            url: api.ISSUES(user, repo),
-            data: { page, per_page, sort }
-        }
+Mirror.getPosts = function(after = '', userData) {
+  document.title = window.config.title
 
-        const _user = { url: api.USER(user) }
-
-        const build_list = (res) => {
-            const { headers: { link }, data } = res
-
-            $('#posts').innerHTML = template.issues(data)
-            issues_data = issues_data.concat(data)
-
-            if (!link || link.indexOf('rel="next"') == -1) {
-                $('#next').style.display = 'none'
-                total = page
-            }
-
-            $('#next').removeAttribute('disabled')
-            ifPager()
-        }
-
-        const build_user = (res) => {
-            $('#user').innerHTML = template.user(res.data)
-        }
-
-        if (page == 1) {
-            load(_issues, _user).then(res => {
-                build_list(res[0])
-                build_user(res[1])
-                ready()
-
-                $('#form .button').removeAttribute('disabled')
-                $('.sandbox').classList.remove('active')
-                $('.left').style.height = 'auto'
-            }).catch(err => {
-                alert('Something went wrong, please checkout the configurations')
-                $('#form .button').removeAttribute('disabled')
-            })
-        } else {
-            if (issues_data.length > (page - 1) * per_page) {
-                $('#posts').innerHTML = template.issues(clone(issues_data).splice((page - 1) * per_page, per_page))
-                $('#next').removeAttribute('disabled')
-                ifPager()
-            } else {
-                load(_issues).then(res => build_list(res[0]))
-            }
-        }
-    }
-
-    function start() {
-        issues_data = []
-        page = 1
-        total = 0
-
-        $('#source').href = `https://github.com/${user}/${repo}/issues`
-
-        if (location.hash) {
-            current = 'single'
-            const hash = location.hash.split('#')[1]
-
-            load({ url: api.ISSUE(user, repo, hash) }).then(res => {
-                const { data: { closed_at } } = res[0]
-
-                if (closed_at) {
-                    return location.replace('/')
-                }
-
-                $('#post').innerHTML = template.issue(res[0].data)
-                document.title = `${titleFormat(res[0].data.title)} - ${title}`
-                ready()
-            }).catch(err => location.replace('/'))
-        } else {
-            document.title = title
-            get_issues()
-        }
-    }
-
-    start()
-
-    $('#next').addEventListener('click', (e) => {
-        page += 1
-        e.target.setAttribute('disabled', true)
-        get_issues()
+  if (this.issues && !after) {
+    issues._(this.issues)
+    return transition.toHome(function() {
+      window.scroll({ top: scrollY, left: 0, behavior: 'smooth' })
     })
+  }
 
-    $('#prev').addEventListener('click', (e) => {
-        page -= 1
-        $('#posts').innerHTML = template.issues(clone(issues_data).splice((page - 1) * per_page, per_page))
-        ifPager()
-    })
-
-    window.addEventListener('hashchange', () => {
-        const hash = location.hash.split('#')[1]
-
-        if (!hash && current == 'single') {
-            return location.href = '/'
-        }
-
-        if (hash) {
-            $('.sandbox').classList.remove('active')
-
-            const issue = issues_data.find(issue => issue.number == hash)
-
-            if (!issue) {
-                return location.replace('/')
-            }
-
-            $('#post').innerHTML = template.issue(issue)
-            document.title = `${titleFormat(issue.title)} - ${title}`
-            scrollY = window.scrollY
-
-            let time = 0
-
-            if (scrollY > 0) {
-                window.scroll({ top: 0, left: 0, behavior: 'smooth' })
-                time = 500
-            }
-
-            setTimeout(() => {
-                $('.left').style.display = 'none'
-            }, (time + 500))
-
-            setTimeout(() => {
-                $('.container').classList.remove('single')
-                $('.container').classList.add('post')
-            }, time)
-        } else {
-            document.title = title
-            $('.left').style.display = 'block'
-
-            setTimeout(() => {
-                $('#post').innerHTML = ''
-                window.scroll({ top: scrollY, left: 0, behavior: 'smooth' })
-            }, 500)
-
-            $('.container').classList.remove('post')
-            $('.container').classList.add('single')
-            box()
-        }
-    })
-
-    $('.right').addEventListener('click', (e) => {
-        e = e.target
-
-        if (!e.classList.contains('comment')) {
-            return
-        }
-
-        e.setAttribute('disabled', true)
-
-        load({ url: api.COMMENTS(user, repo, e.getAttribute('data-id')) }).then(res => {
-            const pnd = e.parentNode
-
-            pnd.removeChild(e)
-            pnd.innerHTML += template.comments(res[0].data)
-        })
-    })
-
-    $('#close').addEventListener('click', () => {
-        $('.sandbox').classList.remove('active')
-        $('.left').style.height = 'auto'
-    })
-
-    $('#sandbox').addEventListener('click', () => {
-        window.scrollTo(0, 0)
-        $('.sandbox').style.height = `${window.innerHeight}px`
-        $('.left').style.height = `${window.innerHeight}px`
-        $('.sandbox').classList.add('active')
-    })
-
-    $('#form').addEventListener('submit', function(e) {
-        e.preventDefault()
-
-        const _title = this.title.value
-        const _user = this.user.value
-        const _repo = this.repo.value
-        const _authors = this.authors.value || ''
-        const _per_page = this.per_page.value
-
-        if (!_title || !_user || !_repo || !_per_page) {
-            return alert('Missing configuration information')
-        }
-
-        this.submit.setAttribute('disabled', true)
-
-        title = _title
-        user = _user
-        repo = _repo
-        per_page = _per_page
-
-        window.config = {
-            title: _title,
-            user: _user,
-            repo: _repo,
-            per_page: _per_page,
-            token: '',
-            authors: _authors,
-            sandbox: true
-        }
-
-        start()
-    })
-
-    $('#form').addEventListener('blur', (e) => {
-        window.scroll(0, 0)
-    }, true)
-
-    document.body.addEventListener('click', (e) => {
-        const { target } = e
-        const { tagName, src, className } = target
-
-        if (!location.hash) {
-            return
-        }
-
-        if (className == 'box' || target.parentNode.className == 'box') {
-            return box()
-        }
-
-        if (window.innerWidth < 600 || tagName != 'IMG') {
-            return
-        }
-
-        e.preventDefault()
-        box(src)
-    })
-
-    window.ontouchmove = function(e) {
-        if ($('.sandbox').classList.contains('active')) {
-            e.preventDefault()
-        }
+  return API.issues._(after)
+  .then((res) => {
+    const { edges, totalCount, pageInfo } = res.repository.issues
+    const issues = {
+      pageInfo,
+      totalCount,
+      edges: this.issues ? this.issues.edges.concat(edges) : edges
     }
 
-    window.onorientationchange = function() {
-        if ($('.sandbox').classList.contains('active')) {
-            $('.sandbox').style.height = `${window.innerHeight}px`
-        }
+    this.issues = issues
+
+    if (userData) {
+      this.user = userData
     }
-})
+
+    if (!after) {
+      transition.toHome(function() {
+        window.scroll({ top: scrollY, left: 0, behavior: 'smooth' })
+      })
+    }
+  })
+}
+
+Mirror.getPost = function(number) {
+  if (this.issue[number]) {
+    document.title = `${this.issue[number].title} - ${window.config.title}`
+    issue._(this.issue[number])
+    return transition.toPost()
+  }
+
+  document.title = 'loading'
+
+  return API.issue._(number)
+  .then((res) => {
+    document.title = `${res.repository.issue.title} - ${window.config.title}`
+    this.issue = Object.assign({ [number]: res.repository.issue }, this.issue)
+    transition.toPost()
+  })
+}
+
+Mirror.openComments = function(params, ele) {
+  document.querySelector('#comments').innerHTML = ''
+  this.getComments(params, ele)
+}
+
+Mirror.getComments = function(params, ele) {
+  const [id, after] = params.split('#')
+
+  if (this.comments[id] && !after) {
+    if (ele) {
+      ele.parentNode.style.display = 'none'
+    }
+    return comments._(this.comments[id])
+  }
+
+  return API.comments._(id, after)
+  .then((res) => {
+    const {
+      number,
+      comments: { totalCount, pageInfo, edges }
+    } = res.repository.issue
+
+    const newEdges = this.comments[id] && number === parseInt(id) ?
+    this.comments[id].comments.edges.concat(edges) : edges
+
+    const issue = {
+      number,
+      comments: {
+        totalCount,
+        pageInfo,
+        edges: newEdges
+      }
+    }
+
+    const comments = Object.assign({}, this.comments)
+
+    if (number === parseInt(id)) {
+      comments[id] = issue
+      this.comments = comments
+    } else {
+      this.comments = Object.assign({ [number]: issue }, this.comments)
+    }
+
+    if (ele) {
+      ele.parentNode.style.display = 'none'
+    }
+  })
+}
+
+router.notFound = function(params) {
+  router.go('/')
+}
+
+router.changed = function() {
+  const error = document.querySelector('#error')
+  error && error.click()
+}
+
+router.start()
 
 console.log("%c Github %c","background:#24272A; color:#ffffff","","https://github.com/LoeiFy/Mirror")

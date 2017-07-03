@@ -8,9 +8,4 @@ node_modules/*
 
 .vscode
 
-token.txt
-
-index.html
-!dist/index.html
-
-build.js
+config.js

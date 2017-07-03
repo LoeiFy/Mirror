@@ -2,81 +2,90 @@
 
 'use strict';
 
-var program = require('commander')
-var path = require('path')
-var fs = require('fs-extra')
-var yaml = require('yamljs')
+const program = require('commander')
+const path = require('path')
+const fs = require('fs-extra')
+const yaml = require('yamljs')
 
-var commands = 'version init build'
-var ignore = 'Thumbs.db\n.DS_Store\n*.swp\ntoken.txt'
-var config = '# site title\ntitle:\n\n# github user\nuser:\n\n# issue repo\nrepo:\n\n# multi-author\nauthors:\n\n# per page\nper_page:\n\n#sandbox\nsandbox: false'
+const commands = 'version init build'
+const ignore = `Thumbs.db
+.DS_Store
+*.swp
+`
+const config = `# site title
+title:
+
+# github user
+user:
+
+# issue repository
+repository:
+
+# multi-author
+authors:
+
+# token
+# token should be separated by '#'
+# example: 5#c31bffc137f44faf7efc4a84da827g7ca2cfeaa
+token:
+
+# posts per page
+perpage:
+`
 
 function outputFile(folder, files) {
-    files.forEach(function(file) {
-        var filePath = path.join(process.cwd(), folder, file.path)
-        if (!fs.existsSync(filePath)) {
-            fs.outputFileSync(filePath, file.data)
-        }
-    })
+  files.forEach((file) => {
+    const filePath = path.join(process.cwd(), folder, file.path)
+    if (!fs.existsSync(filePath)) {
+      fs.outputFileSync(filePath, file.data)
+    }
+  })
 }
 
 program
-    .allowUnknownOption()
-    .usage(' <command>')
+.allowUnknownOption()
+.usage(' <command>')
 
 program
-    .command('version')
-    .description('Display Mirror version')
-    .action(function() {
-        console.log(require('./package.json').version)
-    })
+.command('version')
+.description('Display Mirror version')
+.action(() => console.log(require('./package.json').version))
 
 program
-    .command('init [folder]')
-    .description('Create a new Mirror blog')
-    .action(function(folder) {
-        folder = folder || ''
+.command('init [folder]')
+.description('Create a new Mirror blog')
+.action((folder = '') => {
+  const files = [
+    { path: '.gitignore', data: ignore },
+    { path: 'config.yml', data: config },
+    { path: 'CNAME', data: '' }
+  ]
 
-        var files = [
-            { path: '.gitignore', data: ignore },
-            { path: 'config.yml', data: config },
-            { path: 'token.txt', data: '' },
-            { path: 'CNAME', data: '' }
-        ]
+  fs.copySync(path.join(__dirname, 'dist'), path.join(process.cwd(), folder))
+  outputFile(folder, files)
 
-        fs.copySync(path.join(__dirname, 'dist'), path.join(process.cwd(), folder))
-        outputFile(folder, files)
-
-        console.log('Success, modify "config.yml" to configure your blog')
-    })
+  console.log('Success, modify "config.yml" and start your blog')
+})
 
 program
-    .command('build')
-    .description('Build the blog')
-    .action(function() {
-        try {
-            var token = fs.readFileSync(process.cwd() +'/token.txt', 'utf-8')
-        } catch(e) {
-            return console.log(e)
-        }
+.command('build')
+.description('Build the blog')
+.action(function() {
+  const config = yaml.load(`${process.cwd()}/config.yml`)
+  const html = fs.readFileSync(`${process.cwd()}/index.html`, 'utf-8')
 
-        var config = yaml.load(process.cwd() +'/config.yml')
-        var index = fs.readFileSync(process.cwd() +'/index.html', 'utf-8')
+  if (!config.title || !config.user || !config.repository || !config.perpage || !config.token) {
+    return console.log('Configure infomation error')
+  }
 
-        if (!config.title || !config.user || !config.repo || !config.per_page || !token) {
-            return console.log('Configure infomation error')
-        }
+  const content = html.replace('$config', JSON.stringify(config))
+  fs.outputFileSync(`${process.cwd()}/index.html`, content)
 
-        token = token.replace(/[\r\n]+/g, '')
-        config.token = token.charAt(0) +'#'+ token.substr(1)
-        index = index.replace('$config', JSON.stringify(config))
-        fs.outputFileSync(process.cwd() +'/index.html', index)
-
-        console.log('Finished building the blog')
-    })
+  console.log('Finished building the blog')
+})
 
 program.parse(process.argv)
 
 if (!program.args.length || commands.indexOf(process.argv[2]) == -1) {
-    program.help()
+  program.help()
 }
