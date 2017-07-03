@@ -1,6 +1,6 @@
 # Mirror
 
-[中文说明](http://mirror.am0200.com/#11)
+[中文说明](https://github.com/LoeiFy/Recordum/issues/11)
 
 A blog tool powered by GitHub, write your blog on GitHub issue
 
