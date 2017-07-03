@@ -12,6 +12,8 @@ this version use the GitHub [GraphQL](https://developer.github.com/v4/) API
 
 and the `REST` API version is [here](https://github.com/LoeiFy/Mirror/tree/rest-api)
 
+http://mirror.am0200.com/rest-api/
+
 ## How to use
 
 ### install
