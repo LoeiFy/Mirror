@@ -6,6 +6,12 @@ A blog tool powered by GitHub, write your blog on GitHub issue
 
 http://mirror.am0200.com/
 
+## Versions
+
+this version use the GitHub [GraphQL](https://developer.github.com/v4/) API
+
+and the `REST` API version is [here](https://github.com/LoeiFy/Mirror/tree/rest-api)
+
 ## How to use
 
 ### install
@@ -121,10 +127,12 @@ fork and install modules
 $ npm install
 ```
 
+rename `config.sample.js` to `config.js`. and set the values
+
 local test
 
 ```bash
-$ npm run dev
+$ npm start
 ```
 
 build
