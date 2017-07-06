@@ -21,12 +21,11 @@ class Transition {
         this.post.innerHTML = ''
         this.comments.innerHTML = ''
 
-        fn && fn()
-      }, 700)
-      setTimeout(() => {
         this.home.classList.remove('page-movefrom');
         this.home.classList.add('page-current')
-      }, 600)
+
+        fn && fn()
+      }, 800)
     }, 0)
   }
 
@@ -41,11 +40,10 @@ class Transition {
         this.html.classList.remove('transition')
         this.posts.innerHTML = ''
         this.user.innerHTML = ''
-      }, 700)
-      setTimeout(() => {
+
         this.page.classList.remove('page-movefrom');
         this.page.classList.add('page-current')
-      }, 600)
+      }, 800)
     }, 0)
   }
 }

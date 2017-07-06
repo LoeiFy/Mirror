@@ -8,10 +8,6 @@ class Router {
     this._listen()
   }
 
-  go(path) {
-    location.hash = path
-  }
-
   _listen() {
     window.addEventListener('hashchange', () => { this._resolve() })
   }
