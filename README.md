@@ -56,7 +56,7 @@ title: Mirror
 user: LoeiFy
 
 # issue repo: your issues repo, all blog content from here
-repo: Recordum
+repository: Recordum
 
 # multi-authors, the user is included in
 # example: author0, author1

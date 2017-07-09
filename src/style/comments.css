@@ -20,7 +20,7 @@
   }
 
   & .comment-body {
-    background: #f8f8f8;
+    border: 1px solid #dee1e2;
     padding: 14px 14px 14px 18px;
     border-radius: 3px;
     position: relative;
@@ -39,9 +39,12 @@
     &:before {
       content: '';
       position: absolute;
-      border: 5px solid transparent;
-      border-top-color: #f8f8f8;
-      border-left-color: #f8f8f8;
+      border: 1px solid transparent;
+      border-top-color: #dee1e2;
+      border-left-color: #dee1e2;
+      width: 5px;
+      height: 5px;
+      background-color: #fff;
       left: -5px;
       top: 20px;
       transform: rotate(-45deg);
