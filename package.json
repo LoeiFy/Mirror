@@ -1,19 +1,20 @@
 {
   "name": "Mirror",
-  "version": "1.0.3",
-  "description": "A blog tool powered by github issues",
+  "version": "1.0.4",
+  "description": "A blog tool powered by GitHub issues",
   "preferGlobal": "true",
   "bin": {
-    "mirror": "./mirror.js"
+    "mirror": "./bin/mirror.js"
   },
   "scripts": {
-    "start": "webpack-dev-server --inline --hot",
-    "build": "npm run clean && cross-env NODE_ENV=production webpack --hide-modules --progress --colors && cp favicon.ico dist && node zip.js && cd dist && mv index.npm.html index.html",
-    "clean": "rm -f -R dist"
+    "start": "webpack-dev-server --inline --hot --port 1234",
+    "prebuild": "rm -f -R dist",
+    "build": "cross-env NODE_ENV=production webpack --hide-modules --progress --colors",
+    "postbuild": "cp src/favicon.ico dist && node bin/zip.js && cd dist && mv index.npm.html index.html"
   },
   "files": [
     "dist",
-    "mirror.js"
+    "bin/mirror.js"
   ],
   "repository": {
     "type": "git",

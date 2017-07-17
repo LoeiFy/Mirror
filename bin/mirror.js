@@ -49,7 +49,7 @@ program
 program
 .command('version')
 .description('Display Mirror version')
-.action(() => console.log(require('./package.json').version))
+.action(() => console.log(require('../package.json').version))
 
 program
 .command('init [folder]')
@@ -61,7 +61,7 @@ program
     { path: 'CNAME', data: '' }
   ]
 
-  fs.copySync(path.join(__dirname, 'dist'), path.join(process.cwd(), folder))
+  fs.copySync(path.resolve(__dirname, '../dist'), path.join(process.cwd(), folder))
   outputFile(folder, files)
 
   console.log('Success, modify "config.yml" and start your blog')

@@ -1,7 +1,7 @@
 const fs = require('fs-extra')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const config = require('./config.js')
+const config = require('./src/config.js')
 
 let _config = {}
 Object.keys(config).forEach(key => _config[key] = '')
@@ -29,11 +29,15 @@ const base = {
   ],
 
   devServer: {
-    historyApiFallback: true,
     disableHostCheck: true,
     noInfo: true,
     host: '0.0.0.0',
-    port: 1234
+    historyApiFallback: {
+      rewrites: [{
+        from: /favicon.ico/,
+        to: './src/favicon.ico'
+      }]
+    }
   },
 
   module: {
