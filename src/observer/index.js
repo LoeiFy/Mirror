@@ -1,4 +1,4 @@
-import diff from './diff' 
+import diff from './diff'
 
 class Observer {
   constructor(listener) {
@@ -6,11 +6,13 @@ class Observer {
   }
 
   watch(items) {
-    items.forEach((item) => {
-      const { key, trigger } = item
+    Object.keys(items).forEach((key) => {
+      const trigger = items[key]
+      let useDiff = false
 
       if (this.listener[key]) {
         this.listener.__[key] = {}
+        useDiff = true
       }
 
       Object.defineProperty(this.listener, key, {
@@ -18,7 +20,7 @@ class Observer {
           return this.listener.__[key]
         },
         set: value => {
-          trigger(diff(value, this.listener.__[key]))
+          trigger(useDiff ? diff(value, this.listener.__[key]) : value)
           this.listener.__[key] = value
         }
       })

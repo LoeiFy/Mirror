@@ -1,5 +1,5 @@
-import titleFormat from '../util/title'
-import timeFormat from '../util/time'
+import titleFormat from './title'
+import timeFormat from './time'
 import icon_back from '../svg/back.svg'
 import footer from './footer'
 

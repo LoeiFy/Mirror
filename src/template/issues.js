@@ -1,6 +1,6 @@
-import timeFormat from '../util/time'
-import titleFormat from '../util/title'
-import filterPosts from '../util/posts'
+import timeFormat from './time'
+import titleFormat from './title'
+import filter from './filter'
 import footer from './footer'
 
 class Issues {
@@ -10,7 +10,7 @@ class Issues {
   }
 
   _(issues) {
-    issues.edges = filterPosts(issues.edges)
+    issues.edges = filter(issues.edges)
     this.issues = issues
     this._render()
   }

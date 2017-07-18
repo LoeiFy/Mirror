@@ -9,8 +9,6 @@ import Issue from './template/issue'
 import User from './template/user'
 import Comments from './template/comments'
 import Obeserver from './observer'
-// import observer from './util/observer'
-// import diff from './util/diff'
 import Transition from './util/transition'
 
 window.Mirror = { __: {}, issue: {}, comments: {} }
@@ -26,17 +24,12 @@ const transition = new Transition()
 let scrollY = 0
 
 polyfill()
-observer.watch([
-  { key: 'user', trigger: v => { user._(v) } },
-  { key: 'issues', trigger: v => { console.log(v); issues._(v) } },
-  { key: 'issue', trigger: v => { issue._(v) } },
-  { key: 'comments', trigger: v => { comments._(v) } }
-])
-
-// observer(Mirror, 'user', function(v) { user._(v) })
-// observer(Mirror, 'issues', function(v) { issues._(v) })
-// observer(Mirror, 'issue', function(n, o) { issue._(diff(n, o)) })
-// observer(Mirror, 'comments', function(n, o) { comments._(diff(n, o)) })
+observer.watch({
+  'user': user._.bind(user),
+  'issues': issues._.bind(issues),
+  'issue': issue._.bind(issue),
+  'comments': comments._.bind(comments)
+})
 
 function onPosts() {
   if (Mirror.user) {

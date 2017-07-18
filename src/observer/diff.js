@@ -1,9 +1,8 @@
 export default function(a, b) {
-  console.log(a, b)
   if (!b) {
     return a
   }
-  
+
   const keysA = Object.keys(a)
   const keysB = Object.keys(b)
 
