@@ -8,25 +8,35 @@ import Issues from './template/issues'
 import Issue from './template/issue'
 import User from './template/user'
 import Comments from './template/comments'
-import observer from './util/observer'
-import diff from './util/diff'
+import Obeserver from './observer'
+// import observer from './util/observer'
+// import diff from './util/diff'
 import Transition from './util/transition'
+
+window.Mirror = { __: {}, issue: {}, comments: {} }
 
 const issues = new Issues('#posts')
 const issue = new Issue('#post')
 const user = new User('#user')
 const comments = new Comments('#comments')
 const router = new Router({ '/': onPosts, '/posts/:id': onPost })
+const observer = new Obeserver(Mirror)
 const transition = new Transition()
+
 let scrollY = 0
 
 polyfill()
-window.Mirror = { __: {}, issue: {}, comments: {} }
+observer.watch([
+  { key: 'user', trigger: v => { user._(v) } },
+  { key: 'issues', trigger: v => { console.log(v); issues._(v) } },
+  { key: 'issue', trigger: v => { issue._(v) } },
+  { key: 'comments', trigger: v => { comments._(v) } }
+])
 
-observer(Mirror, 'user', function(v) { user._(v) })
-observer(Mirror, 'issues', function(v) { issues._(v) })
-observer(Mirror, 'issue', function(n, o) { issue._(diff(n, o)) })
-observer(Mirror, 'comments', function(n, o) { comments._(diff(n, o)) })
+// observer(Mirror, 'user', function(v) { user._(v) })
+// observer(Mirror, 'issues', function(v) { issues._(v) })
+// observer(Mirror, 'issue', function(n, o) { issue._(diff(n, o)) })
+// observer(Mirror, 'comments', function(n, o) { comments._(diff(n, o)) })
 
 function onPosts() {
   if (Mirror.user) {
