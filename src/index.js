@@ -10,6 +10,7 @@ import Issue from './template/issue'
 import User from './template/user'
 import Comments from './template/comments'
 import Obeserver from './observer'
+import { switchToHome, switchToPost } from './switch'
 import Transition from './util/transition'
 
 window.Mirror = { __: {}, issue: {}, comments: {} }
@@ -55,6 +56,9 @@ Mirror.getPosts = function(after = '', userData) {
     return transition.toHome(function() {
       window.scroll({ top: scrollY, left: 0, behavior: 'smooth' })
     })
+    // return switchToHome().then(() => {
+      // window.scroll({ top: scrollY, left: 0, behavior: 'smooth' })
+    // })
   }
 
   return API.issues._(after)
@@ -76,6 +80,9 @@ Mirror.getPosts = function(after = '', userData) {
       transition.toHome(function() {
         window.scroll({ top: scrollY, left: 0, behavior: 'smooth' })
       })
+      // return switchToHome().then(() => {
+        // window.scroll({ top: scrollY, left: 0, behavior: 'smooth' })
+      // })
     }
   })
 }
@@ -85,6 +92,7 @@ Mirror.getPost = function(number) {
     document.title = `${this.issue[number].title} - ${window.config.title}`
     issue._(this.issue[number])
     return transition.toPost()
+    // return switchToPost()
   }
 
   document.title = 'loading'
@@ -94,6 +102,7 @@ Mirror.getPost = function(number) {
     document.title = `${res.repository.issue.title} - ${window.config.title}`
     this.issue = Object.assign({ [number]: res.repository.issue }, this.issue)
     transition.toPost()
+    // switchToPost()
   })
 }
 
