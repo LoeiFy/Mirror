@@ -2,6 +2,7 @@ import 'es6-promise/auto'
 import { polyfill } from 'smoothscroll-polyfill'
 
 import './style/'
+import { $ } from './util'
 import API from './api/'
 import Router from './router/'
 import Issues from './template/issues'
@@ -97,7 +98,7 @@ Mirror.getPost = function(number) {
 }
 
 Mirror.openComments = function(params, ele) {
-  document.querySelector('#comments').innerHTML = ''
+  $('#comments').html('')
   this.getComments(params, ele)
 }
 
@@ -147,11 +148,6 @@ Mirror.getComments = function(params, ele) {
 
 router.notFound = function(params) {
   router.go('/')
-}
-
-router.changed = function() {
-  const error = document.querySelector('#error')
-  error && error.click()
 }
 
 router.start()
