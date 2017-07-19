@@ -2,17 +2,12 @@ import timeFormat from './time'
 import titleFormat from './title'
 import filter from './filter'
 import footer from './footer'
+import { $ } from '../util'
 
 class Issues {
   constructor(selector) {
-    this.container = document.querySelector(selector)
-    this.issues = {}
-  }
-
-  _(issues) {
-    issues.edges = filter(issues.edges)
-    this.issues = issues
-    this._render()
+    this.container = $(selector)
+    this.issues = null
   }
 
   post(issue) {
@@ -48,12 +43,15 @@ class Issues {
     return ''
   }
 
-  _render() {
-    const { edges } = this.issues
+  render(issues) {
+    issues.edges = filter(issues.edges)
+    this.issues = issues
 
-    this.container.innerHTML = edges
+    const { edges } = issues
+
+    this.container.html(edges
     .map(issue => this.post(issue.node))
-    .join('') + this.pagination + footer
+    .join('') + this.pagination + footer)
   }
 }
 

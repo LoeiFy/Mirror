@@ -2,18 +2,14 @@ import titleFormat from './title'
 import timeFormat from './time'
 import icon_back from '../svg/back.svg'
 import footer from './footer'
+import { $ } from '../util'
 
 const { user, repository } = window.config
 
 class Issue {
   constructor(selector) {
-    this.container = document.querySelector(selector)
-    this.issue = {}
-  }
-
-  _(issue) {
-    this.issue = issue
-    this._render()
+    this.container = $(selector)
+    this.issue = null
   }
 
   get comments() {
@@ -39,9 +35,11 @@ class Issue {
     `
   }
 
-  _render() {
-    const { title, bodyHTML, updatedAt } = this.issue
-    const labels = this.issue.labels.edges
+  render(issue) {
+    this.issue = issue
+
+    const { title, bodyHTML, updatedAt } = issue
+    const labels = issue.labels.edges
     .map(label => `
       <a
         target="_blank"
@@ -50,14 +48,14 @@ class Issue {
     `)
     .join('')
 
-    this.container.innerHTML = `
+    this.container.html(`
       <div onclick="location.hash='/'" class="back">${icon_back}</div>
       <h1>${titleFormat(title)}</h1>
       <p>Updated at<span>${timeFormat(updatedAt)}</span></p>
       <div class="markdown-body">${bodyHTML}</div>
       <div class="labels">${labels}</div>
       ${this.comments}
-    `
+    `)
   }
 }
 

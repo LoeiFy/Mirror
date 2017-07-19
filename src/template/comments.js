@@ -1,12 +1,13 @@
 import timeFormat from './time'
 import footer from './footer'
+import { $ } from '../util' 
 
 const { user, repository } = window.config
 
 class Comments {
   constructor(selector) {
-    this.container = document.querySelector(selector)
-    this.comments = {}
+    this.container = $(selector)
+    this.comments = null
     this.number = null
   }
 
@@ -30,13 +31,6 @@ class Comments {
         </div>
       </li>
     `
-  }
-
-  _(issue) {
-    const { comments, number } = issue
-    this.comments = comments
-    this.number = number
-    this._render()
   }
 
   get next() {
@@ -65,16 +59,20 @@ class Comments {
     `
   }
 
-  _render() {
-    const { edges } = this.comments
+  render(issue) {
+    const { comments, number } = issue
+    const { edges } = comments
 
-    this.container.innerHTML = `
+    this.comments = comments
+    this.number = number
+
+    this.container.html(`
       <ul class="comment-list">
         ${edges.map(comment => this.comment(comment)).join('')}
       </ul>
       ${this.next}
       ${footer}
-    `
+    `)
   }
 }
 

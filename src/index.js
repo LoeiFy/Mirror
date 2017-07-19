@@ -25,15 +25,15 @@ let scrollY = 0
 
 polyfill()
 observer.watch({
-  'user': user._.bind(user),
-  'issues': issues._.bind(issues),
-  'issue': issue._.bind(issue),
-  'comments': comments._.bind(comments)
+  'user': user.render.bind(user),
+  'issues': issues.render.bind(issues),
+  'issue': issue.render.bind(issue),
+  'comments': comments.render.bind(comments)
 })
 
 function onPosts() {
   if (Mirror.user) {
-    user._(Mirror.user)
+    user.render(Mirror.user)
     return Mirror.getPosts()
   }
 
@@ -50,7 +50,7 @@ Mirror.getPosts = function(after = '', userData) {
   document.title = window.config.title
 
   if (this.issues && !after) {
-    issues._(this.issues)
+    issues.render(this.issues)
     return switchToHome().then(() => {
       window.scroll({ top: scrollY, left: 0, behavior: 'smooth' })
     })
@@ -82,7 +82,7 @@ Mirror.getPosts = function(after = '', userData) {
 Mirror.getPost = function(number) {
   if (this.issue[number]) {
     document.title = `${this.issue[number].title} - ${window.config.title}`
-    issue._(this.issue[number])
+    issue.render(this.issue[number])
     return switchToPost()
   }
 
@@ -108,7 +108,7 @@ Mirror.getComments = function(params, ele) {
     if (ele) {
       ele.parentNode.style.display = 'none'
     }
-    return comments._(this.comments[id])
+    return comments.render(this.comments[id])
   }
 
   return API.comments._(id, after)
