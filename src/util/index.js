@@ -1,6 +1,7 @@
 class Query {
   constructor(dom) {
-    this.dom = document.querySelectorAll(dom)
+    this.dom = typeof dom === 'string' ?
+    document.querySelectorAll(dom) : [dom]
   }
 
   addClass(name) {
@@ -15,6 +16,16 @@ class Query {
 
   html(html) {
     this.dom.forEach(d => d.innerHTML = html)
+    return this
+  }
+
+  hide() {
+    this.dom.forEach(d => d.style.display = 'none')
+    return this
+  }
+
+  parent() {
+    this.dom = [this.dom[0].parentNode]
     return this
   }
 }

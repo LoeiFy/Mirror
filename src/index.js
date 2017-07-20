@@ -12,7 +12,7 @@ import Comments from './template/comments'
 import Obeserver from './observer'
 import { switchToHome, switchToPost } from './switch'
 
-window.Mirror = { __: {}, issue: {}, comments: {} }
+window.Mirror = { __: {}, issue: {}, comments: {}, scrollY: 0 }
 
 const issues = new Issues('#posts')
 const issue = new Issue('#post')
@@ -20,8 +20,6 @@ const user = new User('#user')
 const comments = new Comments('#comments')
 const router = new Router({ '/': onPosts, '/posts/:id': onPost })
 const observer = new Obeserver(Mirror)
-
-let scrollY = 0
 
 polyfill()
 observer.watch({
@@ -42,7 +40,7 @@ function onPosts() {
 }
 
 function onPost(params) {
-  scrollY = window.scrollY
+  Mirror.scrollY = window.scrollY
   Mirror.getPost(params.id)
 }
 
@@ -52,7 +50,7 @@ Mirror.getPosts = function(after = '', userData) {
   if (this.issues && !after) {
     issues.render(this.issues)
     return switchToHome().then(() => {
-      window.scroll({ top: scrollY, left: 0, behavior: 'smooth' })
+      window.scroll({ top: Mirror.scrollY, left: 0, behavior: 'smooth' })
     })
   }
 
@@ -73,42 +71,41 @@ Mirror.getPosts = function(after = '', userData) {
 
     if (!after) {
       return switchToHome().then(() => {
-        window.scroll({ top: scrollY, left: 0, behavior: 'smooth' })
+        window.scroll({ top: Mirror.scrollY, left: 0, behavior: 'smooth' })
       })
     }
   })
 }
 
-Mirror.getPost = function(number) {
-  if (this.issue[number]) {
-    document.title = `${this.issue[number].title} - ${window.config.title}`
-    issue.render(this.issue[number])
-    return switchToPost()
-  }
-
+Mirror.getPost = async function(number) {
   document.title = 'loading'
 
-  return API.issue(number)
-  .then((res) => {
-    document.title = `${res.repository.issue.title} - ${window.config.title}`
-    this.issue = Object.assign({ [number]: res.repository.issue }, this.issue)
-    switchToPost()
-  })
+  let post = this.issue[number]
+
+  if (post) {
+    issue.render(post)
+  } else {
+    const { repository } = await API.issue(number)
+    post = repository.issue
+    this.issue = Object.assign({ [number]: post }, this.issue)
+  }
+
+  document.title = `${post.title} - ${window.config.title}`
+  switchToPost()
 }
 
-Mirror.openComments = function(params, ele) {
+Mirror.openComments = async function(params, ele) {
   $('#comments').html('')
-  this.getComments(params, ele)
+  await this.getComments(params)
+  $(ele).parent().hide()
 }
 
-Mirror.getComments = function(params, ele) {
+Mirror.getComments = function(params) {
   const [id, after] = params.split('#')
 
   if (this.comments[id] && !after) {
-    if (ele) {
-      ele.parentNode.style.display = 'none'
-    }
-    return comments.render(this.comments[id])
+    comments.render(this.comments[id])
+    return Promise.resolve()
   }
 
   return API.comments(id, after)
@@ -139,9 +136,7 @@ Mirror.getComments = function(params, ele) {
       this.comments = Object.assign({ [number]: issue }, this.comments)
     }
 
-    if (ele) {
-      ele.parentNode.style.display = 'none'
-    }
+    return Promise.resolve()
   })
 }
 
