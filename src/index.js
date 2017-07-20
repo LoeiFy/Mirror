@@ -29,14 +29,16 @@ observer.watch({
   'comments': comments.render.bind(comments)
 })
 
-function onPosts() {
-  if (Mirror.user) {
-    user.render(Mirror.user)
+async function onPosts() {
+  const userData = Mirror.user
+
+  if (userData) {
+    user.render(userData)
     return Mirror.getPosts()
   }
-
-  return API.user()
-  .then(res => Mirror.getPosts('', res.user))
+  
+  const res = await API.user()
+  Mirror.getPosts('', res.user)
 }
 
 function onPost(params) {
@@ -44,37 +46,41 @@ function onPost(params) {
   Mirror.getPost(params.id)
 }
 
-Mirror.getPosts = function(after = '', userData) {
+Mirror.getPosts = async function(after = '', userData) {
   document.title = window.config.title
 
-  if (this.issues && !after) {
-    issues.render(this.issues)
-    return switchToHome().then(() => {
-      window.scroll({ top: Mirror.scrollY, left: 0, behavior: 'smooth' })
-    })
-  }
+  const prevIssues = this.issues
 
-  return API.issues(after)
-  .then((res) => {
-    const { edges, totalCount, pageInfo } = res.repository.issues
-    const issues = {
+  if (prevIssues && !after) {
+    issues.render(prevIssues)
+  } else {
+    const {
+      repository: {
+        issues: {
+          edges,
+          pageInfo,
+          totalCount
+        }
+      }
+    } = await API.issues(after)
+
+    const newIssues = {
       pageInfo,
       totalCount,
-      edges: this.issues ? this.issues.edges.concat(edges) : edges
+      edges: prevIssues ? prevIssues.edges.concat(edges) : edges
     }
 
-    this.issues = issues
+    this.issues = newIssues
 
     if (userData) {
       this.user = userData
     }
+  }
 
-    if (!after) {
-      return switchToHome().then(() => {
-        window.scroll({ top: Mirror.scrollY, left: 0, behavior: 'smooth' })
-      })
-    }
-  })
+  if (!after) {
+    await switchToHome()
+    window.scroll({ top: Mirror.scrollY, left: 0, behavior: 'smooth' })
+  }
 }
 
 Mirror.getPost = async function(number) {
@@ -100,44 +106,46 @@ Mirror.openComments = async function(params, ele) {
   $(ele).parent().hide()
 }
 
-Mirror.getComments = function(params) {
+Mirror.getComments = async function(params) {
   const [id, after] = params.split('#')
+  const comment = this.comments[id]
 
-  if (this.comments[id] && !after) {
-    comments.render(this.comments[id])
-    return Promise.resolve()
-  }
-
-  return API.comments(id, after)
-  .then((res) => {
+  if (comment && !after) {
+    comments.render(comment)
+  } else {
     const {
-      number,
-      comments: { totalCount, pageInfo, edges }
-    } = res.repository.issue
+      repository: {
+        issue: {
+          number,
+          comments: {
+            totalCount,
+            pageInfo,
+            edges
+          }
+        }
+      }
+    } = await API.comments(id, after)
 
-    const newEdges = this.comments[id] && number === parseInt(id) ?
-    this.comments[id].comments.edges.concat(edges) : edges
-
-    const issue = {
+    const newComment = {
       number,
       comments: {
         totalCount,
         pageInfo,
-        edges: newEdges
+        edges: comment && number === parseInt(id) ? comment.comments.edges.concat(edges) : edges
       }
     }
 
-    const comments = Object.assign({}, this.comments)
+    const allComments = Object.assign({}, this.comments)
 
     if (number === parseInt(id)) {
-      comments[id] = issue
-      this.comments = comments
+      allComments[id] = newComment
+      this.comments = allComments
     } else {
-      this.comments = Object.assign({ [number]: issue }, this.comments)
+      this.comments = Object.assign({ [number]: newComment }, this.comments)
     }
+  }
 
-    return Promise.resolve()
-  })
+  return Promise.resolve()
 }
 
 router.notFound = function(params) {
