@@ -44,7 +44,7 @@ class Comments extends Fetcher {
     }`
   }
 
-  _(number, after) {
+  get(number, after) {
     return this.fetch(this.query(number, after))
   }
 }

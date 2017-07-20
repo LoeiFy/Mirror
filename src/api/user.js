@@ -22,7 +22,7 @@ class User extends Fetcher {
     }`
   }
 
-  _() {
+  get() {
     return this.fetch(this.query)
   }
 }

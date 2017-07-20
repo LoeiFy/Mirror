@@ -37,7 +37,7 @@ function onPosts() {
     return Mirror.getPosts()
   }
 
-  return API.user._()
+  return API.user()
   .then(res => Mirror.getPosts('', res.user))
 }
 
@@ -56,7 +56,7 @@ Mirror.getPosts = function(after = '', userData) {
     })
   }
 
-  return API.issues._(after)
+  return API.issues(after)
   .then((res) => {
     const { edges, totalCount, pageInfo } = res.repository.issues
     const issues = {
@@ -88,7 +88,7 @@ Mirror.getPost = function(number) {
 
   document.title = 'loading'
 
-  return API.issue._(number)
+  return API.issue(number)
   .then((res) => {
     document.title = `${res.repository.issue.title} - ${window.config.title}`
     this.issue = Object.assign({ [number]: res.repository.issue }, this.issue)
@@ -111,7 +111,7 @@ Mirror.getComments = function(params, ele) {
     return comments.render(this.comments[id])
   }
 
-  return API.comments._(id, after)
+  return API.comments(id, after)
   .then((res) => {
     const {
       number,

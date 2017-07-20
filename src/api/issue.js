@@ -38,7 +38,7 @@ class Issue extends Fetcher {
     }`
   }
 
-  _(number) {
+  get(number) {
     return this.fetch(this.query(number))
   }
 }
