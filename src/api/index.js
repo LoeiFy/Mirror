@@ -3,17 +3,22 @@ import Issue from './issue'
 import Issues from './issues'
 import User from './user'
 
+const comments = new Comments()
+const issue = new Issue()
+const issues = new Issues()
+const user = new User()
+
 export default {
   comments(...args) {
-    return (new Comments()).get(...args)
+    return comments.get(...args)
   },
   issue(...args) {
-    return (new Issue()).get(...args)
+    return issue.get(...args)
   },
   issues(...args) {
-    return (new Issues()).get(...args)
+    return issues.get(...args)
   },
   user(...args) {
-    return (new User()).get(...args)
+    return user.get(...args)
   }
 }

@@ -4,36 +4,29 @@ import { polyfill } from 'smoothscroll-polyfill'
 import './style/'
 import { $ } from './util'
 import API from './api/'
+import TPL from './template'
 import Router from './router/'
-import Issues from './template/issues'
-import Issue from './template/issue'
-import User from './template/user'
-import Comments from './template/comments'
 import Obeserver from './observer'
 import { switchToHome, switchToPost } from './switch'
 
 window.Mirror = { __: {}, issue: {}, comments: {}, scrollY: 0 }
 
-const issues = new Issues('#posts')
-const issue = new Issue('#post')
-const user = new User('#user')
-const comments = new Comments('#comments')
 const router = new Router({ '/': onPosts, '/posts/:id': onPost })
 const observer = new Obeserver(Mirror)
 
 polyfill()
 observer.watch({
-  'user': user.render.bind(user),
-  'issues': issues.render.bind(issues),
-  'issue': issue.render.bind(issue),
-  'comments': comments.render.bind(comments)
+  'user': TPL.user,
+  'issues': TPL.issues,
+  'issue': TPL.issue,
+  'comments': TPL.comments
 })
 
 async function onPosts() {
   const userData = Mirror.user
 
   if (userData) {
-    user.render(userData)
+    TPL.user(userData)
     return Mirror.getPosts()
   }
   
@@ -52,7 +45,7 @@ Mirror.getPosts = async function(after = '', userData) {
   const prevIssues = this.issues
 
   if (prevIssues && !after) {
-    issues.render(prevIssues)
+    TPL.issues(prevIssues)
   } else {
     const {
       repository: {
@@ -89,7 +82,7 @@ Mirror.getPost = async function(number) {
   let post = this.issue[number]
 
   if (post) {
-    issue.render(post)
+    TPL.issue(post)
   } else {
     const { repository } = await API.issue(number)
     post = repository.issue
@@ -111,7 +104,7 @@ Mirror.getComments = async function(params) {
   const comment = this.comments[id]
 
   if (comment && !after) {
-    comments.render(comment)
+    TPL.comments(comment)
   } else {
     const {
       repository: {
