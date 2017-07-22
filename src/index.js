@@ -17,10 +17,10 @@ const TPL = new Template(Mirror)
 
 polyfill()
 observer.watch({
-  'user': TPL.user,
-  'issues': TPL.issues,
-  'issue': TPL.issue,
-  'comments': TPL.comments
+  'user': TPL.user.bind(TPL),
+  'issues': TPL.issues.bind(TPL),
+  'issue': TPL.issue.bind(TPL),
+  'comments': TPL.comments.bind(TPL)
 })
 
 async function onPosts() {

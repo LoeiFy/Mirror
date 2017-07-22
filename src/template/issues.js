@@ -5,7 +5,8 @@ import footer from './footer'
 import { $ } from '../util'
 
 class Issues {
-  constructor(selector) {
+  constructor(selector, mirror) {
+    this.mirror = mirror
     this.container = $(selector)
     this.issues = null
   }
@@ -32,15 +33,29 @@ class Issues {
       totalCount
     } = this.issues
 
-    if (hasNextPage) {
-      return `
-        <button class="button" value="${endCursor}" onclick="window.Mirror.getPosts(this.value)">
-          More Posts (${totalCount - edges.length} / ${totalCount})
-        </button>
-      `
+    if (!hasNextPage) {
+      return null
     }
 
-    return ''
+    const button = document.createElement('button')
+
+    button.className = 'button'
+    button.onclick = () => {
+      this.mirror.getPosts(endCursor)
+    }
+    button.innerHTML = `More Posts (${totalCount - edges.length} / ${totalCount})`
+
+    return button
+
+    // if (hasNextPage) {
+    //   return `
+    //     <button class="button" value="${endCursor}" onclick="window.Mirror.getPosts(this.value)">
+    //       More Posts (${totalCount - edges.length} / ${totalCount})
+    //     </button>
+    //   `
+    // }
+
+    // return ''
   }
 
   render(issues) {
@@ -51,7 +66,15 @@ class Issues {
 
     this.container.html(edges
     .map(issue => this.post(issue.node))
-    .join('') + this.pagination + footer)
+    .join(''))
+
+    if (this.pagination) {
+      this.container.dom[0].appendChild(this.pagination)
+    }
+
+    // this.container.html(edges
+    // .map(issue => this.post(issue.node))
+    // .join('') + this.pagination + footer)
   }
 }
 
