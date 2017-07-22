@@ -4,7 +4,7 @@ import { polyfill } from 'smoothscroll-polyfill'
 import './style/'
 import { $ } from './util'
 import API from './api/'
-import TPL from './template'
+import Template from './template'
 import Router from './router/'
 import Obeserver from './observer'
 import { switchToHome, switchToPost } from './switch'
@@ -13,6 +13,7 @@ window.Mirror = { __: {}, issue: {}, comments: {}, scrollY: 0 }
 
 const router = new Router({ '/': onPosts, '/posts/:id': onPost })
 const observer = new Obeserver(Mirror)
+const TPL = new Template(Mirror)
 
 polyfill()
 observer.watch({
