@@ -4,7 +4,6 @@ class Router {
   constructor(routes) {
     this.routes = routes
     this._404 = null
-    this._changed = null
     this._listen()
   }
 
@@ -18,7 +17,6 @@ class Router {
 
     if (match) {
       this.routes[match](params)
-      this._changed && this._changed()
     } else {
       this._404 && this._404(route)
     }
@@ -26,10 +24,6 @@ class Router {
 
   set notFound(fn) {
     this._404 = fn
-  }
-
-  set changed(fn) {
-    this._changed = fn
   }
 
   start() {

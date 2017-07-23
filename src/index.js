@@ -1,155 +1,149 @@
-import 'es6-promise/auto'
 import { polyfill } from 'smoothscroll-polyfill'
 
 import './style/'
+import { $ } from './util'
 import API from './api/'
+import Template from './template'
 import Router from './router/'
-import Issues from './template/issues'
-import Issue from './template/issue'
-import User from './template/user'
-import Comments from './template/comments'
-import observer from './util/observer'
-import diff from './util/diff'
-import Transition from './util/transition'
+import Obeserver from './observer'
+import { switchToHome, switchToPost } from './switch'
 
-const issues = new Issues('#posts')
-const issue = new Issue('#post')
-const user = new User('#user')
-const comments = new Comments('#comments')
+const mirror = { __: {}, issue: {}, comments: {}, scrollY: 0 }
 const router = new Router({ '/': onPosts, '/posts/:id': onPost })
-const transition = new Transition()
-let scrollY = 0
+const observer = new Obeserver(mirror)
+const TPL = new Template(mirror)
 
-polyfill()
-window.Mirror = { __: {}, issue: {}, comments: {} }
+async function onPosts() {
+  const userData = mirror.user
 
-observer(Mirror, 'user', function(v) { user._(v) })
-observer(Mirror, 'issues', function(v) { issues._(v) })
-observer(Mirror, 'issue', function(n, o) { issue._(diff(n, o)) })
-observer(Mirror, 'comments', function(n, o) { comments._(diff(n, o)) })
-
-function onPosts() {
-  if (Mirror.user) {
-    user._(Mirror.user)
-    return Mirror.getPosts()
+  if (userData) {
+    TPL.user(userData)
+    return mirror.getPosts()
   }
 
-  return API.user._()
-  .then(res => Mirror.getPosts('', res.user))
+  const res = await API.user()
+  mirror.getPosts('', res.user)
 }
 
 function onPost(params) {
-  scrollY = window.scrollY
-  Mirror.getPost(params.id)
+  mirror.scrollY = window.scrollY
+  mirror.getPost(params.id)
 }
 
-Mirror.getPosts = function(after = '', userData) {
+mirror.getPosts = async function(after = '', userData) {
   document.title = window.config.title
 
-  if (this.issues && !after) {
-    issues._(this.issues)
-    return transition.toHome(function() {
-      window.scroll({ top: scrollY, left: 0, behavior: 'smooth' })
-    })
-  }
+  const prevIssues = this.issues
 
-  return API.issues._(after)
-  .then((res) => {
-    const { edges, totalCount, pageInfo } = res.repository.issues
-    const issues = {
+  if (prevIssues && !after) {
+    TPL.issues(prevIssues)
+  } else {
+    const {
+      repository: {
+        issues: {
+          edges,
+          pageInfo,
+          totalCount
+        }
+      }
+    } = await API.issues(after)
+
+    const newIssues = {
       pageInfo,
       totalCount,
-      edges: this.issues ? this.issues.edges.concat(edges) : edges
+      edges: prevIssues ? prevIssues.edges.concat(edges) : edges
     }
 
-    this.issues = issues
+    this.issues = newIssues
 
     if (userData) {
       this.user = userData
     }
-
-    if (!after) {
-      transition.toHome(function() {
-        window.scroll({ top: scrollY, left: 0, behavior: 'smooth' })
-      })
-    }
-  })
-}
-
-Mirror.getPost = function(number) {
-  if (this.issue[number]) {
-    document.title = `${this.issue[number].title} - ${window.config.title}`
-    issue._(this.issue[number])
-    return transition.toPost()
   }
 
+  if (!after) {
+    await switchToHome()
+    window.scroll({ top: mirror.scrollY, left: 0, behavior: 'smooth' })
+  }
+}
+
+mirror.getPost = async function(number) {
   document.title = 'loading'
 
-  return API.issue._(number)
-  .then((res) => {
-    document.title = `${res.repository.issue.title} - ${window.config.title}`
-    this.issue = Object.assign({ [number]: res.repository.issue }, this.issue)
-    transition.toPost()
-  })
-}
+  let post = this.issue[number]
 
-Mirror.openComments = function(params, ele) {
-  document.querySelector('#comments').innerHTML = ''
-  this.getComments(params, ele)
-}
-
-Mirror.getComments = function(params, ele) {
-  const [id, after] = params.split('#')
-
-  if (this.comments[id] && !after) {
-    if (ele) {
-      ele.parentNode.style.display = 'none'
-    }
-    return comments._(this.comments[id])
+  if (post) {
+    TPL.issue(post)
+  } else {
+    const { repository } = await API.issue(number)
+    post = repository.issue
+    this.issue = Object.assign({ [number]: post }, this.issue)
   }
 
-  return API.comments._(id, after)
-  .then((res) => {
+  document.title = `${post.title} - ${window.config.title}`
+  switchToPost()
+}
+
+mirror.openComments = async function(params, ele) {
+  $('#comments').html('')
+  await this.getComments(params)
+  $(ele).parent().hide()
+}
+
+mirror.getComments = async function(params) {
+  const [id, after] = params.split('#')
+  const comment = this.comments[id]
+
+  if (comment && !after) {
+    TPL.comments(comment)
+  } else {
     const {
-      number,
-      comments: { totalCount, pageInfo, edges }
-    } = res.repository.issue
+      repository: {
+        issue: {
+          number,
+          comments: {
+            totalCount,
+            pageInfo,
+            edges
+          }
+        }
+      }
+    } = await API.comments(id, after)
 
-    const newEdges = this.comments[id] && number === parseInt(id) ?
-    this.comments[id].comments.edges.concat(edges) : edges
-
-    const issue = {
+    const newComment = {
       number,
       comments: {
         totalCount,
         pageInfo,
-        edges: newEdges
+        edges: comment && number === parseInt(id) ? comment.comments.edges.concat(edges) : edges
       }
     }
 
-    const comments = Object.assign({}, this.comments)
+    const allComments = Object.assign({}, this.comments)
 
     if (number === parseInt(id)) {
-      comments[id] = issue
-      this.comments = comments
+      allComments[id] = newComment
+      this.comments = allComments
     } else {
-      this.comments = Object.assign({ [number]: issue }, this.comments)
+      this.comments = Object.assign({ [number]: newComment }, this.comments)
     }
+  }
 
-    if (ele) {
-      ele.parentNode.style.display = 'none'
-    }
-  })
+  return Promise.resolve()
 }
 
 router.notFound = function(params) {
   router.go('/')
 }
 
-router.changed = function() {
-  const error = document.querySelector('#error')
-  error && error.click()
-}
+polyfill()
+
+observer.watch({
+  'user': TPL.user.bind(TPL),
+  'issues': TPL.issues.bind(TPL),
+  'issue': TPL.issue.bind(TPL),
+  'comments': TPL.comments.bind(TPL)
+})
 
 router.start()
 

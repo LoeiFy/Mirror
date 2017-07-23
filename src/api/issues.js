@@ -51,7 +51,7 @@ class Issues extends Fetcher {
     }`
   }
 
-  _(after) {
+  get(after) {
     return this.fetch(this.query(after))
   }
 }

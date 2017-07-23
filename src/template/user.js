@@ -1,16 +1,12 @@
 import icon_email from '../svg/email.svg'
 import icon_link from '../svg/link.svg'
 import icon_github from '../svg/github.svg'
+import { $ } from '../util'
 
 class User {
-  constructor(selector, user) {
-    this.container = document.querySelector(selector)
-    this.user = {}
-  }
-
-  _(user) {
-    this.user = user
-    this._render()
+  constructor(selector) {
+    this.container = $(selector)
+    this.user = null
   }
 
   get email() {
@@ -27,10 +23,12 @@ class User {
     return this.user.bio ? `<p>${this.user.bio}</p>` : ''
   }
 
-  _render() {
+  render(userData) {
+    this.user = userData
+
     const { user, email, website, bio, container } = this
 
-    container.innerHTML = `
+    container.html(`
       <img src="${user.avatarUrl}" />
       <h1>${user.name || user.login}</h1>
       ${bio}
@@ -39,7 +37,7 @@ class User {
         ${website}
         ${email}
       </div>
-    `
+    `)
   }
 }
 

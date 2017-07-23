@@ -1,13 +1,15 @@
-import timeFormat from '../util/time'
+import timeFormat from './time'
 import footer from './footer'
+import { $, creator } from '../util'
 
 const { user, repository } = window.config
 
 class Comments {
-  constructor(selector) {
-    this.container = document.querySelector(selector)
-    this.comments = {}
+  constructor(selector, mirror) {
+    this.container = $(selector)
+    this.comments = null
     this.number = null
+    this.mirror = mirror
   }
 
   comment(data) {
@@ -18,8 +20,8 @@ class Comments {
       avatarUrl: 'https://avatars0.githubusercontent.com/u/10137?v=3'
     }
 
-    return `
-      <li>
+    return creator('li', {
+      innerHTML: `
         <a href="${url}" class="author">
           <img src="${avatarUrl}" alt="${login}" />
         </a>
@@ -28,15 +30,8 @@ class Comments {
           <span>on ${timeFormat(updatedAt)}</span>
           <div class="markdown-body">${bodyHTML}</div>
         </div>
-      </li>
-    `
-  }
-
-  _(issue) {
-    const { comments, number } = issue
-    this.comments = comments
-    this.number = number
-    this._render()
+      `
+    })
   }
 
   get next() {
@@ -50,31 +45,37 @@ class Comments {
     } = this
 
     if (!hasNextPage) {
-      return `
-        <a class="button" href="https://github.com/${user}/${repository}/issues/${number}#new_comment_field" target="_blank">Add Comments</a>
-      `
+      return creator('a', {
+        target: '_blank',
+        href: `https://github.com/${user}/${repository}/issues/${number}#new_comment_field`,
+        className: 'button',
+        innerHTML: 'Add Comments'
+      })
     }
 
-    return `
-      <button
-        class="button"
-        value="${number}#${endCursor}"
-        onclick="window.Mirror.getComments(this.value)"
-      >Load More (${totalCount - edges.length} / ${totalCount})
-      </button>
-    `
+    return creator('button', {
+      className: 'button',
+      onclick: () => {
+        this.mirror.getComments(`${number}#${endCursor}`)
+      },
+      innerHTML: `Load More (${totalCount - edges.length} / ${totalCount})`
+    })
   }
 
-  _render() {
-    const { edges } = this.comments
+  render(issue) {
+    const { comments, number } = issue
+    const { edges } = comments
 
-    this.container.innerHTML = `
-      <ul class="comment-list">
-        ${edges.map(comment => this.comment(comment)).join('')}
-      </ul>
-      ${this.next}
-      ${footer}
-    `
+    this.comments = comments
+    this.number = number
+
+    const frag = $(document.createDocumentFragment())
+    const ul = creator('ul', { className: 'comment-list' })
+
+    edges.forEach(comment => ul.appendChild(this.comment(comment)))
+    frag.append(ul).append(this.next).append(footer)
+
+    this.container.html('').append(frag.dom[0])
   }
 }
 

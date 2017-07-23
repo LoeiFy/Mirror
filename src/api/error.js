@@ -1,19 +1,22 @@
+import { $, creator } from '../util' 
+
 export default function(msg) {
   const frag = document.createDocumentFragment()
-  const div = document.createElement('div')
+  const div = creator('div', {
+    id: 'error',
+    onclick() {
+      $('html').removeClass('error')
+      $('body').remove(this)
+    },
+    innerHTML: `
+      <div>
+        <h2>Something Error</h2>
+        <p>${msg}</p>
+      </div>
+    `
+  })
 
-  div.id = 'error'
-  div.onclick = function() {
-    document.documentElement.classList.remove('error') 
-    document.body.removeChild(this)
-  }
-  div.innerHTML = `
-    <div>
-      <h2>Something Error</h2>
-      <p>${msg}</p>
-    </div>
-  `
   frag.appendChild(div)
-  document.documentElement.classList.add('error')
-  document.body.appendChild(frag)
+  $('html').addClass('error')
+  $('body').append(frag)
 }
