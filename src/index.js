@@ -1,4 +1,3 @@
-import 'es6-promise/auto'
 import { polyfill } from 'smoothscroll-polyfill'
 
 import './style/'
