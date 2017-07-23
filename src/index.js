@@ -9,38 +9,29 @@ import Router from './router/'
 import Obeserver from './observer'
 import { switchToHome, switchToPost } from './switch'
 
-window.Mirror = { __: {}, issue: {}, comments: {}, scrollY: 0 }
-
+const mirror = { __: {}, issue: {}, comments: {}, scrollY: 0 }
 const router = new Router({ '/': onPosts, '/posts/:id': onPost })
-const observer = new Obeserver(Mirror)
-const TPL = new Template(Mirror)
-
-polyfill()
-observer.watch({
-  'user': TPL.user.bind(TPL),
-  'issues': TPL.issues.bind(TPL),
-  'issue': TPL.issue.bind(TPL),
-  'comments': TPL.comments.bind(TPL)
-})
+const observer = new Obeserver(mirror)
+const TPL = new Template(mirror)
 
 async function onPosts() {
-  const userData = Mirror.user
+  const userData = mirror.user
 
   if (userData) {
     TPL.user(userData)
-    return Mirror.getPosts()
+    return mirror.getPosts()
   }
 
   const res = await API.user()
-  Mirror.getPosts('', res.user)
+  mirror.getPosts('', res.user)
 }
 
 function onPost(params) {
-  Mirror.scrollY = window.scrollY
-  Mirror.getPost(params.id)
+  mirror.scrollY = window.scrollY
+  mirror.getPost(params.id)
 }
 
-Mirror.getPosts = async function(after = '', userData) {
+mirror.getPosts = async function(after = '', userData) {
   document.title = window.config.title
 
   const prevIssues = this.issues
@@ -73,11 +64,11 @@ Mirror.getPosts = async function(after = '', userData) {
 
   if (!after) {
     await switchToHome()
-    window.scroll({ top: Mirror.scrollY, left: 0, behavior: 'smooth' })
+    window.scroll({ top: mirror.scrollY, left: 0, behavior: 'smooth' })
   }
 }
 
-Mirror.getPost = async function(number) {
+mirror.getPost = async function(number) {
   document.title = 'loading'
 
   let post = this.issue[number]
@@ -94,13 +85,13 @@ Mirror.getPost = async function(number) {
   switchToPost()
 }
 
-Mirror.openComments = async function(params, ele) {
+mirror.openComments = async function(params, ele) {
   $('#comments').html('')
   await this.getComments(params)
   $(ele).parent().hide()
 }
 
-Mirror.getComments = async function(params) {
+mirror.getComments = async function(params) {
   const [id, after] = params.split('#')
   const comment = this.comments[id]
 
@@ -145,6 +136,15 @@ Mirror.getComments = async function(params) {
 router.notFound = function(params) {
   router.go('/')
 }
+
+polyfill()
+
+observer.watch({
+  'user': TPL.user.bind(TPL),
+  'issues': TPL.issues.bind(TPL),
+  'issue': TPL.issue.bind(TPL),
+  'comments': TPL.comments.bind(TPL)
+})
 
 router.start()
 
