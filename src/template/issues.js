@@ -2,7 +2,7 @@ import timeFormat from './time'
 import titleFormat from './title'
 import filter from './filter'
 import footer from './footer'
-import { $ } from '../util'
+import { $, creator } from '../util'
 
 class Issues {
   constructor(selector, mirror) {
@@ -17,13 +17,17 @@ class Issues {
     .map(label => `<span>#${label.node.name}</span>`)
     .join('')
 
-    return `
-      <div class="post" onclick="location.hash='/posts/${number}'">
+    return creator('div', {
+      className: 'post',
+      onclick() {
+        location.hash = `/posts/${number}`
+      },
+      innerHTML: `
         <h2>${titleFormat(title)}</h2>
         <div>${labels}</div>
         <p>${timeFormat(updatedAt)}</p>
-      </div>
-    `
+      `
+    })
   }
 
   get pagination() {
@@ -46,16 +50,6 @@ class Issues {
     button.innerHTML = `More Posts (${totalCount - edges.length} / ${totalCount})`
 
     return button
-
-    // if (hasNextPage) {
-    //   return `
-    //     <button class="button" value="${endCursor}" onclick="window.Mirror.getPosts(this.value)">
-    //       More Posts (${totalCount - edges.length} / ${totalCount})
-    //     </button>
-    //   `
-    // }
-
-    // return ''
   }
 
   render(issues) {
@@ -63,18 +57,15 @@ class Issues {
     this.issues = issues
 
     const { edges } = issues
+    const frag = $(document.createDocumentFragment())
 
-    this.container.html(edges
-    .map(issue => this.post(issue.node))
-    .join(''))
+    edges.forEach((issue) => {
+      frag.append(this.post(issue.node))
+    })
+    frag.append(this.pagination)
+    frag.append(footer)
 
-    if (this.pagination) {
-      this.container.dom[0].appendChild(this.pagination)
-    }
-
-    // this.container.html(edges
-    // .map(issue => this.post(issue.node))
-    // .join('') + this.pagination + footer)
+    this.container.html('').append(frag.dom[0])
   }
 }
 
