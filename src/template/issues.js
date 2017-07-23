@@ -41,15 +41,13 @@ class Issues {
       return null
     }
 
-    const button = document.createElement('button')
-
-    button.className = 'button'
-    button.onclick = () => {
-      this.mirror.getPosts(endCursor)
-    }
-    button.innerHTML = `More Posts (${totalCount - edges.length} / ${totalCount})`
-
-    return button
+    return creator('button', {
+      className: 'button',
+      onclick: () => {
+        this.mirror.getPosts(endCursor)
+      },
+      innerHTML: `More Posts (${totalCount - edges.length} / ${totalCount})`
+    })
   }
 
   render(issues) {
@@ -62,8 +60,7 @@ class Issues {
     edges.forEach((issue) => {
       frag.append(this.post(issue.node))
     })
-    frag.append(this.pagination)
-    frag.append(footer)
+    frag.append(this.pagination).append(footer)
 
     this.container.html('').append(frag.dom[0])
   }

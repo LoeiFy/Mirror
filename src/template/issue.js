@@ -2,37 +2,50 @@ import titleFormat from './title'
 import timeFormat from './time'
 import icon_back from '../svg/back.svg'
 import footer from './footer'
-import { $ } from '../util'
+import { $, creator } from '../util'
 
 const { user, repository } = window.config
 
 class Issue {
-  constructor(selector) {
+  constructor(selector, mirror) {
+    this.mirror = mirror
     this.container = $(selector)
     this.issue = null
   }
 
   get comments() {
     const { number, comments: { totalCount } } = this.issue
+    const frag = $(document.createDocumentFragment())
 
     if (totalCount === 0) {
-      return `
-        <a class="button" href="https://github.com/${user}/${repository}/issues/${number}#new_comment_field" target="_blank">Add Comments</a>
-        ${footer}
-      `
+      const a = creator('a', {
+        className: 'button',
+        target: '_blank',
+        href: `https://github.com/${user}/${repository}/issues/${number}#new_comment_field`,
+        innerHTML: 'Add Comments'
+      })
+
+      frag.append(a)
+      frag.append(footer)
+
+      return frag.dom[0]
     }
 
-    return `
-      <div class="open-comments">
-        <button
-          class="button"
-          value="${number}"
-          onclick="window.Mirror.openComments(this.value, this)"
-        >View Comments (${totalCount})
-        </button>
-        ${footer}
-      </div>
-    `
+    const mirror = this.mirror
+    const div = creator('div', { className: 'open-comments' })
+    const button = creator('button', {
+      className: 'button',
+      onclick() {
+        mirror.openComments(number.toString(), this)
+      },
+      innerHTML: `View Comments (${totalCount})`
+    })
+
+    div.appendChild(button)
+    div.appendChild(footer)
+    frag.append(div)
+
+    return frag.dom[0]
   }
 
   render(issue) {
@@ -48,14 +61,28 @@ class Issue {
     `)
     .join('')
 
-    this.container.html(`
-      <div onclick="location.hash='/'" class="back">${icon_back}</div>
-      <h1>${titleFormat(title)}</h1>
-      <p>Updated at<span>${timeFormat(updatedAt)}</span></p>
-      <div class="markdown-body">${bodyHTML}</div>
-      <div class="labels">${labels}</div>
-      ${this.comments}
-    `)
+    const frag = $(document.createDocumentFragment())
+    const back = creator('div', {
+      className: 'back',
+      onclick() {
+        location.hash = '/'
+      },
+      innerHTML: icon_back
+    })
+    const h1 = creator('h1', { innerHTML: titleFormat(title) })
+    const p = creator('p', { innerHTML: `Updated at<span>${timeFormat(updatedAt)}</span>` })
+    const body = creator('div', {
+      className: 'markdown-body',
+      innerHTML: bodyHTML
+    })
+    const tags = creator('div', {
+      className: 'labels',
+      innerHTML: labels
+    })
+
+    frag.append(back).append(h1).append(p).append(body).append(tags).append(this.comments)
+
+    this.container.html('').append(frag.dom[0])
   }
 }
 

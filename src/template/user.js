@@ -4,7 +4,7 @@ import icon_github from '../svg/github.svg'
 import { $ } from '../util'
 
 class User {
-  constructor(selector, user) {
+  constructor(selector) {
     this.container = $(selector)
     this.user = null
   }

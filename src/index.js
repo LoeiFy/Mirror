@@ -30,7 +30,7 @@ async function onPosts() {
     TPL.user(userData)
     return Mirror.getPosts()
   }
-  
+
   const res = await API.user()
   Mirror.getPosts('', res.user)
 }

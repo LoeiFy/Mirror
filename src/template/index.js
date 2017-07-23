@@ -3,16 +3,11 @@ import Issue from './issue'
 import User from './user'
 import Comments from './comments'
 
-// const comments = new Comments('#comments')
-// const issues = new Issues('#posts')
-// const issue = new Issue('#post')
-// const user = new User('#user')
-
 class Template {
   constructor(mirror) {
-    this._comments = new Comments('#comments')
+    this._comments = new Comments('#comments', mirror)
     this._issues = new Issues('#posts', mirror)
-    this._issue = new Issue('#post')
+    this._issue = new Issue('#post', mirror)
     this._user = new User('#user')
   }
 
@@ -34,18 +29,3 @@ class Template {
 }
 
 export default Template
-
-// export default {
-//   comments(data) {
-//     return comments.render(data)
-//   },
-//   issues(data) {
-//     return issues.render(data)
-//   },
-//   issue(data) {
-//     return issue.render(data)
-//   },
-//   user(data) {
-//     return user.render(data)
-//   }
-// }
