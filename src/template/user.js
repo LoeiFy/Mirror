@@ -26,7 +26,6 @@ class User {
   render(userData) {
     this.user = userData
 
-    console.log(this.user)
     const { user, email, website, bio, container } = this
 
     container.html(`
