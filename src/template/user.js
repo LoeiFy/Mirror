@@ -10,8 +10,8 @@ class User {
   }
 
   get email() {
-    return this.user.email ?
-    `<a target="_blank" href="mailto:${this.user.email}">${icon_email}</a>` : ''
+    const email = this.user.email || this.user.organizationBillingEmail
+    return email ? `<a target="_blank" href="mailto:${email}">${icon_email}</a>` : ''
   }
 
   get website() {
@@ -26,6 +26,7 @@ class User {
   render(userData) {
     this.user = userData
 
+    console.log(this.user)
     const { user, email, website, bio, container } = this
 
     container.html(`

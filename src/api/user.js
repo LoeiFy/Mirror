@@ -1,6 +1,6 @@
 import Fetcher from './fetcher'
 
-const { user } = window.config
+const { user, organization } = window.config
 
 class User extends Fetcher {
   constructor() {
@@ -9,6 +9,18 @@ class User extends Fetcher {
   }
 
   get query() {
+    if (organization) {
+      return `{
+        organization(login: "${this.user}") {
+          name
+          login
+          avatarUrl
+          organizationBillingEmail
+          url
+        }
+      }`
+    }
+
     return `{
       user(login: "${this.user}") {
         name

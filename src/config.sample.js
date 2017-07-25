@@ -1,4 +1,5 @@
 module.exports = {
+  organization: false,
   title: '',
   user: '',
   repository: '',

@@ -22,7 +22,7 @@ async function onPosts() {
   }
 
   const res = await API.user()
-  mirror.getPosts('', res.user)
+  mirror.getPosts('', res.user || res.organization)
 }
 
 function onPost(params) {
