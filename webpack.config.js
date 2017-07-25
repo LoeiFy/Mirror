@@ -2,9 +2,7 @@ const fs = require('fs-extra')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const config = require('./src/config.js')
-
-let _config = {}
-Object.keys(config).forEach(key => _config[key] = '')
+const sample = require('./src/config.sample.js')
 
 const base = {
   entry: {
@@ -81,7 +79,7 @@ if (process.env.NODE_ENV === 'production') {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: './src/index.html',
-      config: JSON.stringify(_config),
+      config: JSON.stringify(sample),
       minify: {
         removeComments: false,
         minifyJS: false,

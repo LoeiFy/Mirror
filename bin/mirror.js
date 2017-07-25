@@ -12,10 +12,13 @@ const ignore = `Thumbs.db
 .DS_Store
 *.swp
 `
-const config = `# site title
+const config = `# is a organization repository
+organization: false
+
+# site title
 title:
 
-# github user
+# user name or organization name
 user:
 
 # issue repository
