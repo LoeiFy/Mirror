@@ -91,7 +91,7 @@ if (process.env.NODE_ENV === 'production') {
   base.devtool = false
   base.output = {
     path: `${__dirname}/dist`,
-    publicPath: '/',
+    publicPath: '',
     filename: '[name].[chunkhash:8].js'
   }
 }

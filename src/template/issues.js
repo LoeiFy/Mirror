@@ -17,11 +17,9 @@ class Issues {
     .map(label => `<span>#${label.node.name}</span>`)
     .join('')
 
-    return creator('div', {
+    return creator('a', {
       className: 'post',
-      onclick() {
-        location.hash = `/posts/${number}`
-      },
+      href: `#/posts/${number}`,
       innerHTML: `
         <h2>${titleFormat(title)}</h2>
         <div>${labels}</div>
