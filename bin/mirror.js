@@ -12,10 +12,7 @@ const ignore = `Thumbs.db
 .DS_Store
 *.swp
 `
-const config = `# is a organization repository
-organization: false
-
-# site title
+const config = `# site title
 title:
 
 # user name or organization name
@@ -34,6 +31,17 @@ token:
 
 # posts per page
 perpage:
+
+
+# advance config
+
+# organization repository (?)
+organization: false
+
+# post order
+# order by create time" or "update time"
+# 'UPDATED_AT' or 'CREATED_AT'
+order: 'UPDATED_AT'
 `
 
 function outputFile(folder, files) {
