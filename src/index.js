@@ -1,4 +1,4 @@
-import { polyfill } from 'smoothscroll-polyfill'
+require('smoothscroll-polyfill').polyfill()
 
 import './style/'
 import { $ } from './util'
@@ -135,8 +135,6 @@ mirror.getComments = async function(params) {
 router.notFound = function(params) {
   router.go('/')
 }
-
-polyfill()
 
 observer.watch({
   'user': TPL.user.bind(TPL),

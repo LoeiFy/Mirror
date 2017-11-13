@@ -11,7 +11,7 @@ export function creator(tag, params) {
 class Query {
   constructor(dom) {
     this.dom = typeof dom === 'string' ?
-    document.querySelectorAll(dom) : [dom]
+    Array.from(document.querySelectorAll(dom)) : [dom]
   }
 
   addClass(name) {

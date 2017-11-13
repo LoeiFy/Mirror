@@ -56,13 +56,14 @@ const base = {
     ]
   },
 
-  devtool: '#source-map'
+  devtool: 'cheap-module-eval-source-map'
 }
 
 if (process.env.NODE_ENV === 'production') {
   base.plugins = [
     new webpack.optimize.UglifyJsPlugin({
       compress: { warnings: false },
+      sourceMap: true,
       output: { comments: false }
     }),
     new HtmlWebpackPlugin({
@@ -88,7 +89,7 @@ if (process.env.NODE_ENV === 'production') {
       }
     })
   ]
-  base.devtool = false
+  base.devtool = 'source-map'
   base.output = {
     path: `${__dirname}/dist`,
     publicPath: '',

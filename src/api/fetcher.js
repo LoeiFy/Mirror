@@ -34,7 +34,7 @@ class Request {
       .catch((err) => {
         $('html').removeClass('loading')
         loadError(err)
-      }) 
+      })
     })
   }
 }
