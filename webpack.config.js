@@ -31,11 +31,16 @@ const base = {
     noInfo: true,
     host: '0.0.0.0',
     historyApiFallback: {
-      rewrites: [{
+      rewrites: [
+      {
         from: /favicon.ico/,
         to: './src/favicon.ico'
-      }]
-    }
+      },
+      {
+        from: 'promise.min.js',
+        to: './src/promise.min.js'
+      }
+    ]}
   },
 
   module: {

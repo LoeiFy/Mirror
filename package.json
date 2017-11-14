@@ -10,7 +10,7 @@
     "start": "webpack-dev-server --inline --hot --port 1234",
     "prebuild": "rm -f -R dist",
     "build": "cross-env NODE_ENV=production webpack --hide-modules --progress --colors",
-    "postbuild": "cp src/favicon.ico dist && node bin/zip.js && cd dist && mv index.npm.html index.html"
+    "postbuild": "cp src/favicon.ico dist && cp src/promise.min.js dist && node bin/zip.js && cd dist && mv index.npm.html index.html"
   },
   "files": [
     "dist",
