@@ -33,12 +33,12 @@ const base = {
     historyApiFallback: {
       rewrites: [
       {
-        from: /favicon.ico/,
-        to: './src/favicon.ico'
+        from: 'favicon.ico',
+        to: './src/assets/favicon.ico'
       },
       {
-        from: 'promise.min.js',
-        to: './src/promise.min.js'
+        from: 'promise.js',
+        to: './src/assets/promise.js'
       }
     ]}
   },
