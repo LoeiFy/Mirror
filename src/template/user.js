@@ -16,7 +16,7 @@ class User {
 
   get website() {
     return this.user.websiteUrl ?
-    `<a target="_blank" href="${this.user.websiteUrl}">${icon_link}</a>` : ''
+    `<a target="_blank" href="//${this.user.websiteUrl}">${icon_link}</a>` : ''
   }
 
   get bio() {
