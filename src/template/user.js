@@ -15,8 +15,10 @@ class User {
   }
 
   get website() {
-    return this.user.websiteUrl ?
-    `<a target="_blank" href="${this.user.websiteUrl}">${icon_link}</a>` : ''
+    let websiteUrl = this.user.websiteUrl
+    if (!websiteUrl) { return '' }
+    if (!/^(http:|https:)/.test(websiteUrl)) { websiteUrl = '//' + websiteUrl }
+    return `<a target="_blank" href="${websiteUrl}">${icon_link}</a>`
   }
 
   get bio() {
