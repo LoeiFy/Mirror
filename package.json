@@ -8,7 +8,10 @@
   },
   "scripts": {
     "start": "webpack-dev-server --inline --hot --port 1234",
+    "test": "npm run test:lint && npm run test:cover",
     "test:lint": "eslint ./src",
+    "test:unit": "mocha --reporter dot --require intelli-espower-loader ./test",
+    "test:cover": "istanbul cover --print both _mocha ./test",
     "prebuild": "rm -f -R dist",
     "build": "cross-env NODE_ENV=production webpack --hide-modules --progress --colors",
     "postbuild": "cp src/assets/favicon.ico src/assets/promise.js dist && node bin/zip.js && cd dist && mv index.npm.html index.html"
