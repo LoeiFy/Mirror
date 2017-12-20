@@ -1,4 +1,4 @@
-export default function(a, b) {
+export default function (a, b) {
   if (!b) {
     return a
   }
@@ -22,7 +22,7 @@ export default function(a, b) {
   }
 
   const key = keysB.length > keysA.length ?
-  keysB.filter(x => keysA.indexOf(x) < 0) : keysA.filter(x => keysB.indexOf(x) < 0)
+    keysB.filter(x => keysA.indexOf(x) < 0) : keysA.filter(x => keysB.indexOf(x) < 0)
 
   return a[key] || b[key]
 }

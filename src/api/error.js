@@ -1,6 +1,6 @@
-import { $, creator } from '../util' 
+import { $, creator } from '../util'
 
-export default function(msg) {
+export default function (msg) {
   const frag = document.createDocumentFragment()
   const div = creator('div', {
     id: 'error',
@@ -13,7 +13,7 @@ export default function(msg) {
         <h2>Something Error</h2>
         <p>${msg}</p>
       </div>
-    `
+    `,
   })
 
   frag.appendChild(div)

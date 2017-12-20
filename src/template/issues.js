@@ -4,6 +4,27 @@ import filter from './filter'
 import footer from './footer'
 import { $, creator } from '../util'
 
+function post(issue) {
+  const {
+    number,
+    title,
+    updatedAt,
+  } = issue
+  const labels = issue.labels.edges
+    .map(label => `<span>#${label.node.name}</span>`)
+    .join('')
+
+  return creator('a', {
+    className: 'post',
+    href: `#/posts/${number}`,
+    innerHTML: `
+      <h2>${titleFormat(title)}</h2>
+      <div>${labels}</div>
+      <p>${timeFormat(updatedAt)}</p>
+    `,
+  })
+}
+
 class Issues {
   constructor(selector, mirror) {
     this.mirror = mirror
@@ -11,28 +32,14 @@ class Issues {
     this.issues = null
   }
 
-  post(issue) {
-    const { number, title, updatedAt } = issue
-    const labels = issue.labels.edges
-    .map(label => `<span>#${label.node.name}</span>`)
-    .join('')
-
-    return creator('a', {
-      className: 'post',
-      href: `#/posts/${number}`,
-      innerHTML: `
-        <h2>${titleFormat(title)}</h2>
-        <div>${labels}</div>
-        <p>${timeFormat(updatedAt)}</p>
-      `
-    })
-  }
-
   get pagination() {
     const {
       edges,
-      pageInfo: { endCursor, hasNextPage },
-      totalCount
+      pageInfo: {
+        endCursor,
+        hasNextPage,
+      },
+      totalCount,
     } = this.issues
 
     if (!hasNextPage) {
@@ -44,19 +51,21 @@ class Issues {
       onclick: () => {
         this.mirror.getPosts(endCursor)
       },
-      innerHTML: `More Posts (${totalCount - edges.length} / ${totalCount})`
+      innerHTML: `More Posts (${totalCount - edges.length} / ${totalCount})`,
     })
   }
 
   render(issues) {
-    issues.edges = filter(issues.edges)
-    this.issues = issues
+    this.issues = {
+      ...issues,
+      edges: filter(issues.edges),
+    }
 
     const { edges } = issues
     const frag = $(document.createDocumentFragment())
 
     edges.forEach((issue) => {
-      frag.append(this.post(issue.node))
+      frag.append(post(issue.node))
     })
     frag.append(this.pagination).append(footer)
 

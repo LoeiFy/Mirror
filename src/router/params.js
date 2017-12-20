@@ -11,6 +11,7 @@ function computeParams(route, url) {
   const options = {}
 
   for (let i = 0; i < routeParts.length; i += 1) {
+    // eslint-disable-next-line no-bitwise
     if (urlParts[i] && ~routeParts[i].indexOf(':')) {
       options[routeParts[i].slice(1)] = urlParts[i]
     }
@@ -19,7 +20,7 @@ function computeParams(route, url) {
   return options
 }
 
-export default function(routes, url) {
+export default function (routes, url) {
   for (let i = 0; i < routes.length; i += 1) {
     if (routeMatch(routes[i], url)) {
       return { match: routes[i], params: computeParams(routes[i], url) }

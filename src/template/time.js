@@ -1,4 +1,4 @@
-export default function(time) {
+export default function (time) {
   const months = 'Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec'.split(',')
   const date = new Date(time)
   const day = date.getDate()

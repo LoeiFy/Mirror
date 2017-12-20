@@ -1,6 +1,6 @@
-import icon_email from '../svg/email.svg'
-import icon_link from '../svg/link.svg'
-import icon_github from '../svg/github.svg'
+import emailIcon from '../svg/email.svg'
+import linkIcon from '../svg/link.svg'
+import githubIcon from '../svg/github.svg'
 import { $ } from '../util'
 
 class User {
@@ -11,7 +11,7 @@ class User {
 
   get email() {
     const email = this.user.email || this.user.organizationBillingEmail
-    return email ? `<a target="_blank" href="mailto:${email}">${icon_email}</a>` : ''
+    return email ? `<a target="_blank" href="mailto:${email}">${emailIcon}</a>` : ''
   }
 
   get website() {
@@ -21,10 +21,10 @@ class User {
       return ''
     }
     if (/^(http:|https:)/.test(websiteUrl)) {
-      return `<a target="_blank" href="${websiteUrl}">${icon_link}</a>`
+      return `<a target="_blank" href="${websiteUrl}">${linkIcon}</a>`
     }
 
-    return `<a target="_blank" href="//${websiteUrl}">${icon_link}</a>`
+    return `<a target="_blank" href="//${websiteUrl}">${linkIcon}</a>`
   }
 
   get bio() {
@@ -34,14 +34,20 @@ class User {
   render(userData) {
     this.user = userData
 
-    const { user, email, website, bio, container } = this
+    const {
+      user,
+      email,
+      website,
+      bio,
+      container,
+    } = this
 
     container.html(`
       <img src="${user.avatarUrl}" />
       <h1>${user.name || user.login}</h1>
       ${bio}
       <div class="social">
-        <a target="_blank" href="${user.url}">${icon_github}</a>
+        <a target="_blank" href="${user.url}">${githubIcon}</a>
         ${website}
         ${email}
       </div>

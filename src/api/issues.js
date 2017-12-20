@@ -1,6 +1,11 @@
 import Fetcher from './fetcher'
 
-const { user, repository, perpage, order } = window.config
+const {
+  user,
+  repository,
+  perpage,
+  order,
+} = window.config
 
 class Issues extends Fetcher {
   constructor() {

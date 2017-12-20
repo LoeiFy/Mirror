@@ -11,7 +11,7 @@ export function creator(tag, params) {
 class Query {
   constructor(dom) {
     this.dom = typeof dom === 'string' ?
-    Array.from(document.querySelectorAll(dom)) : [dom]
+      Array.from(document.querySelectorAll(dom)) : [dom]
   }
 
   addClass(name) {
@@ -30,12 +30,16 @@ class Query {
   }
 
   html(html) {
-    this.dom.forEach(d => d.innerHTML = html)
+    this.dom.forEach((d) => {
+      d.innerHTML = html // eslint-disable-line no-param-reassign
+    })
     return this
   }
 
   hide() {
-    this.dom.forEach(d => d.style.display = 'none')
+    this.dom.forEach((d) => {
+      d.style.display = 'none' // eslint-disable-line no-param-reassign
+    })
     return this
   }
 

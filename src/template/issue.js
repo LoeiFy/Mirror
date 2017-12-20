@@ -1,6 +1,6 @@
 import titleFormat from './title'
 import timeFormat from './time'
-import icon_back from '../svg/back.svg'
+import backIcon from '../svg/back.svg'
 import footer from './footer'
 import { $, creator } from '../util'
 
@@ -22,7 +22,7 @@ class Issue {
         className: 'button',
         target: '_blank',
         href: `https://github.com/${user}/${repository}/issues/${number}#new_comment_field`,
-        innerHTML: 'Add Comments'
+        innerHTML: 'Add Comments',
       })
 
       frag.append(a)
@@ -31,14 +31,13 @@ class Issue {
       return frag.dom[0]
     }
 
-    const mirror = this.mirror
     const div = creator('div', { className: 'open-comments' })
     const button = creator('button', {
       className: 'button',
       onclick() {
-        mirror.openComments(number.toString(), this)
+        this.mirror.openComments(number.toString(), this)
       },
-      innerHTML: `View Comments (${totalCount})`
+      innerHTML: `View Comments (${totalCount})`,
     })
 
     div.appendChild(button)
@@ -53,34 +52,40 @@ class Issue {
 
     const { title, bodyHTML, updatedAt } = issue
     const labels = issue.labels.edges
-    .map(label => `
-      <a
-        target="_blank"
-        href="https://github.com/${user}/${repository}/labels/${label.node.name}"
-      >#${label.node.name}</a>
-    `)
-    .join('')
+      .map(label => `
+        <a
+          target="_blank"
+          href="https://github.com/${user}/${repository}/labels/${label.node.name}"
+        >#${label.node.name}</a>
+      `)
+      .join('')
 
     const frag = $(document.createDocumentFragment())
     const back = creator('div', {
       className: 'back',
       onclick() {
-        location.hash = '/'
+        window.location.hash = '/'
       },
-      innerHTML: icon_back
+      innerHTML: backIcon,
     })
     const h1 = creator('h1', { innerHTML: titleFormat(title) })
     const p = creator('p', { innerHTML: `Updated at<span>${timeFormat(updatedAt)}</span>` })
     const body = creator('div', {
       className: 'markdown-body',
-      innerHTML: bodyHTML
+      innerHTML: bodyHTML,
     })
     const tags = creator('div', {
       className: 'labels',
-      innerHTML: labels
+      innerHTML: labels,
     })
 
-    frag.append(back).append(h1).append(p).append(body).append(tags).append(this.comments)
+    frag
+      .append(back)
+      .append(h1)
+      .append(p)
+      .append(body)
+      .append(tags)
+      .append(this.comments)
 
     this.container.html('').append(frag.dom[0])
   }

@@ -1,6 +1,4 @@
-require('smoothscroll-polyfill').polyfill()
-
-import './style/'
+import './style/index.css'
 import { $ } from './util'
 import API from './api/'
 import Template from './template'
@@ -8,9 +6,14 @@ import Router from './router/'
 import Obeserver from './observer'
 import { switchToHome, switchToPost } from './switch'
 
-const mirror = { __: {}, issue: {}, comments: {}, scrollY: 0 }
-const router = new Router({ '/': onPosts, '/posts/:id': onPost })
-const observer = new Obeserver(mirror)
+require('smoothscroll-polyfill').polyfill()
+
+const mirror = {
+  __: {},
+  issue: {},
+  comments: {},
+  scrollY: 0,
+}
 const TPL = new Template(mirror)
 
 async function onPosts() {
@@ -22,7 +25,7 @@ async function onPosts() {
   }
 
   const res = await API.user()
-  mirror.getPosts('', res.user || res.organization)
+  return mirror.getPosts('', res.user || res.organization)
 }
 
 function onPost(params) {
@@ -30,7 +33,10 @@ function onPost(params) {
   mirror.getPost(params.id)
 }
 
-mirror.getPosts = async function(after = '', userData) {
+const router = new Router({ '/': onPosts, '/posts/:id': onPost })
+const observer = new Obeserver(mirror)
+
+mirror.getPosts = async function getPosts(after = '', userData) {
   document.title = window.config.title
 
   const prevIssues = this.issues
@@ -43,15 +49,15 @@ mirror.getPosts = async function(after = '', userData) {
         issues: {
           edges,
           pageInfo,
-          totalCount
-        }
-      }
+          totalCount,
+        },
+      },
     } = await API.issues(after)
 
     const newIssues = {
       pageInfo,
       totalCount,
-      edges: prevIssues ? prevIssues.edges.concat(edges) : edges
+      edges: prevIssues ? prevIssues.edges.concat(edges) : edges,
     }
 
     this.issues = newIssues
@@ -63,11 +69,15 @@ mirror.getPosts = async function(after = '', userData) {
 
   if (!after) {
     await switchToHome()
-    window.scroll({ top: mirror.scrollY, left: 0, behavior: 'smooth' })
+    window.scroll({
+      top: mirror.scrollY,
+      left: 0,
+      behavior: 'smooth',
+    })
   }
 }
 
-mirror.getPost = async function(number) {
+mirror.getPost = async function getPost(number) {
   document.title = 'loading'
 
   let post = this.issue[number]
@@ -84,13 +94,13 @@ mirror.getPost = async function(number) {
   switchToPost()
 }
 
-mirror.openComments = async function(params, ele) {
+mirror.openComments = async function openComments(params, ele) {
   $('#comments').html('')
   await this.getComments(params)
   $(ele).parent().hide()
 }
 
-mirror.getComments = async function(params) {
+mirror.getComments = async function getComments(params) {
   const [id, after] = params.split('#')
   const comment = this.comments[id]
 
@@ -104,10 +114,10 @@ mirror.getComments = async function(params) {
           comments: {
             totalCount,
             pageInfo,
-            edges
-          }
-        }
-      }
+            edges,
+          },
+        },
+      },
     } = await API.comments(id, after)
 
     const newComment = {
@@ -115,13 +125,13 @@ mirror.getComments = async function(params) {
       comments: {
         totalCount,
         pageInfo,
-        edges: comment && number === parseInt(id) ? comment.comments.edges.concat(edges) : edges
-      }
+        edges: comment && number === Number(id) ? comment.comments.edges.concat(edges) : edges,
+      },
     }
 
     const allComments = Object.assign({}, this.comments)
 
-    if (number === parseInt(id)) {
+    if (number === Number(id)) {
       allComments[id] = newComment
       this.comments = allComments
     } else {
@@ -132,17 +142,16 @@ mirror.getComments = async function(params) {
   return Promise.resolve()
 }
 
-router.notFound = function(params) {
-  router.go('/')
-}
+router.notFound = () => router.go('/')
 
 observer.watch({
-  'user': TPL.user.bind(TPL),
-  'issues': TPL.issues.bind(TPL),
-  'issue': TPL.issue.bind(TPL),
-  'comments': TPL.comments.bind(TPL)
+  user: TPL.user.bind(TPL),
+  issues: TPL.issues.bind(TPL),
+  issue: TPL.issue.bind(TPL),
+  comments: TPL.comments.bind(TPL),
 })
 
 router.start()
 
-console.log("%c Github %c","background:#24272A; color:#ffffff","","https://github.com/LoeiFy/Mirror")
+// eslint-disable-next-line no-console
+console.log('%c Github %c', 'background:#24272A; color:#ffffff', '', 'https://github.com/LoeiFy/Mirror')

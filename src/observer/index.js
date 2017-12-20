@@ -1,5 +1,6 @@
 import diff from './diff'
 
+/* eslint-disable no-underscore-dangle */
 class Observer {
   constructor(listener) {
     this.listener = listener
@@ -16,13 +17,11 @@ class Observer {
       }
 
       Object.defineProperty(this.listener, key, {
-        get: () => {
-          return this.listener.__[key]
-        },
-        set: value => {
+        get: () => this.listener.__[key],
+        set: (value) => {
           trigger(useDiff ? diff(value, this.listener.__[key]) : value)
           this.listener.__[key] = value
-        }
+        },
       })
     })
   }

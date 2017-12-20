@@ -11,7 +11,7 @@ if (authors.indexOf(user) === -1) {
   authors.push(user)
 }
 
-export default function(issues) {
+export default function (issues) {
   return issues.filter((issue) => {
     const author = stringFormat(issue.node.author.login)
     return authors.indexOf(author) > -1

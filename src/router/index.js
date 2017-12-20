@@ -3,31 +3,31 @@ import getParams from './params'
 class Router {
   constructor(routes) {
     this.routes = routes
-    this._404 = null
-    this._listen()
+    this.page404 = () => {}
+    this.listen()
   }
 
-  _listen() {
-    window.addEventListener('hashchange', () => { this._resolve() })
+  listen() {
+    window.addEventListener('hashchange', () => { this.resolve() })
   }
 
-  _resolve() {
-    const route = location.hash.split('#')[1] || '/'
+  resolve() {
+    const route = window.location.hash.split('#')[1] || '/'
     const { match, params } = getParams(Object.keys(this.routes), route)
 
     if (match) {
       this.routes[match](params)
     } else {
-      this._404 && this._404(route)
+      this.page404(route)
     }
   }
 
   set notFound(fn) {
-    this._404 = fn
+    this.page404 = fn
   }
 
   start() {
-    this._resolve()
+    this.resolve()
   }
 }
 

@@ -20,5 +20,5 @@ export default {
   },
   user(...args) {
     return user.get(...args)
-  }
+  },
 }

@@ -1,3 +1,3 @@
-export default function(title) {
+export default function (title) {
   return title.split(/\[.*?\]/g).join('')
 }

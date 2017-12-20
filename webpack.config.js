@@ -16,7 +16,7 @@ const base = {
   },
 
   resolve: {
-    extensions: ['.js', '.css']
+    extensions: ['.js']
   },
 
   plugins: [

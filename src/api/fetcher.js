@@ -15,26 +15,26 @@ class Request {
       url: this.host,
       method: 'post',
       headers: {
-        Authorization: `bearer ${this.token}`
+        Authorization: `bearer ${this.token}`,
       },
-      data: { query }
+      data: { query },
     }
 
     $('html').addClass('loading')
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       axios(config)
-      .then(({ data }) => {
-        $('html').removeClass('loading')
-        if (data.errors) {
-          throw new Error(data.errors.map(e => `[${e.type}]${e.message}`).join('\n'))
-        }
-        resolve(data.data)
-      })
-      .catch((err) => {
-        $('html').removeClass('loading')
-        loadError(err)
-      })
+        .then(({ data }) => {
+          $('html').removeClass('loading')
+          if (data.errors) {
+            throw new Error(data.errors.map(e => `[${e.type}]${e.message}`).join('\n'))
+          }
+          resolve(data.data)
+        })
+        .catch((err) => {
+          $('html').removeClass('loading')
+          loadError(err)
+        })
     })
   }
 }
