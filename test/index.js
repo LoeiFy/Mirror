@@ -1,10 +1,5 @@
 const fs = require('fs')
-const assert = require('power-assert')
 const path = require('path')
-const puppeteer = require('puppeteer')
-const webpack = require('webpack')
-const WebpackDevServer = require('webpack-dev-server')
-const webpackConfig = require('../webpack.config')
 
 const token = process.env.TOKEN
 if (token) {
@@ -15,11 +10,17 @@ if (token) {
   user: 'LoeiFy',
   repository: 'Recordum',
   authors: '',
-  token: ${token},
+  token: '${token}',
   perpage: 5
 }`
   fs.writeFileSync(path.join(process.cwd(), 'src', 'config.js'), config)
 }
+
+const assert = require('power-assert')
+const puppeteer = require('puppeteer')
+const webpack = require('webpack')
+const WebpackDevServer = require('webpack-dev-server')
+const webpackConfig = require('../webpack.config')
 
 const compiler = webpack(webpackConfig)
 const devServerOptions = Object.assign({}, webpackConfig.devServer)
