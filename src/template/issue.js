@@ -31,11 +31,12 @@ class Issue {
       return frag.dom[0]
     }
 
+    const { mirror } = this
     const div = creator('div', { className: 'open-comments' })
     const button = creator('button', {
       className: 'button',
       onclick() {
-        this.mirror.openComments(number.toString(), this)
+        mirror.openComments(number.toString(), this)
       },
       innerHTML: `View Comments (${totalCount})`,
     })

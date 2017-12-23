@@ -8,10 +8,10 @@
   },
   "scripts": {
     "start": "webpack-dev-server --inline --hot --port 1234",
-    "test": "npm run test:lint && npm run test:cover",
+    "test": "npm run test:lint && npm run test:unit",
     "test:lint": "eslint ./src",
     "test:unit": "mocha --reporter dot --require intelli-espower-loader ./test",
-    "test:cover": "istanbul cover --print both _mocha ./test",
+    "test:travis": "npm run test:lint && cross-env TOKEN=${token} mocha --reporter dot --require intelli-espower-loader ./test",
     "prebuild": "rm -f -R dist",
     "build": "cross-env NODE_ENV=production webpack --hide-modules --progress --colors",
     "postbuild": "cp src/assets/favicon.ico src/assets/promise.js dist && node bin/zip.js && cd dist && mv index.npm.html index.html"
@@ -52,7 +52,6 @@
     "github-markdown-css": "^2.8.0",
     "html-webpack-plugin": "^2.28.0",
     "intelli-espower-loader": "^1.0.1",
-    "istanbul": "^0.4.5",
     "mocha": "^4.0.1",
     "postcss-cssnext": "^2.11.0",
     "postcss-import": "^10.0.0",
