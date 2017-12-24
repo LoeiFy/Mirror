@@ -65,10 +65,23 @@ describe('Mirror', async () => {
           .trim())
       })
 
-      for (let i = 0; i < allPostsLength / 5 - 1; i += 1) {
-        await page.evaluate(() => document.querySelector('.button').click())
-        await watch
-        await sleep(500)
+      for (let i = 0; i < allPostsLength / 5; i += 1) {
+        const ifMorePosts = await page.evaluate(() => {
+          const more = document.querySelector('#posts .button')
+          if (!more) {
+            return false
+          }
+          if (more.textContent.indexOf('More Posts') === -1) {
+            return false
+          }
+          return true
+        })
+
+        if (ifMorePosts) {
+          await page.evaluate(() => document.querySelector('.button').click())
+          await watch
+          await sleep(500)
+        }
       }
 
       assert((await getPostsLength()) === allPostsLength)
