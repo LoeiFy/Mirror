@@ -34,15 +34,11 @@ class Issues {
 
   get pagination() {
     const {
-      edges,
-      pageInfo: {
-        endCursor,
-        hasNextPage,
-        hasPreviousPage,
-        startCursor,
-      },
-      totalCount,
-    } = this.issues
+      endCursor,
+      hasNextPage,
+      hasPreviousPage,
+      startCursor,
+    } = this.issues.pageInfo
     const paginator = []
 
     if (hasPreviousPage) {

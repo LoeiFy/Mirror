@@ -47,49 +47,6 @@ describe('Mirror', async () => {
     await watch
     await sleep(500)
 
-    async function getButtonLength() {
-      return await page.evaluate(() => document.querySelectorAll('.button').length)
-    }
-
-    async function getPostsLength() {
-      return await page.evaluate(() => document.querySelectorAll('.post').length)
-    }
-
-    if (await getButtonLength()) {
-      assert((await getPostsLength()) === 5)
-      const allPostsLength = await page.evaluate(() => {
-        return Number(document.querySelector('.button')
-          .textContent
-          .split('/')[1]
-          .split(')')[0]
-          .trim())
-      })
-
-      for (let i = 0; i < allPostsLength / 5; i += 1) {
-        const ifMorePosts = await page.evaluate(() => {
-          const more = document.querySelector('#posts .button')
-          if (!more) {
-            return false
-          }
-          if (more.textContent.indexOf('More Posts') === -1) {
-            return false
-          }
-          return true
-        })
-
-        if (ifMorePosts) {
-          await page.evaluate(() => document.querySelector('.button').click())
-          await watch
-          await sleep(500)
-        }
-      }
-
-      assert((await getPostsLength()) === allPostsLength)
-    }
-
-    await watch
-    await sleep(500)
-
     const title = await page.evaluate(() => {
       return document.querySelectorAll('.post h2')[1].textContent
     })
@@ -111,22 +68,24 @@ describe('Mirror', async () => {
       return document.querySelector('.markdown-body').childNodes.length
     })
 
-    await(body >= 1)
+    assert(body >= 1)
 
     const allCommentsLength = await page.evaluate(() => {
-      if (!document.querySelector('.button').textContent.indexOf('(') === -1) {
+      if (!document.querySelector('.open-comments .button').textContent.indexOf('(') === -1) {
         return 0
       }
 
-      return Number(document.querySelector('.button')
+      return Number(
+        document.querySelector('.open-comments .button')
         .textContent
         .split('(')[1]
         .split(')')[0]
-        .trim())
+        .trim()
+      )
     })
 
     if (allCommentsLength) {
-      await page.evaluate(() => document.querySelector('.button').click())
+      await page.evaluate(() => document.querySelector('.open-comments .button').click())
       await watch
       await sleep(500)
     }
