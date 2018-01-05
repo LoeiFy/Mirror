@@ -10,64 +10,60 @@ require('smoothscroll-polyfill').polyfill()
 
 const mirror = {
   __: {},
+  // issues: {},
   issue: {},
   comments: {},
   scrollY: 0,
 }
 const TPL = new Template(mirror)
 
-async function onPosts() {
-  const userData = mirror.user
-
-  if (userData) {
-    TPL.user(userData)
-    return mirror.getPosts()
+async function onPosts(type, { cursor }) {
+  if (mirror.user) {
+    TPL.user(mirror.user)
+    return mirror.getPosts(type, cursor)
   }
 
   const res = await API.user()
-  return mirror.getPosts('', res.user || res.organization)
+  return mirror.getPosts(type, cursor, res.user || res.organization)
 }
 
-function onPost(params) {
+function onPost({ id }) {
   mirror.scrollY = window.scrollY
-  mirror.getPost(params.id)
+  mirror.getPost(id)
 }
 
-const router = new Router({ '/': onPosts, '/posts/:id': onPost })
+const router = new Router({
+  '/': params => onPosts('after', params),
+  '/posts/:id': onPost,
+  '/after/:cursor': params => onPosts('after', params),
+  '/before/:cursor': params => onPosts('before', params),
+})
 const observer = new Obeserver(mirror)
 
-mirror.getPosts = async function getPosts(after = '', userData) {
+mirror.getPosts = async function getPosts(type, cursor, userData) {
   document.title = window.config.title
 
-  const prevIssues = this.issues
-
-  if (prevIssues && !after) {
-    TPL.issues(prevIssues)
-  } else {
-    const {
-      repository: {
-        issues: {
-          edges,
-          pageInfo,
-          totalCount,
-        },
+  const {
+    repository: {
+      issues: {
+        edges,
+        pageInfo,
+        totalCount,
       },
-    } = await API.issues(after)
+    },
+  } = await API.issues(type, cursor)
 
-    const newIssues = {
-      pageInfo,
-      totalCount,
-      edges: prevIssues ? prevIssues.edges.concat(edges) : edges,
-    }
-
-    this.issues = newIssues
-
-    if (userData) {
-      this.user = userData
-    }
+  this.issues = {
+    pageInfo,
+    totalCount,
+    edges,
   }
 
-  if (!after) {
+  if (userData) {
+    this.user = userData
+  }
+
+  if (!cursor) {
     await switchToHome()
     window.scroll({
       top: mirror.scrollY,
@@ -91,6 +87,7 @@ mirror.getPost = async function getPost(number) {
   }
 
   document.title = `${post.title} - ${window.config.title}`
+
   switchToPost()
 }
 

@@ -17,17 +17,19 @@ class Issues extends Fetcher {
     this.order = order === 'CREATED_AT' || order === 'UPDATED_AT' ? order : 'UPDATED_AT'
   }
 
-  query(after) {
-    let variables = `first: ${this.perpage}, states: OPEN, orderBy: {field: ${this.order}, direction: DESC}`
+  query(type, cursor) {
+    let variables = `${type === 'before' ? 'last' : 'first'}: ${this.perpage}, states: OPEN, orderBy: {field: ${this.order}, direction: DESC}`
 
-    if (after) {
-      variables += `, after: "${after}"`
+    if (cursor) {
+      variables += `, ${type}: "${cursor}"`
     }
 
     return `{
       repository(owner: "${this.user}", name: "${this.repository}") {
         issues(${variables}) {
           pageInfo {
+            hasPreviousPage
+            startCursor
             hasNextPage
             endCursor
           }
@@ -57,8 +59,8 @@ class Issues extends Fetcher {
     }`
   }
 
-  get(after) {
-    return this.fetch(this.query(after))
+  get(...args) {
+    return this.fetch(this.query(...args))
   }
 }
 

@@ -38,21 +38,34 @@ class Issues {
       pageInfo: {
         endCursor,
         hasNextPage,
+        hasPreviousPage,
+        startCursor,
       },
       totalCount,
     } = this.issues
+    const paginator = []
 
-    if (!hasNextPage) {
-      return null
+    if (hasPreviousPage) {
+      paginator.push(
+        creator('a', {
+          className: 'button',
+          href: `#/before/${startCursor}`,
+          innerHTML: 'Previous',
+        })
+      )
     }
 
-    return creator('button', {
-      className: 'button',
-      onclick: () => {
-        this.mirror.getPosts(endCursor)
-      },
-      innerHTML: `More Posts (${totalCount - edges.length} / ${totalCount})`,
-    })
+    if (hasNextPage) {
+      paginator.push(
+        creator('a', {
+          className: 'button',
+          href: `#/after/${endCursor}`,
+          innerHTML: 'Next',
+        })
+      )
+    }
+
+    return paginator
   }
 
   render(issues) {
@@ -64,10 +77,9 @@ class Issues {
     const { edges } = issues
     const frag = $(document.createDocumentFragment())
 
-    edges.forEach((issue) => {
-      frag.append(post(issue.node))
-    })
-    frag.append(this.pagination).append(footer)
+    edges.forEach(issue => frag.append(post(issue.node)))
+    this.pagination.forEach(page => frag.append(page))
+    frag.append(footer)
 
     this.container.html('').append(frag.dom[0])
   }

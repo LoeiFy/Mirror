@@ -27,5 +27,5 @@ export default function (routes, url) {
     }
   }
 
-  return { match: null, params: null }
+  return { match: null, params: {} }
 }
