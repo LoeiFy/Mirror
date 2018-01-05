@@ -65,6 +65,10 @@ const base = {
 }
 
 if (process.env.NODE_ENV === 'production') {
+  base.module.rules[0] = {
+    test: /\.css$/,
+    loader: ['style-loader', 'css-loader', 'postcss-loader']
+  }
   base.plugins = [
     new webpack.optimize.UglifyJsPlugin({
       compress: { warnings: false },
