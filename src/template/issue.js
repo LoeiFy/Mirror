@@ -65,7 +65,7 @@ class Issue {
     const back = creator('div', {
       className: 'back',
       onclick() {
-        window.location.hash = '/'
+        window.history.back()
       },
       innerHTML: backIcon,
     })

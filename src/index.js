@@ -10,7 +10,7 @@ require('smoothscroll-polyfill').polyfill()
 
 const mirror = {
   __: {},
-  // issues: {},
+  issues: {},
   issue: {},
   comments: {},
   scrollY: 0,
@@ -43,34 +43,42 @@ const observer = new Obeserver(mirror)
 mirror.getPosts = async function getPosts(type, cursor, userData) {
   document.title = window.config.title
 
-  const {
-    repository: {
-      issues: {
-        edges,
-        pageInfo,
-        totalCount,
-      },
-    },
-  } = await API.issues(type, cursor)
+  const hash = cursor || '_'
+  let posts = this.issues[hash]
 
-  this.issues = {
-    pageInfo,
-    totalCount,
-    edges,
+  if (posts) {
+    TPL.issues(posts)
+  } else {
+    const {
+      repository: {
+        issues: {
+          edges,
+          pageInfo,
+          totalCount,
+        },
+      },
+    } = await API.issues(type, cursor)
+
+    posts = {
+      pageInfo,
+      totalCount,
+      edges,
+    }
+
+    this.issues = Object.assign({ [hash]: posts }, this.issues)
   }
 
   if (userData) {
     this.user = userData
   }
 
-  if (!cursor) {
-    await switchToHome()
-    window.scroll({
-      top: mirror.scrollY,
-      left: 0,
-      behavior: 'smooth',
-    })
-  }
+  await switchToHome()
+
+  window.scroll({
+    top: mirror.scrollY,
+    left: 0,
+    behavior: 'smooth',
+  })
 }
 
 mirror.getPost = async function getPost(number) {
