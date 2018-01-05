@@ -6,8 +6,6 @@ import Router from './router/'
 import Obeserver from './observer'
 import { switchToHome, switchToPost } from './switch'
 
-require('smoothscroll-polyfill').polyfill()
-
 const mirror = {
   __: {},
   issues: {},
@@ -20,11 +18,12 @@ const TPL = new Template(mirror)
 async function onPosts(type, { cursor }) {
   if (mirror.user) {
     TPL.user(mirror.user)
-    return mirror.getPosts(type, cursor)
+  } else {
+    const { user, organization } = await API.user()
+    mirror.user = user || organization
   }
 
-  const res = await API.user()
-  return mirror.getPosts(type, cursor, res.user || res.organization)
+  mirror.getPosts(type, cursor)
 }
 
 function onPost({ id }) {
@@ -40,10 +39,11 @@ const router = new Router({
 })
 const observer = new Obeserver(mirror)
 
-mirror.getPosts = async function getPosts(type, cursor, userData) {
+mirror.getPosts = async function getPosts(type, cursor) {
   document.title = window.config.title
 
   const hash = cursor || '_'
+
   let posts = this.issues[hash]
 
   if (posts) {
@@ -68,17 +68,9 @@ mirror.getPosts = async function getPosts(type, cursor, userData) {
     this.issues = Object.assign({ [hash]: posts }, this.issues)
   }
 
-  if (userData) {
-    this.user = userData
-  }
-
   await switchToHome()
 
-  window.scroll({
-    top: mirror.scrollY,
-    left: 0,
-    behavior: 'smooth',
-  })
+  window.scrollTo(0, this.scrollY)
 }
 
 mirror.getPost = async function getPost(number) {
