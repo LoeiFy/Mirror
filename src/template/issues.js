@@ -46,23 +46,19 @@ class Issues {
     const paginator = []
 
     if (hasPreviousPage) {
-      paginator.push(
-        creator('a', {
-          className: 'button',
-          href: `#/before/${startCursor}`,
-          innerHTML: 'Previous',
-        })
-      )
+      paginator.push(creator('a', {
+        className: 'button',
+        href: `#/before/${startCursor}`,
+        innerHTML: 'Previous',
+      }))
     }
 
     if (hasNextPage) {
-      paginator.push(
-        creator('a', {
-          className: 'button',
-          href: `#/after/${endCursor}`,
-          innerHTML: 'Next',
-        })
-      )
+      paginator.push(creator('a', {
+        className: 'button',
+        href: `#/after/${endCursor}`,
+        innerHTML: 'Next',
+      }))
     }
 
     return paginator

@@ -1,5 +1,8 @@
 #posts {
+  text-align: center;
+
   & > .post {
+    text-align: left;
     cursor: pointer;
     position: relative;
     padding: 20px 10px;
@@ -36,6 +39,14 @@
       border-radius: 3px;
       padding: 1px 3px 2px;
     }
+  }
+
+  & > .button {
+    display: inline-block;
+    width: 100px;
+    text-align: center;
+    margin-right: 5px;
+    margin-left: 5px;
   }
 
   & p {

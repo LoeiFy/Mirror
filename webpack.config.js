@@ -47,7 +47,7 @@ const base = {
     rules: [
       {
         test: /\.css$/,
-        loader: ['style-loader', 'css-loader', 'postcss-loader']
+        loader: ['style-loader?sourceMap', 'css-loader?sourceMap', 'postcss-loader?sourceMap']
       },
       {
         test: /\.svg$/,
