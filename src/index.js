@@ -15,7 +15,7 @@ const mirror = {
 }
 const TPL = new Template(mirror)
 
-async function onPosts(type, { cursor }) {
+async function onPosts(type, params) {
   if (mirror.user) {
     TPL.user(mirror.user)
   } else {
@@ -23,7 +23,7 @@ async function onPosts(type, { cursor }) {
     mirror.user = user || organization
   }
 
-  mirror.getPosts(type, cursor)
+  mirror.getPosts(type, params)
 }
 
 function onPost({ id }) {
@@ -39,7 +39,7 @@ const router = new Router({
 })
 const observer = new Obeserver(mirror)
 
-mirror.getPosts = async function getPosts(type, cursor) {
+mirror.getPosts = async function getPosts(type, { cursor, e }) {
   document.title = window.config.title
 
   const hash = cursor || '_'
@@ -68,7 +68,9 @@ mirror.getPosts = async function getPosts(type, cursor) {
     this.issues = Object.assign({ [hash]: posts }, this.issues)
   }
 
-  await switchToHome()
+  if (e && e.oldURL.indexOf('/posts/') > -1) {
+    await switchToHome()
+  }
 
   window.scrollTo(0, this.scrollY)
 }

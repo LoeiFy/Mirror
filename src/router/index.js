@@ -8,15 +8,15 @@ class Router {
   }
 
   listen() {
-    window.addEventListener('hashchange', () => { this.resolve() })
+    window.addEventListener('hashchange', (e) => { this.resolve(e) })
   }
 
-  resolve() {
+  resolve(e) {
     const route = window.location.hash.split('#')[1] || '/'
     const { match, params } = getParams(Object.keys(this.routes), route)
 
     if (match) {
-      this.routes[match](params)
+      this.routes[match](Object.assign({ e }, params))
     } else {
       this.page404(route)
     }
