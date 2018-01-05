@@ -43,7 +43,9 @@ class User {
     } = this
 
     container.html(`
-      <img src="${user.avatarUrl}" />
+      <a href="#/">
+        <img src="${user.avatarUrl}" />
+      </a>
       <h1>${user.name || user.login}</h1>
       ${bio}
       <div class="social">

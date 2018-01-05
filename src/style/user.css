@@ -1,6 +1,10 @@
 #user {
   text-align: center;
 
+  & > a {
+    display: inline-block;
+  }
+
   & img {
     @media (max-width: 800px) {
       width: 75px;
@@ -39,7 +43,7 @@
     margin: 14px 20px 0;
   }
 
-  & a {
+  & .social a {
     @media (max-width: 800px) {
       margin: 16px 6px 20px;
     }
@@ -48,7 +52,7 @@
     margin: 20px 8px 30px;
   }
 
-  & a:hover path {
+  & .social a:hover path {
     fill: #363a42;
   }
 
