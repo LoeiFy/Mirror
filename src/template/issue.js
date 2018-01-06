@@ -1,4 +1,3 @@
-import titleFormat from './title'
 import timeFormat from './time'
 import backIcon from '../svg/back.svg'
 import footer from './footer'
@@ -64,12 +63,18 @@ class Issue {
     const frag = $(document.createDocumentFragment())
     const back = creator('div', {
       className: 'back',
-      onclick() {
-        window.history.back()
+      onclick: () => {
+        const { issues } = this.mirror
+
+        if (Object.keys(issues).length) {
+          window.history.back()
+        } else {
+          window.location.hash = '#/'
+        }
       },
       innerHTML: backIcon,
     })
-    const h1 = creator('h1', { innerHTML: titleFormat(title) })
+    const h1 = creator('h1', { innerHTML: title })
     const p = creator('p', { innerHTML: `Updated at<span>${timeFormat(updatedAt)}</span>` })
     const body = creator('div', {
       className: 'markdown-body',

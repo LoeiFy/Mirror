@@ -1,5 +1,4 @@
 import timeFormat from './time'
-import titleFormat from './title'
 import filter from './filter'
 import footer from './footer'
 import { $, creator } from '../util'
@@ -18,7 +17,7 @@ function post(issue) {
     className: 'post',
     href: `#/posts/${number}`,
     innerHTML: `
-      <h2>${titleFormat(title)}</h2>
+      <h2>${title}</h2>
       <div>${labels}</div>
       <p>${timeFormat(updatedAt)}</p>
     `,
