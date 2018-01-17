@@ -71,7 +71,8 @@ describe('Mirror', async () => {
     assert(body >= 1)
 
     const allCommentsLength = await page.evaluate(() => {
-      if (!document.querySelector('.open-comments .button').textContent.indexOf('(') === -1) {
+      const bt = document.querySelector('.open-comments .button')
+      if (!bt || !bt.textContent.indexOf('(') === -1) {
         return 0
       }
 

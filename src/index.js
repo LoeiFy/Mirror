@@ -142,11 +142,11 @@ mirror.getComments = async function getComments(params) {
 }
 
 router.notFound = () => router.go('/')
-router.init = route => {
+router.init = (route) => {
   if (route.indexOf('/posts/') > -1) {
-    $('.home').addClass('page-current')
-  } else {
     $('.single').addClass('page-current')
+  } else {
+    $('.home').addClass('page-current')
   }
 }
 
