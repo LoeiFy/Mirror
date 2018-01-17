@@ -142,6 +142,13 @@ mirror.getComments = async function getComments(params) {
 }
 
 router.notFound = () => router.go('/')
+router.init = route => {
+  if (route.indexOf('/posts/') > -1) {
+    $('.home').addClass('page-current')
+  } else {
+    $('.single').addClass('page-current')
+  }
+}
 
 observer.watch({
   user: TPL.user.bind(TPL),

@@ -3,7 +3,8 @@ import getParams from './params'
 class Router {
   constructor(routes) {
     this.routes = routes
-    this.page404 = () => {}
+    this.page404 = () => null
+    this.initial = () => null
     this.listen()
   }
 
@@ -12,7 +13,7 @@ class Router {
   }
 
   resolve(e) {
-    const route = window.location.hash.split('#')[1] || '/'
+    const route = this.current()
     const { match, params } = getParams(Object.keys(this.routes), route)
 
     if (match) {
@@ -22,11 +23,20 @@ class Router {
     }
   }
 
+  current() {
+    return window.location.hash.split('#')[1] || '/'
+  }
+
+  set init(fn) {
+    this.initial = fn
+  }
+
   set notFound(fn) {
     this.page404 = fn
   }
 
   start() {
+    this.initial(this.current())
     this.resolve()
   }
 }
