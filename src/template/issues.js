@@ -24,6 +24,10 @@ function post(issue) {
   })
 }
 
+function base64(s) {
+  return window.btoa(s).split('=')[0]
+}
+
 class Issues {
   constructor(selector, mirror) {
     this.mirror = mirror
@@ -43,7 +47,7 @@ class Issues {
     if (hasPreviousPage) {
       paginator.push(creator('a', {
         className: 'button',
-        href: `#/before/${startCursor}`,
+        href: `#/before/${base64(startCursor)}`,
         innerHTML: 'Previous',
       }))
     }
@@ -51,7 +55,7 @@ class Issues {
     if (hasNextPage) {
       paginator.push(creator('a', {
         className: 'button',
-        href: `#/after/${endCursor}`,
+        href: `#/after/${base64(endCursor)}`,
         innerHTML: 'Next',
       }))
     }

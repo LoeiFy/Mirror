@@ -20,6 +20,10 @@ class Router {
     const route = hash()
     const { match, params } = getParams(Object.keys(this.routes), route)
 
+    if (params.cursor) {
+      params.cursor = window.atob(params.cursor)
+    }
+
     if (match) {
       this.routes[match](Object.assign({ e }, params))
     } else {

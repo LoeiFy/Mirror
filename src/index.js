@@ -14,6 +14,7 @@ const mirror = {
   scrollY: 0,
 }
 const TPL = new Template(mirror)
+const { perpage } = window.config
 
 async function onPosts(type, params) {
   if (mirror.user) {
@@ -65,7 +66,11 @@ mirror.getPosts = async function getPosts(type, { cursor, e }) {
       edges,
     }
 
-    this.issues = Object.assign({ [hash]: posts }, this.issues)
+    if (perpage > 1) {
+      this.issues = Object.assign({ [hash]: posts }, this.issues)
+    } else {
+      TPL.issues(posts)
+    }
   }
 
   if (e && e.oldURL.indexOf('/posts/') > -1) {
@@ -141,7 +146,9 @@ mirror.getComments = async function getComments(params) {
   return Promise.resolve()
 }
 
-router.notFound = () => router.go('/')
+router.notFound = () => {
+  window.location.hash = '/'
+}
 router.init = (route) => {
   if (route.indexOf('/posts/') > -1) {
     $('.single').addClass('page-current')
