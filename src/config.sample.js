@@ -5,6 +5,7 @@ module.exports = {
   user: '',
   repository: '',
   authors: '',
+  ignores: '',
   token: '',
   perpage: 5
 }

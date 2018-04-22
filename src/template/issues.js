@@ -69,7 +69,7 @@ class Issues {
       edges: filter(issues.edges),
     }
 
-    const { edges } = issues
+    const { edges } = this.issues
     const frag = $(document.createDocumentFragment())
 
     edges.forEach(issue => frag.append(post(issue.node)))

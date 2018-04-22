@@ -1,4 +1,3 @@
-const fs = require('fs-extra')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const config = require('./src/config.js')
@@ -6,24 +5,24 @@ const sample = require('./src/config.sample.js')
 
 const base = {
   entry: {
-    build: './src/'
+    build: './src/',
   },
 
   output: {
     publicPath: '/',
     path: '/',
-    filename: '[name].js'
+    filename: '[name].js',
   },
 
   resolve: {
-    extensions: ['.js']
+    extensions: ['.js'],
   },
 
   plugins: [
     new HtmlWebpackPlugin({
       template: 'src/index.html',
-      config: JSON.stringify(config)
-    })
+      config: JSON.stringify(config),
+    }),
   ],
 
   devServer: {
@@ -32,48 +31,49 @@ const base = {
     host: '0.0.0.0',
     historyApiFallback: {
       rewrites: [
-      {
-        from: 'favicon.ico',
-        to: './src/assets/favicon.ico'
-      },
-      {
-        from: 'promise.js',
-        to: './src/assets/promise.js'
-      }
-    ]}
+        {
+          from: 'favicon.ico',
+          to: './src/assets/favicon.ico',
+        },
+        {
+          from: 'promise.js',
+          to: './src/assets/promise.js',
+        },
+      ],
+    },
   },
 
   module: {
     rules: [
       {
         test: /\.css$/,
-        loader: ['style-loader?sourceMap', 'css-loader?sourceMap', 'postcss-loader?sourceMap']
+        loader: ['style-loader?sourceMap', 'css-loader?sourceMap', 'postcss-loader?sourceMap'],
       },
       {
         test: /\.svg$/,
-        loader: 'svg-inline-loader'
+        loader: 'svg-inline-loader',
       },
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel-loader'
-      }
-    ]
+        loader: 'babel-loader',
+      },
+    ],
   },
 
-  devtool: 'cheap-module-eval-source-map'
+  devtool: 'cheap-module-eval-source-map',
 }
 
 if (process.env.NODE_ENV === 'production') {
   base.module.rules[0] = {
     test: /\.css$/,
-    loader: ['style-loader', 'css-loader', 'postcss-loader']
+    loader: ['style-loader', 'css-loader', 'postcss-loader'],
   }
   base.plugins = [
     new webpack.optimize.UglifyJsPlugin({
       compress: { warnings: false },
       sourceMap: true,
-      output: { comments: false }
+      output: { comments: false },
     }),
     new HtmlWebpackPlugin({
       filename: 'index.npm.html',
@@ -83,8 +83,8 @@ if (process.env.NODE_ENV === 'production') {
         removeComments: true,
         minifyJS: true,
         minifyCSS: true,
-        collapseWhitespace: true
-      }
+        collapseWhitespace: true,
+      },
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
@@ -94,15 +94,15 @@ if (process.env.NODE_ENV === 'production') {
         removeComments: false,
         minifyJS: false,
         minifyCSS: true,
-        collapseWhitespace: false
-      }
-    })
+        collapseWhitespace: false,
+      },
+    }),
   ]
   base.devtool = 'source-map'
   base.output = {
     path: `${__dirname}/dist`,
     publicPath: '',
-    filename: '[name].[chunkhash:8].js'
+    filename: '[name].[chunkhash:8].js',
   }
 }
 

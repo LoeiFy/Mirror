@@ -18,4 +18,4 @@ notifications:
     on_failure: never
 
 script:
-  - npm run test:travis
+  - npm run test
