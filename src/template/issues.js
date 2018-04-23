@@ -7,7 +7,7 @@ function post(issue) {
   const {
     number,
     title,
-    updatedAt,
+    createdAt,
   } = issue
   const labels = issue.labels.edges
     .map(label => `<span>#${label.node.name}</span>`)
@@ -19,7 +19,7 @@ function post(issue) {
     innerHTML: `
       <h2>${title}</h2>
       <div>${labels}</div>
-      <p>${timeFormat(updatedAt)}</p>
+      <p>${timeFormat(createdAt)}</p>
     `,
   })
 }

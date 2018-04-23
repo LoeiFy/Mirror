@@ -43,7 +43,7 @@ class Issues extends Fetcher {
                 login
                 url
               }
-              updatedAt
+              createdAt
               labels(first: ${this.labelsNum}) {
                 edges {
                   node {
