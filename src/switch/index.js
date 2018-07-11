@@ -8,8 +8,6 @@ export async function switchToHome() {
   await sleep(510)
 
   $('.single').removeClass('page-moveto').removeClass('page-current')
-  $('#post').html('')
-  $('#comments').html('')
   $('.home').removeClass('page-movefrom').addClass('page-current')
 
   return Promise.resolve()
@@ -22,8 +20,6 @@ export async function switchToPost() {
   await sleep(500)
 
   $('.home').removeClass('page-moveto').removeClass('page-current')
-  $('#posts').html('')
-  $('#user').html('')
   $('.single').removeClass('page-movefrom').addClass('page-current')
 
   return Promise.resolve()
