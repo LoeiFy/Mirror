@@ -11,7 +11,6 @@ const mirror = {
   issues: {},
   issue: {},
   comments: {},
-  scrollY: 0,
 }
 const TPL = new Template(mirror)
 const { perpage } = window.config
@@ -28,7 +27,6 @@ async function onPosts(type, params) {
 }
 
 function onPost({ id }) {
-  mirror.scrollY = window.scrollY
   mirror.getPost(id)
 }
 
@@ -76,8 +74,6 @@ mirror.getPosts = async function getPosts(type, { cursor, e }) {
   if (e && e.oldURL.indexOf('/posts/') > -1) {
     await switchToHome()
   }
-
-  window.scrollTo(0, this.scrollY)
 }
 
 mirror.getPost = async function getPost(number) {
