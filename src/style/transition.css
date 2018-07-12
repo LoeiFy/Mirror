@@ -21,8 +21,7 @@
 
 @keyframes movefrom {
   from {
-    transform: translate3d(100px, 0, 0);
-    opacity: 0;
+    transform: translate3d(-200px, 0, 0);
   }
 }
 @keyframes moveto {

@@ -5,6 +5,7 @@ import Template from './template'
 import Router from './router/'
 import Obeserver from './observer'
 import { switchToHome, switchToPost } from './switch'
+import sleep from './switch/sleep'
 
 const mirror = {
   __: {},
@@ -69,6 +70,8 @@ mirror.getPosts = async function getPosts(type, { cursor, e }) {
     } else {
       TPL.issues(posts)
     }
+
+    await sleep(200)
   }
 
   if (e && e.oldURL.indexOf('/posts/') > -1) {
@@ -87,6 +90,7 @@ mirror.getPost = async function getPost(number) {
     const { repository } = await API.issue(number)
     post = repository.issue
     this.issue = Object.assign({ [number]: post }, this.issue)
+    await sleep(200)
   }
 
   document.title = `${post.title} - ${window.config.title}`
