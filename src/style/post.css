@@ -23,14 +23,6 @@
   & > .markdown-body {
     margin-top: 40px;
 
-    & pre {
-      font-family: Consolas;
-    }
-
-    & code {
-      font-family: Consolas;
-    }
-
     &:before {
       content: '';
       width: 30px;
