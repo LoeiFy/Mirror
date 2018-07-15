@@ -9,6 +9,11 @@
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
 }
+
+.page::-webkit-scrollbar {
+  width: 0;
+}
+
 .page-current {
   z-index: 1;
 }
