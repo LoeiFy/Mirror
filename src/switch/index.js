@@ -10,7 +10,6 @@ export async function switchToHome() {
   $('.single').removeClass('page-moveto').removeClass('page-current')
   $('.home').removeClass('page-movefrom').addClass('page-current')
 
-  $('#post').html('')
   $('#comments').html('')
 
   return Promise.resolve()
@@ -24,9 +23,6 @@ export async function switchToPost() {
 
   $('.home').removeClass('page-moveto').removeClass('page-current')
   $('.single').removeClass('page-movefrom').addClass('page-current')
-
-  $('#posts').html('')
-  $('#user').html('')
 
   return Promise.resolve()
 }

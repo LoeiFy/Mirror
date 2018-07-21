@@ -1,6 +1,6 @@
 {
   "name": "Mirror",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "description": "A blog tool powered by GitHub issues",
   "preferGlobal": true,
   "bin": {
