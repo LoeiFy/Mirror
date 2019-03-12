@@ -1,7 +1,5 @@
 # Mirror
 
-[![Build Status](https://travis-ci.org/LoeiFy/Mirror.svg?branch=master)](https://travis-ci.org/LoeiFy/Mirror)
-
 A blogging tool powered by GitHub. Write your blog on GitHub issues.
 
 https://mirror.am0200.com/
