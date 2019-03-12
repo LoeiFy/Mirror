@@ -4,6 +4,8 @@
   "version": "0.0.0",
   "description": "A blog tool powered by GitHub issues",
   "scripts": {
+    "start": "falco -c -m src/index.js",
+    "build": "rm -rf docs && NODE_ENV=docs falco -c -o docs -m src/index.js",
     "lint": "eslint ."
   },
   "repository": {
