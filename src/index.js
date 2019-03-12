@@ -1,4 +1,5 @@
-import './style/index.css'
+import 'github-markdown-css' // eslint-disable-line import/no-unresolved
+import './style/index.less'
 import { $ } from './util'
 import API from './api'
 import Template from './template'
