@@ -1,6 +1,6 @@
 import axios from 'axios' // eslint-disable-line import/no-unresolved
 import loadError from './error'
-import { $ } from '../util'
+import $ from '../helper/query'
 
 const { token } = window.config
 

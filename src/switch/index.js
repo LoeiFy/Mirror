@@ -1,4 +1,4 @@
-import { $ } from '../util'
+import $ from '../helper/query'
 import sleep from './sleep'
 
 export async function switchToHome() {

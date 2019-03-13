@@ -1,12 +1,13 @@
 import 'github-markdown-css' // eslint-disable-line import/no-unresolved
 import './style/index.less'
-import { $ } from './util'
+import $ from './helper/query'
 import API from './api'
 import Template from './template'
 import Router from './router'
 import Obeserver from './observer'
 import { switchToHome, switchToPost } from './switch'
 import sleep from './switch/sleep'
+import Scroller from './scroller'
 
 const mirror = {
   __: {},
@@ -16,6 +17,9 @@ const mirror = {
 }
 const TPL = new Template(mirror)
 const { perpage } = window.config
+const scroller = new Scroller(document.querySelector('.home'))
+
+scroller.init()
 
 async function onPosts(type, params) {
   if (mirror.user) {
@@ -167,5 +171,4 @@ observer.watch({
 
 router.start()
 
-// eslint-disable-next-line no-console
-console.log('%c Github %c', 'background:#24272A; color:#ffffff', '', 'https://github.com/LoeiFy/Mirror')
+window.console.log('%c Github %c', 'background:#24272A; color:#ffffff', '', 'https://github.com/LoeiFy/Mirror')

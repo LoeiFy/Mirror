@@ -1,7 +1,8 @@
 import timeFormat from './time'
 import filter from './filter'
 import footer from './footer'
-import { $, creator } from '../util'
+import creator from '../helper/creator'
+import $ from '../helper/query'
 
 function post(issue) {
   const {
