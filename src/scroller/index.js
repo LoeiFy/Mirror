@@ -9,19 +9,23 @@ export default class extends VirtualScroll {
     this.scrollY = 0
     this.animater = null
     this.lastScrollY = 0
+    this.listener = () => null
   }
 
   start(ele) {
-    if (this.el === window) {
-      [this.child] = ele.children
-      this.el = ele
-      this.on((e) => {
-        this.scrollY += e.deltaY
-        this.scrollY = Math.max((this.child.scrollHeight - window.innerHeight) * -1, this.scrollY)
-        this.scrollY = Math.min(0, this.scrollY)
-      })
-      this.update()
-    }
+    [this.child] = ele.children
+    this.el = ele
+    this.on((e) => {
+      this.scrollY += e.deltaY
+      this.scrollY = Math.max((this.child.scrollHeight - window.innerHeight) * -1, this.scrollY)
+      this.scrollY = Math.min(0, this.scrollY)
+      this.listener(-this.scrollY || 0, this.child.scrollHeight - window.innerHeight)
+    })
+    this.update()
+  }
+
+  set onScroll(fn) {
+    this.listener = fn
   }
 
   stop(y) {

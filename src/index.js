@@ -9,6 +9,7 @@ import { switchToHome, switchToPost } from './switch'
 import sleep from './switch/sleep'
 import Scroller from './scroller'
 
+const topBar = document.querySelector('#bar')
 const mirror = {
   __: {},
   issues: {},
@@ -44,6 +45,7 @@ const observer = new Obeserver(mirror)
 
 mirror.getPosts = async function getPosts(type, { cursor, e }) {
   document.title = window.config.title
+  topBar.style.width = '100%'
 
   const hash = cursor || '_'
 
@@ -86,6 +88,7 @@ mirror.getPosts = async function getPosts(type, { cursor, e }) {
 
 mirror.getPost = async function getPost(number) {
   document.title = 'loading'
+  topBar.style.width = 0
   scroller.stop(0)
 
   let post = this.issue[number]
@@ -171,6 +174,14 @@ observer.watch({
   issue: TPL.issue.bind(TPL),
   comments: TPL.comments.bind(TPL),
 })
+
+scroller.onScroll = (current, total) => {
+  if (!router.route.includes('/posts/')) {
+    topBar.style.width = '100%'
+  } else {
+    topBar.style.width = `${(current / total) * 100}%`
+  }
+}
 
 router.start()
 

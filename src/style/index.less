@@ -27,13 +27,16 @@
   display: none;
 }
 
-body:before {
+#bar {
   z-index: 5;
-  content: '';
   position: absolute;
+  box-sizing: border-box;
+  border-right: 10px solid #fff;
+  border-left: 10px solid #fff;
   top: 0;
-  left: 2%;
-  width: 96%;
+  left: 0;
+  width: 100%;
   height: 3px;
   background: #3f4d56;
+  transition: all 1s ease;
 }
