@@ -17,9 +17,7 @@ const mirror = {
 }
 const TPL = new Template(mirror)
 const { perpage } = window.config
-const scroller = new Scroller(document.querySelector('.home'))
-
-scroller.init()
+const scroller = new Scroller()
 
 async function onPosts(type, params) {
   if (mirror.user) {
@@ -81,11 +79,14 @@ mirror.getPosts = async function getPosts(type, { cursor, e }) {
 
   if (e && e.oldURL.indexOf('/posts/') > -1) {
     await switchToHome()
+    scroller.stop(scroller.lastScrollY)
+    scroller.start(document.querySelector('.home'))
   }
 }
 
 mirror.getPost = async function getPost(number) {
   document.title = 'loading'
+  scroller.stop(0)
 
   let post = this.issue[number]
 
@@ -101,6 +102,7 @@ mirror.getPost = async function getPost(number) {
   document.title = `${post.title} - ${window.config.title}`
 
   switchToPost()
+  scroller.start(document.querySelector('.single'))
 }
 
 mirror.openComments = async function openComments(params, ele) {
@@ -159,6 +161,7 @@ router.init = (route) => {
     $('.single').addClass('page-current')
   } else {
     $('.home').addClass('page-current')
+    scroller.start(document.querySelector('.home'))
   }
 }
 
