@@ -11,4 +11,5 @@ module.exports = {
   mode: NODE_ENV ? 'production' : 'development',
   esModules: false,
   output,
+  targets: { ios: 10 },
 }
