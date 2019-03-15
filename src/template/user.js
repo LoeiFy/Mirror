@@ -1,7 +1,7 @@
 import emailIcon from '../svg/email.svg'
 import linkIcon from '../svg/link.svg'
 import githubIcon from '../svg/github.svg'
-import { $ } from '../util'
+import $ from '../helper/query'
 
 class User {
   constructor(selector) {

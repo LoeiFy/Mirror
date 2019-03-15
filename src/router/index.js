@@ -39,6 +39,10 @@ class Router {
     this.page404 = fn
   }
 
+  get route() { // eslint-disable-line class-methods-use-this
+    return hash()
+  }
+
   start() {
     this.initial(hash())
     this.resolve()

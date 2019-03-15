@@ -1,11 +1,5 @@
-*.bak
-*.swp
-*.swo
-*.log
-*~
 .DS_Store
 node_modules/
-
-.vscode
-
-config.js
+index.html
+!docs/index.html
+package-lock.json

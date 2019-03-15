@@ -1,17 +1,8 @@
-export function creator(tag, params) {
-  const ele = document.createElement(tag)
-
-  Object.keys(params).forEach((key) => {
-    ele[key] = params[key]
-  })
-
-  return ele
-}
-
 class Query {
   constructor(dom) {
-    this.dom = typeof dom === 'string' ?
-      Array.from(document.querySelectorAll(dom)) : [dom]
+    this.dom = typeof dom === 'string'
+      ? Array.from(document.querySelectorAll(dom))
+      : [dom]
   }
 
   addClass(name) {
@@ -56,4 +47,4 @@ class Query {
   }
 }
 
-export const $ = dom => new Query(dom)
+export default dom => new Query(dom)

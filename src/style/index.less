@@ -1,0 +1,42 @@
+@import "./reset.less";
+@import "./error.less";
+@import "./transition.less";
+@import "./user.less";
+@import "./button.less";
+@import "./posts.less";
+@import "./post.less";
+@import "./comments.less";
+@import "./footer.less";
+
+.page > div {
+  margin: 0 auto;
+  max-width: 700px;
+  padding: 0 20px;
+}
+
+.markdown-body {
+  font-family: apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,PingFang SC,Microsoft YaHei,sans-serif;
+  font-size: 14px;
+
+  .highlight {
+    font-size: 15px;
+  }
+}
+
+.loading body:before {
+  display: none;
+}
+
+#bar {
+  z-index: 5;
+  position: absolute;
+  box-sizing: border-box;
+  border-right: 10px solid #fff;
+  border-left: 10px solid #fff;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: #3f4d56;
+  transition: all 1s ease;
+}

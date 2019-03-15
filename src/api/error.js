@@ -1,4 +1,5 @@
-import { $, creator } from '../util'
+import creator from '../helper/creator'
+import $ from '../helper/query'
 
 export default function (msg) {
   const frag = document.createDocumentFragment()

@@ -1,6 +1,7 @@
 import timeFormat from './time'
 import backIcon from '../svg/back.svg'
-import { $, creator } from '../util'
+import $ from '../helper/query'
+import creator from '../helper/creator'
 
 const { user, repository } = window.config
 

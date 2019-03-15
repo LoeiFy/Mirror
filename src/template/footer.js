@@ -1,4 +1,4 @@
-import { creator } from '../util'
+import creator from '../helper/creator'
 
 const { title, user, repository } = window.config
 const footer = creator('div', {
