@@ -1,5 +1,6 @@
 import VirtualScroll from 'virtual-scroll' // eslint-disable-line import/no-unresolved
 import raf from 'raf' // eslint-disable-line import/no-unresolved
+import isMobile from '../helper/mobile'
 
 raf.polyfill()
 
@@ -13,6 +14,10 @@ export default class extends VirtualScroll {
   }
 
   start(ele) {
+    if (isMobile()) {
+      return
+    }
+
     [this.child] = ele.children
     this.el = ele
     this.on((e) => {
@@ -29,6 +34,10 @@ export default class extends VirtualScroll {
   }
 
   stop(y) {
+    if (isMobile()) {
+      return
+    }
+
     this.lastScrollY = this.scrollY
     this.el = window
     this.off()

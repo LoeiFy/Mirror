@@ -8,6 +8,7 @@ import Obeserver from './observer'
 import { switchToHome, switchToPost } from './switch'
 import sleep from './switch/sleep'
 import Scroller from './scroller'
+import isMobile from './helper/mobile'
 
 const topBar = document.querySelector('#bar')
 const mirror = {
@@ -88,8 +89,11 @@ mirror.getPosts = async function getPosts(type, { cursor, e }) {
 
 mirror.getPost = async function getPost(number) {
   document.title = 'loading'
-  topBar.style.width = 0
   scroller.stop(0)
+
+  if (!isMobile()) {
+    topBar.style.width = 0
+  }
 
   let post = this.issue[number]
 
@@ -165,6 +169,10 @@ router.init = (route) => {
   } else {
     $('.home').addClass('page-current')
     scroller.start(document.querySelector('.home'))
+  }
+
+  if (isMobile()) {
+    $('.page').addClass('scroll')
   }
 }
 

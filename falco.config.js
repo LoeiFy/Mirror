@@ -9,5 +9,6 @@ if (NODE_ENV === 'docs') {
 module.exports = {
   registry: 'https://registry.npm.taobao.org',
   mode: NODE_ENV ? 'production' : 'development',
+  esModules: false,
   output,
 }
