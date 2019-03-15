@@ -1,13 +1,16 @@
 import axios from 'axios' // eslint-disable-line import/no-unresolved
 import loadError from './error'
 import $ from '../helper/query'
+import { de, en } from '../helper/secret'
 
-const { token } = window.config
+const { hash } = window.config
+
+window.encrypt = en
 
 class Request {
   constructor() {
     this.host = 'https://api.github.com/graphql'
-    this.token = token.split('#').join('')
+    this.token = de(hash)
   }
 
   fetch(query) {
