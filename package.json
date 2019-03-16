@@ -5,7 +5,9 @@
   "description": "A blog tool powered by GitHub issues",
   "scripts": {
     "start": "falco -c -m src/index.js",
-    "build": "rm -rf docs && NODE_ENV=docs falco -c -o docs -m src/index.js",
+    "prebuild": "rm -rf docs",
+    "build": "NODE_ENV=docs falco -c -o docs -m src/index.js",
+    "postbuild": "node ./build.js",
     "lint": "eslint ."
   },
   "repository": {
@@ -19,8 +21,10 @@
   },
   "homepage": "https://github.com/LoeiFy/Mirror",
   "devDependencies": {
+    "archiver": "^3.0.0",
     "eslint": "^5.15.1",
     "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.16.0"
+    "eslint-plugin-import": "^2.16.0",
+    "fs-extra": "^7.0.1"
   }
 }
