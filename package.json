@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/LoeiFy/Mirror",
   "devDependencies": {
+    "@fratercula/falco": "^1.5.12",
     "archiver": "^3.0.0",
     "eslint": "^5.15.1",
     "eslint-config-airbnb-base": "^13.1.0",
