@@ -97,6 +97,18 @@ class Issue {
       className: 'labels',
       innerHTML: labels,
     })
+    //add mathjax support
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    const mathjax = creator('script', {
+      src: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js'
+      })
 
     frag
       .append(back)
@@ -105,6 +117,7 @@ class Issue {
       .append(body)
       .append(tags)
       .append(this.comments)
+      .append(mathjax)
 
     this.container.html('').append(frag.dom[0])
   }
